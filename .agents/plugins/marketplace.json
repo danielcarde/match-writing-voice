@@ -1,0 +1,10 @@
+{
+  "name": "match-writing-voice-marketplace",
+  "interface": {"displayName": "Match Writing Voice"},
+  "plugins": [{
+    "name": "match-writing-voice",
+    "source": {"source": "local", "path": "./"},
+    "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+    "category": "Productivity"
+  }]
+}

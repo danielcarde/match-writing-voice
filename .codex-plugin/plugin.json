@@ -1,0 +1,16 @@
+{
+  "name": "match-writing-voice",
+  "version": "0.1.0",
+  "description": "Learn and apply a writer's voice with evidence, context, and knowledge boundaries.",
+  "author": {"name": "danielcarde"},
+  "homepage": "https://github.com/danielcarde/match-writing-voice",
+  "repository": "https://github.com/danielcarde/match-writing-voice",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Match Writing Voice",
+    "shortDescription": "Learn a writing voice, including its imperfections",
+    "developerName": "danielcarde",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write", "Interactive"]
+  }
+}

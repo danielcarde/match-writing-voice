@@ -1,0 +1,7 @@
+{
+  "samples": [
+    {"id": "message-1", "path": "message-1.txt", "author_id": "synthetic-friend", "kind": "typed", "provenance": "author", "context": {"medium": "message", "audience": "friend", "language": "en"}},
+    {"id": "message-2", "path": "message-2.txt", "author_id": "synthetic-friend", "kind": "typed", "provenance": "author", "context": {"medium": "message", "audience": "friend", "language": "en"}},
+    {"id": "message-3", "path": "message-3.txt", "author_id": "synthetic-friend", "kind": "typed", "provenance": "author", "context": {"medium": "message", "audience": "friend", "language": "en"}}
+  ]
+}

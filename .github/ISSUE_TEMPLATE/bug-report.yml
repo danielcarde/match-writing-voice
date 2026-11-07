@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a reproducible skill, tool, or installation problem
+title: "[Bug]: "
+body:
+  - type: dropdown
+    id: host
+    attributes:
+      label: Host
+      options: [Codex, Claude Code, Claude web/desktop, Gemini CLI, Portable guide, Local Python tools]
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include version, prompt, and a synthetic/sanitized sample. Exclude tokens and personal histories.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected and observed behavior
+      description: Separate changed meaning, voice mismatch, and mechanical errors.
+    validations:
+      required: true

@@ -1,0 +1,9 @@
+{
+  "name": "match-writing-voice-marketplace",
+  "owner": {"name": "danielcarde"},
+  "plugins": [{
+    "name": "match-writing-voice",
+    "source": "./",
+    "description": "Evidence-backed writing voice profiles and drafting."
+  }]
+}

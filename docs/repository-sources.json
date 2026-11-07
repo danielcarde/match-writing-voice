@@ -1,0 +1,77 @@
+{
+  "snapshot": "2026-11-06",
+  "popularity_measure": "GitHub stargazers_count; approximate live snapshot, not a quality/installation ranking",
+  "repositories": [
+    {
+      "repo": "mattpocock/skills",
+      "stars": 316862,
+      "sha": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "readme": "https://github.com/mattpocock/skills/blob/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d/README.md"
+    },
+    {
+      "repo": "obra/superpowers",
+      "stars": 313685,
+      "sha": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "readme": "https://github.com/obra/superpowers/blob/22f0b463e7a5e579904dd6211a520321035526f7/README.md"
+    },
+    {
+      "repo": "anthropics/skills",
+      "stars": 188229,
+      "sha": "2c5958ecac7cee2b583967a2c4981d0f4a75c579",
+      "readme": "https://github.com/anthropics/skills/blob/2c5958ecac7cee2b583967a2c4981d0f4a75c579/README.md"
+    },
+    {
+      "repo": "ComposioHQ/awesome-claude-skills",
+      "stars": 78957,
+      "sha": "be2a406907dbc61b73e6827ded415c96139d13a2",
+      "readme": "https://github.com/ComposioHQ/awesome-claude-skills/blob/be2a406907dbc61b73e6827ded415c96139d13a2/README.md"
+    },
+    {
+      "repo": "blader/humanizer",
+      "stars": 65702,
+      "sha": "0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0",
+      "readme": "https://github.com/blader/humanizer/blob/0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0/README.md"
+    },
+    {
+      "repo": "vercel-labs/skills",
+      "stars": 38403,
+      "sha": "d3701c11b1101251af14c9d148f026e1a47ebe17",
+      "readme": "https://github.com/vercel-labs/skills/blob/d3701c11b1101251af14c9d148f026e1a47ebe17/README.md"
+    },
+    {
+      "repo": "vercel-labs/agent-skills",
+      "stars": 33649,
+      "sha": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "readme": "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/README.md"
+    },
+    {
+      "repo": "openai/skills",
+      "stars": 28558,
+      "sha": "49f948faa9258a0c61caceaf225e179651397431",
+      "readme": "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/README.md"
+    },
+    {
+      "repo": "openai/plugins",
+      "stars": 7790,
+      "sha": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "readme": "https://github.com/openai/plugins/blob/d420d13051bffe4543ed39e30fa46b87148e47dd/README.md"
+    }
+  ],
+  "actions": [
+    {
+      "repo": "actions/checkout",
+      "tag": "v7.0.1",
+      "commit": "3d3c42e5aac5ba805825da76410c181273ba90b1"
+    },
+    {
+      "repo": "actions/setup-python",
+      "tag": "v7.1.0",
+      "commit": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0"
+    },
+    {
+      "repo": "actions/upload-artifact",
+      "tag": "v7.0.2",
+      "commit": "cf430e030ddbb5b0abf93d22962f4752f3646cd9"
+    }
+  ]
+}

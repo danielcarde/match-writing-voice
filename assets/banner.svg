@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="title desc">
+  <title id="title">Match Writing Voice</title>
+  <desc id="desc">Learn the habits. Keep the voice. A portable writing skill for Codex, Claude, Gemini CLI, and other assistants.</desc>
+  <rect width="1200" height="340" rx="20" fill="#152d32"/>
+  <path d="M864 0h336v340H736z" fill="#1d3b40"/>
+  <rect x="48" y="52" width="5" height="222" rx="2" fill="#edb985"/>
+  <text x="78" y="85" fill="#a9c5c2" font-size="14" letter-spacing="3" font-family="Arial,sans-serif">A PORTABLE AGENT SKILL</text>
+  <text x="76" y="150" fill="#f5f0e6" font-size="54" font-weight="700" font-family="Arial,sans-serif">Match Writing Voice</text>
+  <text x="79" y="194" fill="#edb985" font-size="25" font-family="Arial,sans-serif">Learn the habits. Keep the voice.</text>
+  <text x="80" y="255" fill="#a9c5c2" font-size="13" letter-spacing="1.7" font-family="Arial,sans-serif">CODEX  /  CLAUDE  /  GEMINI CLI  /  PORTABLE</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="826" y="62" width="312" height="62" rx="10" fill="#f5f0e6"/>
+    <text x="849" y="88" fill="#6f7772" font-size="11" letter-spacing="1.5">01 / FAITHFUL</text>
+    <text x="849" y="110" fill="#152d32" font-size="17">yeah i can do that, its just…</text>
+    <rect x="826" y="139" width="312" height="62" rx="10" fill="#e3e7dc"/>
+    <text x="849" y="165" fill="#6f7772" font-size="11" letter-spacing="1.5">02 / LIGHTLY EDITED</text>
+    <text x="849" y="187" fill="#152d32" font-size="17">Yeah, I can do that. It's just…</text>
+    <rect x="826" y="216" width="312" height="62" rx="10" fill="#c7d9d2"/>
+    <text x="849" y="242" fill="#526a66" font-size="11" letter-spacing="1.5">03 / ADAPTED</text>
+    <text x="849" y="264" fill="#152d32" font-size="17">I can help. Here's the constraint.</text>
+  </g>
+</svg>

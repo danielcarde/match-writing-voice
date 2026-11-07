@@ -1,0 +1,16 @@
+name: Feature request
+description: Propose a focused improvement
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User need and example
+      description: Describe the task, current limitation, and intended result.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Validation idea
+      description: How could we observe whether the change helps?
