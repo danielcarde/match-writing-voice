@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 — 2026-11-09
+
+- Added an explicit rewrite workflow for paragraphs, essays, documents, and selected passages.
+- Preserves content coverage and original structure by default, with opt-in restructuring separate from editing fidelity.
+- Added optional `check --workflow rewrite --structure preserve|restructure`, with required source text, coarse structure/citation review, fenced-code protection, and substantial-shortening review.
+- Included rewrite guidance in standalone profile exports and all portable distributions; existing profiles and ordinary checker usage remain compatible.
+- Added targeted behavior and CLI tests. Structure heuristics do not prove complete meaning coverage or binary-document layout fidelity.
+
 ## 0.1.0 — 2026-11-06
 
 - Evidence-backed profiles with exact source spans, source hashes, exclusions, and counterexamples.

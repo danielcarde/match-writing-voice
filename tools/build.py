@@ -14,6 +14,7 @@ SKILL_NAME = "match-writing-voice"
 SKILL = ROOT / "skills" / SKILL_NAME
 ROUTES = {"learn.md": ("Learning a voice", "learning-a-voice"),
           "write.md": ("Writing in a voice", "writing-in-a-voice"),
+          "rewrite.md": ("Rewrite existing content", "rewrite-existing-content"),
           "knowledge.md": ("Writer knowledge", "writer-knowledge"),
           "profile-format.md": ("Profile format", "profile-format"),
           "evaluation.md": ("Evaluation", "evaluation"),

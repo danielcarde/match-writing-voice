@@ -1,5 +1,7 @@
 # Write and revise
 
+For an explicit rewrite of existing paragraphs, essays, or documents, also use [rewrite.md](rewrite.md). Rewriting preserves source content; the faithful/lightly_edited/adapted choices still control editing fidelity.
+
 Select writer and mode; infer the current medium, audience, relationship, and language when clear. Apply current instructions before confirmed preferences, supported contextual habits, and tentative tendencies. Skip unknown traits. A scoped habit cannot silently become universal or another recipient's register.
 
 For a supplied draft, identify facts, entities, exact values, quotations, uncertainty, obligations, negation, purpose, and protected wording. For new prose, derive these from the brief. A brief's instructions are not all output content, so don't mechanically compare it as an original draft.

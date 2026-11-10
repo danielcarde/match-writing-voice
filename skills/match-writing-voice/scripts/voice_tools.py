@@ -398,6 +398,10 @@ def render_profile(profile, allow_scaffold=False):
               "Keep the writer's likely familiarity separate from the assistant's research and from factual evidence strength. Research does not establish that a fact is new to the writer.",
               "Use explicit relevant user context first; qualified familiarity guesses are not biography or expertise. Do not infer knowledge from grammar or confidence alone.",
               "Without support, avoid inventing prior knowledge, firsthand experience, or recent-learning narration. Unknown familiarity usually allows neutral factual wording without extra hedging. Keep these judgments task-local.", ""]
+    lines += ["## Rewrite existing content",
+              "When given a paragraph, essay, document, or selection to rewrite, use that content for meaning and this profile for voice. Do not learn a new voice from the content unless requested.",
+              "Preserve the full requested scope, structure, arguments, examples, qualifications, citations, quotations, code, and factual details by default. Allow restructuring only when requested; faithful/lightly_edited/adapted remain separate editing choices.",
+              "Review long documents section by section and check complete coverage. Do not substitute a summary or partial opening for a full rewrite, or modify unselected content.", ""]
     if not profile["traits"]:
         lines += ["UNFINISHED MEASUREMENT SCAFFOLD — no learned voice yet.", ""]
     if profile.get("note") and (profile["note"] != SCAFFOLD_NOTE or not profile["traits"]):
@@ -517,7 +521,86 @@ def knowledge_claim_review(draft, authority_texts=()):
     return findings
 
 
-def check(profile, draft, mode=None, current=None, source=None, samples=(), protected=(), allow_phrases=(), author_context=None):
+def rewrite_shape(text):
+    """Coarse plain-text/Markdown shape. Not a binary-document layout parser."""
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    headings, lists, tables, code, outside = [], [], [], [], []
+    paragraph_count, paragraph_open, list_open = 0, False, False
+    fence, block = None, []
+    for line in normalized.splitlines():
+        if fence is not None:
+            block.append(line)
+            if re.fullmatch(r" {0,3}" + re.escape(fence[0]) + "{" + str(len(fence)) + r",}\s*", line):
+                code.append("\n".join(block))
+                fence, block = None, []
+            continue
+        opening = re.match(r"^ {0,3}(`{3,}|~{3,})([^\n]*)$", line)
+        if opening:
+            fence, block = opening.group(1), [line]
+            paragraph_open, list_open = False, False
+            continue
+        outside.append(line)
+        if not line.strip():
+            paragraph_open, list_open = False, False
+            continue
+        heading = re.match(r"^ {0,3}(#{1,6})[ \t]+(.+?)\s*#*\s*$", line)
+        item = re.match(r"^(\s*)([-+*•]|\d+[.)])[ \t]+", line)
+        if heading:
+            headings.append((len(heading.group(1)), heading.group(2)))
+            paragraph_open, list_open = False, False
+        elif item:
+            lists.append((len(item.group(1).expandtabs(4)), "ordered" if item.group(2)[0].isdigit() else "unordered"))
+            paragraph_open, list_open = False, True
+        elif "|" in line and line.strip().startswith("|"):
+            tables.append(len(re.split(r"(?<!\\)\|", line.strip().strip("|"))))
+            paragraph_open, list_open = False, False
+        elif not list_open:
+            if not paragraph_open:
+                paragraph_count += 1
+            paragraph_open = True
+    if fence is not None:
+        code.append("\n".join(block))  # An unclosed source fence must not disappear.
+    markers = re.findall(r"\[\^[^\]\s]+\]|\[\d+(?:\s*[,–-]\s*\d+)*\]", "\n".join(outside))
+    return {"paragraphs": paragraph_count, "headings": headings, "list_items": lists,
+            "table_columns_by_row": tables, "fenced_code": code, "citation_markers": markers}
+
+
+def rewrite_review(source, draft, structure="preserve"):
+    if structure not in {"preserve", "restructure"}:
+        raise ValueError("Rewrite structure must be preserve or restructure")
+    left, right = rewrite_shape(source), rewrite_shape(draft)
+    findings = []
+    if not draft.strip():
+        findings.append({"code": "rewrite_empty", "severity": "block", "message": "The requested source was not rewritten; the result is empty."})
+    if Counter(left["fenced_code"]) != Counter(right["fenced_code"]):
+        findings.append({"code": "rewrite_code_changed", "severity": "block",
+                         "message": "Fenced code changed or disappeared; a voice rewrite does not authorize code edits."})
+    if Counter(left["citation_markers"]) != Counter(right["citation_markers"]):
+        findings.append({"code": "rewrite_citation_drift", "severity": "review",
+                         "source": left["citation_markers"], "draft": right["citation_markers"]})
+    if structure == "preserve":
+        for feature in ("paragraphs", "headings", "list_items", "table_columns_by_row"):
+            if left[feature] != right[feature]:
+                findings.append({"code": "rewrite_structure_drift", "severity": "review", "feature": feature,
+                                 "source": left[feature], "draft": right[feature]})
+    source_words, draft_words = len(tokens(source)), len(tokens(draft))
+    if source_words >= 80 and draft_words < 0.7 * source_words:
+        findings.append({"code": "rewrite_length_drop", "severity": "review", "source_words": source_words,
+                         "draft_words": draft_words, "message": "Substantial shortening may indicate condensation. Review complete coverage and any explicit length request; do not automatically pad the result."})
+    return findings
+
+
+def check(profile, draft, mode=None, current=None, source=None, samples=(), protected=(), allow_phrases=(), author_context=None, workflow="write", structure=None):
+    if workflow not in {"write", "rewrite"}:
+        raise ValueError("Unsupported workflow")
+    if workflow == "rewrite":
+        if source is None or not source.strip():
+            raise ValueError("Rewrite checking requires a nonempty --source original text")
+        structure = structure or "preserve"
+        if structure not in {"preserve", "restructure"}:
+            raise ValueError("Rewrite structure must be preserve or restructure")
+    elif structure is not None:
+        raise ValueError("--structure applies only to --workflow rewrite")
     valid = validate_profile(profile)
     if valid["errors"] or not valid["ready"]:
         raise ValueError("A valid interpreted profile is required: " + "; ".join(valid["errors"] or valid["warnings"]))
@@ -559,6 +642,8 @@ def check(profile, draft, mode=None, current=None, source=None, samples=(), prot
             if not literal_hits(draft, phrase, True):
                 findings.append({"code": "protected_text_missing", "severity": "block", "text": phrase})
     findings.extend(knowledge_claim_review(draft, (source, author_context)))
+    if workflow == "rewrite":
+        findings.extend(rewrite_review(source, draft, structure))
     candidate = shingles(tokens(draft), 8)
     original = shingles(tokens(source or ""), 8)
     allowed = set().union(*(shingles(tokens(p), 8) for p in allow_phrases)) if allow_phrases else set()
@@ -568,9 +653,11 @@ def check(profile, draft, mode=None, current=None, source=None, samples=(), prot
             if shared:
                 findings.append({"code": "sample_phrase_overlap", "severity": "review", "sample_id": sample["id"], "phrases": [" ".join(x) for x in sorted(shared)[:3]]})
     verdict = "BLOCK" if any(f["severity"] == "block" for f in findings) else "REVIEW" if findings else "PASS"
-    return {"verdict": verdict, "mode": mode, "context": current, "findings": findings, "applied_rules": applied, "skipped_rules": skipped,
-            "validation_warnings": valid["warnings"], "manual_review": ["Meaning, named entities, causal logic, and implied claims remain faithful.", "Voice is recognizable without exaggerated quirks or invented errors.", "No paraphrased sample facts leaked; no dialect/biography was invented.", "Writer familiarity, information provenance, and factual confidence were considered separately; personal learning/expertise claims are supported."],
-            "limits": "Literal rules and narrow English heuristics only. Knowledge markers neither establish what the writer knows nor authenticate a literal baseline. No guarantee of semantic equivalence or voice similarity."}
+    return {"verdict": verdict, "workflow": workflow, "structure": structure, "mode": mode, "context": current, "findings": findings, "applied_rules": applied, "skipped_rules": skipped,
+            "validation_warnings": valid["warnings"], "manual_review_completed": False,
+            "manual_review": ["Verify meaning, named entities, causal logic, and implied claims against the source/brief.", "Judge voice recognition without exaggerated quirks or invented errors.", "Check for paraphrased sample-fact leakage and invented dialect/biography.", "Review writer familiarity separately from provenance and factual confidence; substantiate personal learning/expertise claims."] +
+                             (["Account for every source argument, example, caveat, quotation, and citation; verify unchanged content outside any selection and requested file layout."] if workflow == "rewrite" else []),
+            "limits": "Literal rules, coarse plain-text/Markdown structure, and narrow English heuristics only. Knowledge markers neither establish what the writer knows nor authenticate a literal baseline. No guarantee of complete coverage, binary-document layout, semantic equivalence, or voice similarity."}
 
 
 def retrieve(samples, query, current=None, limit=3):
@@ -608,6 +695,8 @@ def cli(argv=None):
         if name == "check":
             p.add_argument("--draft", required=True)
             p.add_argument("--source")
+            p.add_argument("--workflow", choices=["write", "rewrite"], default="write", help="Check ordinary writing or an explicit source-based rewrite")
+            p.add_argument("--structure", choices=["preserve", "restructure"], help="Rewrite structural freedom; defaults to preserve for rewrites")
             p.add_argument("--author-context", help="User's explicit relevant statements about their knowledge/experience; not research or style samples")
             p.add_argument("--mode", choices=sorted(MODES))
             p.add_argument("--context", default="{}")
@@ -639,7 +728,7 @@ def cli(argv=None):
                 if verified["errors"]:
                     raise ValueError("; ".join(verified["errors"]))
             samples = load_samples(args.manifest, profile.get("profile_id")) if args.manifest else []
-            result = check(profile, read_text(args.draft), args.mode, json.loads(args.context), read_text(args.source) if args.source else None, samples, args.protect, args.allow_phrase, read_text(args.author_context) if args.author_context else None)
+            result = check(profile, read_text(args.draft), args.mode, json.loads(args.context), read_text(args.source) if args.source else None, samples, args.protect, args.allow_phrase, read_text(args.author_context) if args.author_context else None, args.workflow, args.structure)
             if args.manifest:
                 result["validation_warnings"] = verified["warnings"]
             output_json(result, args.output)

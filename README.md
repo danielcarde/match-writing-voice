@@ -19,6 +19,8 @@ Turn real writing samples into a reusable voice profile, then use that profile t
 
 The skill also distinguishes the writer's likely familiarity from the assistant's research. It can make qualified inferences about familiarity without inventing expertise, personal experience, or a claim that the writer just learned something.
 
+**Rewrite mode** transforms an existing paragraph, essay, or document into the target voice. Keep its structure by default, or explicitly allow restructuring, while preserving its meaning and details. [Rewrite controls and examples →](docs/usage.md#rewrite-existing-content)
+
 ## Start here
 
 Clone this private repository with an authenticated GitHub account:
@@ -75,6 +77,17 @@ Synthetic demonstration, using the same requested facts:
 > **Lightly edited:** Yeah, I can bring the projector to the library on Tuesday. It's just that I need it back by 5 pm.
 
 These examples demonstrate mode choices; they are not a real writer's recognition score. [Explore the reproducible example →](examples/README.md)
+
+## Rewrite a paragraph, essay, or document
+
+```text
+Use Match Writing Voice in rewrite mode.
+Rewrite this document in the voice of my attached profile.
+Keep the original structure, facts, arguments, examples, quotes, and citations.
+Use faithful editing and return the complete rewritten document.
+```
+
+Structure is preserved by default. You can request restructuring, select only a passage, or choose lightly edited/adapted output. The source provides content; the profile provides voice. [Full rewrite workflow →](skills/match-writing-voice/references/rewrite.md)
 
 ## How it works
 

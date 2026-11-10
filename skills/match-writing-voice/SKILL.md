@@ -1,6 +1,6 @@
 ---
 name: match-writing-voice
-description: Learn a writer's voice from samples and draft or revise in it, preserving supported vernacular and imperfections. Build reusable profiles with evidence, context, and knowledge boundaries.
+description: Learn a writer's voice from samples; draft or rewrite paragraphs, essays, and documents in it. Preserve meaning, supported imperfections, context, and knowledge boundaries.
 ---
 
 # Match Writing Voice
@@ -11,6 +11,7 @@ Learn how the writer expresses ideas, then express the current brief's ideas in 
 
 - **Learn / refresh:** read [learn.md](references/learn.md). Accept files, pasted prose, URLs, and image text when the host can read it. Small samples are usable with qualified conclusions.
 - **Write / revise:** read [write.md](references/write.md). If only samples exist, build a provisional profile and finish the writing in the same task.
+- **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. Treat the existing paragraph, essay, or document as the content source; the profile or separate samples supply voice. Preserve structure by default.
 - **Knowledge and research:** when factual writing could imply personal expertise, familiarity, experience, or recent learning, use [knowledge.md](references/knowledge.md). Keep the writer's likely familiarity separate from how the assistant obtained the information.
 - **Correct:** apply a one-off correction locally. Update a lasting preference only when the user expresses it as reusable or confirms it, and only within its scope.
 - **Inspect / export:** use [profile-format.md](references/profile-format.md). Markdown works without Python; JSON enables the optional tools.
@@ -29,7 +30,13 @@ Do not restart onboarding when information is already supplied. Infer routine ch
 7. Profiles are files, not training or account memory. Save requested profiles in the user's workspace/destination, separate from installed skill files. Do not silently copy raw corpora, install hooks, change settings, or retrieve unrelated conversations.
 8. Research by the assistant does not establish that information is new to the writer. Make qualified familiarity inferences from relevant context, never from grammar or tone alone. Do not invent expertise, firsthand experience, or a learning history; factual confidence depends on evidence, not assumed familiarity.
 
-## Modes
+## Rewrite mode
+
+Requests such as “rewrite this in my voice” select the rewrite workflow directly. Accept a paragraph, essay, selected passage, or complete document plus a target profile or samples. If samples are supplied, learn a qualified profile and complete the rewrite in the same task; do not restart onboarding.
+
+Default to the complete requested text, original structure, and faithful voice. Allow restructuring only when requested. Rewriting is independent of the editing choice below: it can be faithful, lightly edited, or adapted. Preserve meaning and source detail; do not turn a rewrite into a summary or research task. See the rewrite reference for long documents, selected ranges, and coverage checks.
+
+## Editing modes
 
 | Mode | Behavior |
 |---|---|
@@ -49,6 +56,7 @@ python scripts/voice_tools.py validate --profile profile.json --manifest samples
 python scripts/voice_tools.py render --profile profile.json --output voice.md
 python scripts/voice_tools.py check --profile profile.json --draft draft.txt --context '{"medium":"message"}'
 python scripts/voice_tools.py check --profile profile.json --draft revision.txt --source original.txt --manifest samples.json --protect "Project Cedar"
+python scripts/voice_tools.py check --profile profile.json --draft revision.txt --source original.txt --workflow rewrite --structure preserve
 python scripts/voice_tools.py examples --manifest samples.json --query "reschedule a meeting" --context '{"medium":"email"}'
 ```
 

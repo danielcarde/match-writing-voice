@@ -27,5 +27,9 @@ Record separately: voice preference, meaning/commitment/negation changes, sample
 15. User explicitly says the topic is new: learning narration is allowed when the task calls for it; source strength still controls factual confidence.
 16. A polished style sample claims years of experience: do not transfer that claim to the current writer/topic or use it to whitelist new personal assertions.
 17. Strong research evidence with unknown familiarity: no unsupported hedging solely because familiarity is unknown. Uncertain research stays qualified even for an expert.
+18. Rewrite a paragraph from a separate profile: preserve each fact/qualification and transform expression; the paragraph is content evidence, not additional voice training.
+19. Rewrite an essay in preserve mode: keep headings/paragraph sequence, argument progression, quotations, and citations; avoid summarizing it into the profile's shorter message format.
+20. Rewrite with explicit restructuring: reorganize while accounting for every source argument/example/caveat; protected code/quotes stay intact.
+21. Rewrite a selected passage in a document: change only that passage and preserve the surrounding content. If formatted output is unsupported, identify the actual limitation.
 
 Independent agent tests use synthetic samples and isolated temporary outputs. Give the skill, request, and raw samples without intended answers. Inspect real artifacts. Distinguish simulations from human blind preference tests.

@@ -22,6 +22,30 @@ but I need it back by 5 pm. Keep the facts exactly as supplied.
 
 For cleanup, request lightly edited mode. For a new audience, request adapted mode. A friend-message profile does not establish a client-email voice; the agent should make a conservative adaptation and avoid claiming otherwise.
 
+## Rewrite existing content
+
+Supply two distinct inputs: the paragraph/essay/document to rewrite and the target profile or voice samples.
+
+```text
+Use Match Writing Voice in rewrite mode.
+Rewrite the attached essay using my saved voice profile.
+Preserve its meaning, arguments, examples, quotations, citations,
+and section/paragraph structure. Use faithful editing.
+Return the complete rewritten essay.
+```
+
+To change organization, say “Allow restructuring, but preserve every argument, example, and caveat.” For cleaner grammar, choose lightly edited mode. For a different audience, choose adapted mode. Rewriting and editing fidelity are independent choices.
+
+Defaults preserve the supplied text's structure and approximate extent. Rewriting does not imply summarizing, researching new material, or learning the target voice from the source. For a selected passage, only that range changes. For a document, request a new output file if desired; actual file/layout support depends on the host.
+
+After the agent writes the result, optionally check it:
+
+```sh
+python skills/match-writing-voice/scripts/voice_tools.py check --profile .local/profile.json --source original.txt --draft rewritten.txt --workflow rewrite --structure preserve
+```
+
+Replace `preserve` with `restructure` only if you authorized restructuring. The checker flags coarse plain-text/Markdown structural changes, citation-marker loss, changed fenced code, and substantial shortening. Full content coverage, selected-range integrity, and formatted-document layout still require model/host review. It checks a rewrite; it does not generate one.
+
 ## Set familiarity explicitly when useful
 
 ```text
