@@ -8,7 +8,7 @@ Ask:
 Use $match-writing-voice in guided mode.
 ```
 
-Or say “show options” / “open the picker.” The assistant asks for unresolved choices: profile, task (rewrite, new writing, audit), editing mode, and writing context. It skips settings and text you already supplied. Native question cards are used only when the host exposes a permitted question tool; otherwise the same choices appear as a short text menu. This is an instruction-driven workflow, not a separate graphical app or a new Python command.
+Or say “show options” / “open the picker.” The assistant offers unresolved choices for profile, task, editing mode, rewrite depth, and writing context. It skips choices you already supplied. Hosts with a permitted question tool can show native question cards. Other hosts use a short text menu.
 
 ```text
 Use $match-writing-voice, guided mode, to rewrite this paragraph.
@@ -65,6 +65,8 @@ python skills/match-writing-voice/scripts/voice_tools.py check --profile .local/
 
 Replace `preserve` with `restructure` only if you authorized restructuring. The checker flags coarse plain-text/Markdown structural changes, citation-marker loss, changed fenced code, and substantial shortening. Full content coverage, selected-range integrity, and formatted-document layout still require model/host review. It checks a rewrite; it does not generate one.
 
+Say “make minimal edits and show what changed” to keep wording that already works, or “rewrite in my voice and restructure the prose paragraphs” to allow moving, combining, or splitting them. For technical drafts, both check and compare accept `--protect-file protected.json` with a `spans` array of exact strings such as citations, commands, equations, and terms. The checker counts literal occurrences, and the editorial review verifies each one's context.
+
 ## Compare revisions and track edits
 
 ```text
@@ -87,7 +89,7 @@ The report identifies exact changed spans and measured differences, applicable t
 python skills/match-writing-voice/scripts/revision_tools.py evaluate-detector --results .local/detector-results.json --output .local/detector-evaluation.json
 ```
 
-Import an actual named, dated detector run with exact text hashes and separate human, AI, AI-assisted, and unknown origins. Counts, uncertainty, and matched label changes describe that run. This helper makes no network calls; any new external scan requires authorization for the specific service and text. No live-provider improvement is implied by the feature. See the [evaluation protocol and input format](../skills/match-writing-voice/references/detector-evaluation.md).
+Import a dated detector run with exact text hashes and known origins. The [benchmark protocol](../skills/match-writing-voice/references/detector-evaluation.md) compares standard, minimal, and paragraph-level editing on held-out drafts. The offline report tracks GPTZero's paraphrasing badge and Turnitin's zero, suppressed, and visible positive scores when supplied. A new external scan requires authorization for the service and text.
 
 ## Review generic phrasing without erasing the voice
 

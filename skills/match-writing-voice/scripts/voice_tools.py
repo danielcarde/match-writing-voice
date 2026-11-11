@@ -442,7 +442,8 @@ def render_profile(profile, allow_scaffold=False):
               "Without support, avoid inventing prior knowledge, firsthand experience, or recent-learning narration. Unknown familiarity usually allows neutral factual wording without extra hedging. Keep these judgments task-local.", ""]
     lines += ["## Rewrite existing content",
               "When given a paragraph, essay, document, or selection to rewrite, use that content for meaning and this profile for voice. Do not learn a new voice from the content unless requested.",
-              "Preserve the full requested scope, structure, arguments, examples, qualifications, citations, quotations, code, and factual details by default. Allow restructuring only when requested; faithful/lightly_edited/adapted remain separate editing choices.",
+              "Choose minimal edits for a request to keep effective wording verbatim. A standard rewrite preserves structure while recasting editable prose. Paragraph-level restructuring is available when requested. Keep claims, evidence, qualifications, and citations together when moving or merging prose. Faithful, lightly_edited, and adapted remain separate choices.",
+              "Inventory exact technical terms, equations, values, quotations, and citations when relevant. Verify their text, occurrence counts, and connection to the same source claim after editing. Preserve the full requested scope.",
               "Review long documents section by section and check complete coverage. Do not substitute a summary or partial opening for a full rewrite, or modify unselected content.", ""]
     lines += ["## Compare revisions when requested",
               "Use the actual original and revision. Keep measured changes separate from meaning and voice judgments. Compare exact edited spans with applicable traits; explain a useful change, an unnecessary paraphrase, or a departure from the supported voice.",
@@ -498,6 +499,18 @@ def literal_hits(text, literal, case_sensitive=False):
     return list(re.finditer(pattern, text, 0 if case_sensitive else re.I))
 
 
+def load_protected(literals, path=None, source=None):
+    spans = read_json(path).get("spans") if path else []
+    if not isinstance(spans, list) or any(not isinstance(span, str) or not span.strip() for span in spans):
+        raise ValueError("The protection file must contain a spans array of nonblank strings")
+    for span in spans:
+        if source is not None and not literal_hits(source, span, True):
+            raise ValueError(f"Protection file span is absent from the original: {span!r}")
+    if any(not literal.strip() for literal in literals):
+        raise ValueError("--protect requires nonblank text")
+    return list(dict.fromkeys([*literals, *spans]))
+
+
 def integrity(source, draft, protected=()):
     findings = []
     def compare(label, left, right, severity="block"):
@@ -527,8 +540,13 @@ def integrity(source, draft, protected=()):
         if left[key] != right[key]:
             findings.append({"code": "meaning_marker_drift", "severity": "review", "feature": key, "source": left[key], "draft": right[key]})
     for phrase in protected:
-        if not literal_hits(draft, phrase, True):
+        before = len(literal_hits(source, phrase, True))
+        after = len(literal_hits(draft, phrase, True))
+        if not after:
             findings.append({"code": "protected_text_missing", "severity": "block", "text": phrase})
+        elif before and before != after:
+            findings.append({"code": "protected_text_count_drift", "severity": "block", "text": phrase,
+                             "source": before, "draft": after})
     return findings
 
 
@@ -759,6 +777,7 @@ def cli(argv=None):
             p.add_argument("--mode", choices=sorted(MODES))
             p.add_argument("--context", default="{}")
             p.add_argument("--protect", action="append", default=[])
+            p.add_argument("--protect-file", help="JSON object with a spans array of exact text to protect")
             p.add_argument("--allow-phrase", action="append", default=[])
             p.add_argument("--output")
     p = commands.add_parser("examples")
@@ -791,12 +810,24 @@ def cli(argv=None):
             output_json(inspect_text(read_text(source_path, preserve_bom=True)), args.output)
         else:
             profile = read_json(args.profile)
+            source = read_text(args.source) if args.source else None
+            protected = load_protected(args.protect, args.protect_file, source)
+            if args.output:
+                target = Path(args.output).resolve()
+                inputs = (args.source, args.draft, args.profile, args.manifest, args.protect_file, args.author_context)
+                for file in filter(None, inputs):
+                    input_path = Path(file).resolve()
+                    if target == input_path or (target.exists() and target.samefile(input_path)):
+                        raise ValueError("Check output must not overwrite or alias an input file")
             if args.manifest:
                 verified = validate_profile(profile, args.manifest)
                 if verified["errors"]:
                     raise ValueError("; ".join(verified["errors"]))
             samples = load_samples(args.manifest, profile.get("profile_id")) if args.manifest else []
-            result = check(profile, read_text(args.draft), args.mode, json.loads(args.context), read_text(args.source) if args.source else None, samples, args.protect, args.allow_phrase, read_text(args.author_context) if args.author_context else None, args.workflow, args.structure)
+            result = check(profile, read_text(args.draft), args.mode, json.loads(args.context), source, samples,
+                           protected, args.allow_phrase,
+                           read_text(args.author_context) if args.author_context else None,
+                           args.workflow, args.structure)
             if args.manifest:
                 result["validation_warnings"] = verified["warnings"]
             output_json(result, args.output)
