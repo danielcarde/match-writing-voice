@@ -9,6 +9,7 @@ Learn how the writer expresses ideas, then express the current brief's ideas in 
 
 ## Route
 
+- **Guided picker (optional):** when the user says “guided mode,” “show options,” “open the picker,” or asks to choose settings interactively, read [guided-mode.md](references/guided-mode.md). Use available question controls for missing choices; direct requests continue without a wizard.
 - **Learn / refresh:** read [learn.md](references/learn.md). Accept files, pasted prose, URLs, and image text when the host can read it. Small samples are usable with qualified conclusions.
 - **Write / revise:** read [write.md](references/write.md). If only samples exist, build a provisional profile and finish the writing in the same task.
 - **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. Treat the existing paragraph, essay, or document as the content source; the profile or separate samples supply voice. Preserve structure by default.
@@ -20,6 +21,8 @@ Learn how the writer expresses ideas, then express the current brief's ideas in 
 - **Evaluate:** read [evaluation.md](references/evaluation.md). Rule compliance, preserved meaning, and convincing voice are separate outcomes.
 
 Do not restart onboarding when information is already supplied. Infer routine choices; ask only about ambiguity that materially changes the target author, voice, or meaning. Return prose directly unless analysis is requested or an unresolved limitation matters.
+
+An explicit guided request makes the requested choices relevant: offer profile, task, editing, and context as needed, skipping settled fields unless the user asks to see them again. Never open the picker merely because the user is discussing, modifying, or documenting this feature.
 
 ## Shared decisions
 

@@ -1,5 +1,7 @@
 # Compatibility and validation
 
+The optional guided picker is model-directed. It uses a question tool only when exposed and permitted by the current host; otherwise it uses numbered text choices. No permanent native menu or identical rendering across apps is claimed. The local profile-catalog convention requires filesystem access and is separate from any host's account memory. Portable users can supply a profile directly. See [guided behavior](../skills/match-writing-voice/references/guided-mode.md).
+
 Checked against official documentation on November 6, 2026. The canonical package follows the Agent Skills structure: `SKILL.md`, optional references, and optional scripts. Its shared description stays under 200 characters for the more restrictive documented upload route.
 
 | Host | Native integration | What this repo validates |

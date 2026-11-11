@@ -1,5 +1,24 @@
 # Usage
 
+## Optional guided picker
+
+Ask:
+
+```text
+Use $match-writing-voice in guided mode.
+```
+
+Or say “show options” / “open the picker.” The assistant asks for unresolved choices: profile, task (rewrite, new writing, audit), editing mode, and writing context. It skips settings and text you already supplied. Native question cards are used only when the host exposes a permitted question tool; otherwise the same choices appear as a short text menu. This is an instruction-driven workflow, not a separate graphical app or a new Python command.
+
+```text
+Use $match-writing-voice, guided mode, to rewrite this paragraph.
+[paragraph]
+```
+
+Here the task and source are settled; only remaining choices are needed. A direct request such as “rewrite this using the attached profile, lightly edited” runs without a menu. Ask to show all choices if you want to change an already supplied setting. Canceling ends the pending guided workflow without making changes.
+
+A local user can register profile names in the optional `~/.match-writing-voice/profiles.json` catalog. It contains only IDs, display names, and profile paths; it does not store samples or select a default writer automatically. The assistant reads it only for the requested workflow, checks the chosen path is accessible, and preserves entries unless an update is requested. Fileless chat hosts use attached or pasted guides instead. See the [catalog format and picker behavior](../skills/match-writing-voice/references/guided-mode.md).
+
 ## Learn a voice
 
 Supply authentic samples from the relevant context. Pasted text, local text files, documents, and images can work when the host can extract them accurately. Do not use a summary in place of original prose.

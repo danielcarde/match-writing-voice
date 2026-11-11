@@ -56,13 +56,13 @@ class RepositoryTests(unittest.TestCase):
             self.assertNotIn("match-writing-voice/agents/openai.yaml", z.namelist())
             self.assertIn("match-writing-voice/references/knowledge.md", z.namelist())
 
-    def test_editorial_guidance_and_upstream_notice_survive_all_packages(self):
+    def test_all_reference_routes_and_notices_survive_all_packages(self):
         outputs = build.build(self.path)
         for path in outputs:
             if path.suffix in {".zip", ".skill"}:
                 prefix = "match-writing-voice/" + ("skills/match-writing-voice/" if "plugin" in path.name else "")
                 with zipfile.ZipFile(path) as z:
-                    for name in ["editorial-review.md", "text-hygiene.md", "upstream-license.md"]:
+                    for name in build.ROUTES:
                         source = build.SKILL / "references" / name
                         self.assertEqual(source.read_bytes(), z.read(prefix + "references/" + name))
         portable = (self.path / "match-writing-voice-portable.md").read_text(encoding="utf-8")
