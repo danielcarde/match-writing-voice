@@ -13,6 +13,8 @@ Learn how the writer expresses ideas, then express the current brief's ideas in 
 - **Learn / refresh:** read [learn.md](references/learn.md). Accept files, pasted prose, URLs, and image text when the host can read it. Small samples are usable with qualified conclusions.
 - **Write / revise:** read [write.md](references/write.md). If only samples exist, build a provisional profile and finish the writing in the same task.
 - **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. Treat the existing paragraph, essay, or document as the content source; the profile or separate samples supply voice. Preserve structure by default.
+- **Compare revisions / track edits:** read [revision-review.md](references/revision-review.md) for an evidence-based before/after review and optional local history. Separate measured changes, editorial judgments, and supplied origin labels. Save full draft snapshots only when requested.
+- **Evaluate detector results:** read [detector-evaluation.md](references/detector-evaluation.md) for versioned, controlled tests and offline analysis of supplied results. Sending any text to an external detector requires explicit authorization for that service and text. No detector score defines voice quality.
 - **Editorial review / audit:** read [editorial-review.md](references/editorial-review.md) to review generic phrasing while preserving the learned voice. Apply its short review before delivering drafts or rewrites. Audit-only requests report findings without editing; this is separate from the three editing modes.
 - **Copy/paste text artifacts:** when unusual spacing or invisible characters are relevant, read [text-hygiene.md](references/text-hygiene.md). Optional `inspect-text` reports codepoints without changing the source; preserve meaningful language and display characters.
 - **Knowledge and research:** when factual writing could imply personal expertise, familiarity, experience, or recent learning, use [knowledge.md](references/knowledge.md). Keep the writer's likely familiarity separate from how the assistant obtained the information.
@@ -65,6 +67,8 @@ python scripts/voice_tools.py check --profile profile.json --draft revision.txt 
 python scripts/voice_tools.py check --profile profile.json --draft revision.txt --source original.txt --workflow rewrite --structure preserve
 python scripts/voice_tools.py examples --manifest samples.json --query "reschedule a meeting" --context '{"medium":"email"}'
 python scripts/voice_tools.py inspect-text --text draft.txt --output hygiene.json
+python scripts/revision_tools.py compare --source original.txt --draft revision.txt --profile profile.json --output comparison.json
+python scripts/revision_tools.py evaluate-detector --results detector-results.json --output evaluation.json
 ```
 
 `measure` creates an **unfinished evidence scaffold**, not a learned voice. Add interpreted, evidenced traits before claiming readiness. `validate --manifest` verifies exact source hashes/spans. `check` returns exit 1 for blocking findings, 0 for pass/review, 2 for input errors. Review requires judgment. PASS proves neither semantic equivalence nor voice recognition.

@@ -37,6 +37,8 @@ class RepositoryTests(unittest.TestCase):
                 with zipfile.ZipFile(path) as z:
                     self.assertTrue(all(n.startswith("match-writing-voice/") for n in z.namelist()))
                     self.assertEqual((build.SKILL / "SKILL.md").read_bytes(), z.read("match-writing-voice/SKILL.md"))
+                    helper = "scripts/revision_tools.py"
+                    self.assertEqual((build.SKILL / helper).read_bytes(), z.read("match-writing-voice/" + helper))
                     self.assertFalse(any("__pycache__" in n for n in z.namelist()))
 
     def test_build_is_reproducible(self):

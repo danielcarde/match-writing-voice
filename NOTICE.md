@@ -6,6 +6,8 @@ The editorial review also draws on Conor Bronsdon's MIT-licensed [Avoid AI Writi
 
 Further editorial concepts come from Siqi Chen's blader/humanizer, Timur Isachenko's isatimur/de-slop, milock/humanizer contributors, and aihxp's hannsxpeter/humanizer. Their pinned revisions and the adopted/omitted ideas appear in the [editorial comparison](docs/editorial-research.md); their full MIT notices travel with the skill. The runtime and read-only Unicode inspector are original implementations, with no copied upstream code or catalogs.
 
+The original revision-review and detector-evaluation helpers also draw on methodology from AICL, PADBen, and RAID. The [pinned provenance](skills/match-writing-voice/references/provenance.md#revision-review-and-detector-evaluation--2026-11-11) records these influences. No benchmark datasets, upstream code, or live detector integrations are redistributed.
+
 Repository presentation and distribution patterns were researched in popular skill ecosystems, including Matt Pocock's skills, Superpowers, Anthropic Skills, Vercel Agent Skills/Skills CLI, Humanizer, and OpenAI's current plugin examples. [Research notes](docs/design-research.md) record inspected revisions, popularity snapshots, and the patterns adopted.
 
 Names such as Codex, Claude, and Gemini identify supported host products. This project is independent and does not claim affiliation, endorsement, certification, or identical behavior across models. Each cited repository retains its own license and attribution requirements.

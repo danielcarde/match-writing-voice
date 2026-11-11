@@ -65,6 +65,30 @@ python skills/match-writing-voice/scripts/voice_tools.py check --profile .local/
 
 Replace `preserve` with `restructure` only if you authorized restructuring. The checker flags coarse plain-text/Markdown structural changes, citation-marker loss, changed fenced code, and substantial shortening. Full content coverage, selected-range integrity, and formatted-document layout still require model/host review. It checks a rewrite; it does not generate one.
 
+## Compare revisions and track edits
+
+```text
+Use Match Writing Voice to compare this original and revised draft against my profile.
+Identify unnecessary paraphrasing, any loss of meaning, and changes to my voice.
+Show the actual edits and explain why they help or hurt. Do not change either draft.
+```
+
+Add **“Save a local edit history”** and a destination if you want both exact drafts, the comparison, and an integrity index retained. Ordinary comparisons do not create full snapshots. Saved bundles use new directories and refuse to overwrite inputs or an existing bundle. Keep personal drafts, comparisons containing changed text, and profile snapshots outside Git, for example under an ignored `.local` directory.
+
+```sh
+python skills/match-writing-voice/scripts/revision_tools.py compare --source original.txt --draft revision.txt --profile .local/profile.json --context '{"medium":"essay","language":"en"}' --output .local/comparison.json
+```
+
+The report identifies exact changed spans and measured differences, applicable traits, context-matched baselines, literal rule changes, and narrow preservation checks. Editorial reasons remain separate and can be attached using a hash-bound `--review` file. Meaning and voice require judgment; no score proves that a draft sounds like a particular person. The [comparison and history reference](../skills/match-writing-voice/references/revision-review.md) includes the annotation schema, opt-in snapshot command, and verification procedure.
+
+## Evaluate supplied detector results
+
+```sh
+python skills/match-writing-voice/scripts/revision_tools.py evaluate-detector --results .local/detector-results.json --output .local/detector-evaluation.json
+```
+
+Import an actual named, dated detector run with exact text hashes and separate human, AI, AI-assisted, and unknown origins. Counts, uncertainty, and matched label changes describe that run. This helper makes no network calls; any new external scan requires authorization for the specific service and text. No live-provider improvement is implied by the feature. See the [evaluation protocol and input format](../skills/match-writing-voice/references/detector-evaluation.md).
+
 ## Review generic phrasing without erasing the voice
 
 Drafts and rewrites receive a brief internal editorial review. It looks for stock framing, filler, inflated emphasis, accidental repetition, and manufactured personality. The matching-context profile and current instructions take priority over generic cleanup: supported **Overall**, repeated topic words, long sentences, or punctuation remain available. A necessary hedge or technical sense is not an automatic finding.

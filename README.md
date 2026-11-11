@@ -25,6 +25,8 @@ The skill also distinguishes the writer's likely familiarity from the assistant'
 
 The review also incorporates selected ideas from Humanizer, De-Slop, and related skills: paragraph purpose, missing-content triage, reader context, local keep decisions, and protection against an editor-imposed voice. Optional read-only text inspection locates unusual codepoints without changing the source. [Comparison and provenance →](docs/editorial-research.md)
 
+**Revision comparison and history** show exact edits, before/after measurements, applicable voice evidence, and separate editorial reasons. Save original and revised snapshots only when requested. A separate offline evaluator summarizes actual supplied detector results with text hashes and declared origins. [Compare and track edits →](docs/usage.md#compare-revisions-and-track-edits)
+
 ## Start here
 
 Prefer choices? After installation, ask **“Use Match Writing Voice in guided mode”** to pick a profile, task, editing mode, and context. Known settings are skipped; ordinary direct prompts still work. The host supplies question cards when available, with a text-menu fallback. [Guided picker and local profile catalog →](docs/usage.md#optional-guided-picker)
