@@ -4,6 +4,8 @@ For an explicit rewrite of existing paragraphs, essays, or documents, also use [
 
 Select writer and mode; infer the current medium, audience, relationship, and language when clear. Apply current instructions before confirmed preferences, supported contextual habits, and tentative tendencies. Skip unknown traits. A scoped habit cannot silently become universal or another recipient's register.
 
+Select the actual publisher's voice; a person's profile does not automatically govern their organization's copy. Use a supplied readable guide as-is. Consider the recipient's supplied context and the passage's purpose before scanning word choices. Reader background, writer familiarity, and how information was obtained are distinct task-local judgments; do not persist guesses as profile facts.
+
 For a supplied draft, identify facts, entities, exact values, quotations, uncertainty, obligations, negation, purpose, and protected wording. For new prose, derive these from the brief. A brief's instructions are not all output content, so don't mechanically compare it as an original draft.
 
 When the draft could imply knowledge, expertise, firsthand experience, or recent learning, apply [knowledge.md](knowledge.md). Make a qualified guess about familiarity only from relevant evidence. Track who supplied/researched a fact separately from whether the writer already knew it. Unknown familiarity usually calls for neutral wording, not extra hesitation or invented “I just learned” narration.

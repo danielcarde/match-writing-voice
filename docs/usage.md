@@ -70,6 +70,18 @@ This layer synthesizes selected ideas from [Avoid AI Writing](https://github.com
 
 Existing JSON profiles remain compatible. Re-render one with the updated helper to include the general editorial instructions in its exported Markdown; no new writing samples or retraining are needed.
 
+The review now considers structure and paragraph purpose before word substitution. It distinguishes a supported point obscured by wording from a genuine content gap, preserves useful feelings/recaps/transitions, and checks for invented causes, lost comparisons, or an editor's repeated replacement rhythm. A short reply can rely on supplied reader context; a complete source rewrite still preserves required details. Reader needs remain separate from writer familiarity. A local “keep this” choice stays in force for that span through later passes without silently changing the reusable profile. See the [five-source comparison](editorial-research.md).
+
+## Inspect unusual text characters
+
+When copy/paste spacing or invisible characters matter, use this independent read-only command:
+
+```sh
+python skills/match-writing-voice/scripts/voice_tools.py inspect-text --text draft.txt --output .local/hygiene.json
+```
+
+It reports selected codepoints with names, kinds, counts, and up to 50 zero-based character positions each. It retains a leading BOM and original line endings, makes no source edits, and rejects an output that aliases the input. No profile is needed. Persian/Arabic joiners, emoji selectors, direction marks, and non-breaking spaces can be legitimate; the report deliberately leaves interpretation to context. It performs no Unicode normalization, character deletion, provenance inference, or watermark test. [Scope and interpretation →](../skills/match-writing-voice/references/text-hygiene.md)
+
 ## Set familiarity explicitly when useful
 
 ```text

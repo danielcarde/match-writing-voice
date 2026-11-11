@@ -62,7 +62,7 @@ class RepositoryTests(unittest.TestCase):
             if path.suffix in {".zip", ".skill"}:
                 prefix = "match-writing-voice/" + ("skills/match-writing-voice/" if "plugin" in path.name else "")
                 with zipfile.ZipFile(path) as z:
-                    for name in ["editorial-review.md", "upstream-license.md"]:
+                    for name in ["editorial-review.md", "text-hygiene.md", "upstream-license.md"]:
                         source = build.SKILL / "references" / name
                         self.assertEqual(source.read_bytes(), z.read(prefix + "references/" + name))
         portable = (self.path / "match-writing-voice-portable.md").read_text(encoding="utf-8")
@@ -71,7 +71,8 @@ class RepositoryTests(unittest.TestCase):
             self.assertNotIn("](" + name + ")", portable)
             self.assertNotIn("](references/" + name + ")", portable)
         license_body = (build.SKILL / "references/upstream-license.md").read_text(encoding="utf-8")
-        self.assertIn(license_body.split("```text\n", 1)[1].split("```", 1)[0], portable)
+        for notice in license_body.split("```text\n")[1:]:
+            self.assertIn(notice.split("```", 1)[0], portable)
 
     def test_dry_run_writes_nothing(self):
         result = installer.install("codex", "user", user_home=self.path, dry_run=True)

@@ -29,11 +29,11 @@ MAX_BYTES = 8 * 1024 * 1024
 SCAFFOLD_NOTE = "Measurement scaffold. Add interpreted traits and validate their support before use as a learned voice."
 
 
-def read_text(path):
+def read_text(path, *, preserve_bom=False):
     data = Path(path).read_bytes()
     if len(data) > MAX_BYTES:
         raise ValueError(f"Input exceeds {MAX_BYTES} bytes: {path}")
-    text = data.decode("utf-8-sig")
+    text = data.decode("utf-8" if preserve_bom else "utf-8-sig")
     if "\x00" in text:
         raise ValueError(f"Expected extracted UTF-8 text, not a binary document: {path}")
     return text
@@ -58,6 +58,48 @@ def output_json(value, path=None):
         write_text(path, text)
     else:
         print(text, end="")
+
+
+def inspect_text(text):
+    """Locate selected format/space candidates without normalizing or judging them."""
+    groups = {}
+    for position, char in enumerate(text):
+        code = ord(char)
+        category = unicodedata.category(char)
+        if code in {0x200C, 0x200D}:
+            kind = "joiner"
+        elif 0xFE00 <= code <= 0xFE0F or 0xE0100 <= code <= 0xE01EF:
+            kind = "variation_selector"
+        elif code in {0x061C, 0x200E, 0x200F} or 0x202A <= code <= 0x202E or 0x2066 <= code <= 0x2069:
+            kind = "direction_control"
+        elif 0xE0001 <= code <= 0xE007F:
+            kind = "tag_character"
+        elif category == "Zs" and char != " ":
+            kind = "non_ascii_space"
+        elif category in {"Zl", "Zp"}:
+            kind = "line_or_paragraph_separator"
+        elif category == "Cf" or code == 0x034F:
+            kind = "format_control"
+        elif category == "Cc" and char not in "\t\r\n":
+            kind = "control_character"
+        else:
+            continue
+        if code not in groups:
+            groups[code] = {"codepoint": f"U+{code:04X}", "name": unicodedata.name(char, "UNNAMED"),
+                            "kind": kind, "count": 0, "positions": []}
+        group = groups[code]
+        group["count"] += 1
+        if len(group["positions"]) < 50:
+            group["positions"].append(position)
+    candidates = list(groups.values())
+    for group in candidates:
+        group["positions_truncated"] = group["count"] > len(group["positions"])
+    return {"inspection": "unicode_codepoints", "input_characters": len(text),
+            "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+            "position_convention": "Zero-based Unicode character positions, not bytes or UTF-16 units; leading BOM and original line endings retained.",
+            "candidate_occurrences": sum(g["count"] for g in candidates), "candidates": candidates,
+            "source_modified": False, "normalization_performed": False, "linguistic_assessment": "not_performed",
+            "limits": "Read-only candidate inspection. Meaningful joiners, direction marks, spaces, math controls, and display sequences may be included. Protected spans and language roles require manual review. No authorship, provenance, watermark, or detector-acceptance conclusion."}
 
 
 def tokens(text):
@@ -408,6 +450,12 @@ def render_profile(profile, allow_scaffold=False):
               "Preserve quotations, attributed text, code, tables, URLs, paths, identifiers, citation data, and frontmatter unless specifically placed in scope. Do not invent facts, sources, reactions, personal experiences, or mistakes to make prose concrete or human.",
               "Review ordinary drafts internally. Use one main editorial pass and at most one targeted correction pass; stop when no justified edit remains. Restore any introduced content damage from the original before delivery, or return the affected source unchanged with an explanation. Do not chase a zero-pattern score.",
               "A word choice, punctuation mark, or editorial pattern does not establish authorship. No AI-detection guarantee is made. These are model-applied review instructions, not an executed detector; the Python checker does not perform this judgment.", ""]
+    lines += ["## Purpose, substance, and restraint",
+              "Select the actual publisher's voice and recipient's context. Review paragraph functions and the argument before word choices. A short reply may rely on supplied shared context; an introductory explanation may need background. Reader needs do not establish writer familiarity. Preserve required source details unless condensation was requested.",
+              "Distinguish a supported point obscured by wording, genuinely missing evidence/content, and a passage that already serves its purpose. A greeting, transition, feeling, or deliberate recap need not supply a new fact. Flag a material gap instead of inventing a measurement, example, opinion, or experience.",
+              "Preserve comparisons, rankings, simultaneous events, and the source's causal relationships. Adjacent facts alone do not justify because or therefore. Review editor-introduced uniform rhythm, stock replacements, lost mixed feelings, and removed details; restore supported choices rather than installing a generic humanizer voice.",
+              "Honor a keep-this or stet decision for that span through this piece's later passes. It does not silently become a permanent profile rule. A sound passage can stay unchanged on a second review; no numerical humanness score or automatic full-rewrite threshold is used.",
+              "Inspect unusual text characters only when relevant. Meaningful joiners, direction marks, spaces, and display sequences stay intact; do not apply blanket Unicode normalization or claim authorship or watermark status from codepoints.", ""]
     if not profile["traits"]:
         lines += ["UNFINISHED MEASUREMENT SCAFFOLD — no learned voice yet.", ""]
     if profile.get("note") and (profile["note"] != SCAFFOLD_NOTE or not profile["traits"]):
@@ -661,7 +709,7 @@ def check(profile, draft, mode=None, current=None, source=None, samples=(), prot
     verdict = "BLOCK" if any(f["severity"] == "block" for f in findings) else "REVIEW" if findings else "PASS"
     return {"verdict": verdict, "workflow": workflow, "structure": structure, "mode": mode, "context": current, "findings": findings, "applied_rules": applied, "skipped_rules": skipped,
             "validation_warnings": valid["warnings"], "manual_review_completed": False,
-            "manual_review": ["Verify meaning, named entities, causal logic, and implied claims against the source/brief.", "Judge voice recognition without exaggerated quirks or invented errors.", "Review generic editorial patterns against scope, context, protected content, and the profile; preserve supported habits. This judgment was not executed by the checker.", "Check for paraphrased sample-fact leakage and invented dialect/biography.", "Review writer familiarity separately from provenance and factual confidence; substantiate personal learning/expertise claims."] +
+            "manual_review": ["Verify meaning, named entities, causal logic, comparisons, rankings, simultaneous events, and implied claims against the source/brief.", "Judge voice recognition without exaggerated quirks, invented errors, or editor-introduced uniformity.", "Review generic editorial patterns against scope, context, protected content, and the profile; preserve supported habits. This judgment was not executed by the checker.", "Assess paragraph purpose and any material content gap without inventing evidence or treating reader context as writer familiarity.", "Check for paraphrased sample-fact leakage and invented dialect/biography.", "Review writer familiarity separately from provenance and factual confidence; substantiate personal learning/expertise claims."] +
                              (["Account for every source argument, example, caveat, quotation, and citation; verify unchanged content outside any selection and requested file layout."] if workflow == "rewrite" else []),
             "limits": "Literal rules, coarse plain-text/Markdown structure, and narrow English heuristics only. Knowledge markers neither establish what the writer knows nor authenticate a literal baseline. No guarantee of complete coverage, binary-document layout, semantic equivalence, or voice similarity."}
 
@@ -714,6 +762,9 @@ def cli(argv=None):
     p.add_argument("--query", required=True)
     p.add_argument("--context", default="{}")
     p.add_argument("--limit", type=int, default=3)
+    p = commands.add_parser("inspect-text", help="Read-only Unicode format/space candidate inspection; not an authorship detector")
+    p.add_argument("--text", required=True)
+    p.add_argument("--output")
     args = parser.parse_args(argv)
     try:
         if args.command == "measure":
@@ -727,6 +778,13 @@ def cli(argv=None):
             write_text(args.output, render_profile(read_json(args.profile), args.allow_scaffold))
         elif args.command == "examples":
             output_json(retrieve(load_samples(args.manifest), args.query, json.loads(args.context), args.limit))
+        elif args.command == "inspect-text":
+            source_path = Path(args.text).resolve()
+            if args.output:
+                target_path = Path(args.output).resolve()
+                if target_path == source_path or (target_path.exists() and source_path.samefile(target_path)):
+                    raise ValueError("Inspection output must not overwrite or alias the source text")
+            output_json(inspect_text(read_text(source_path, preserve_bom=True)), args.output)
         else:
             profile = read_json(args.profile)
             if args.manifest:

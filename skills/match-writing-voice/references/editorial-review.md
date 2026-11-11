@@ -1,6 +1,16 @@
 # Editorial review that preserves the voice
 
-Use this reference during the final review of a draft/rewrite, or when asked to audit generic or AI-associated writing patterns. It is an editorial layer, not a detector of authorship. Its guidance is an original synthesis informed by [Avoid AI Writing](https://github.com/conorbronsdon/avoid-ai-writing/tree/30971f1c50c6412a0c414e8c7b15032a32b21939); see [provenance](provenance.md) and the [upstream license](upstream-license.md).
+Use this reference during the final review of a draft/rewrite, or when asked to audit generic or AI-associated writing patterns. It is an editorial layer, not a detector of authorship. It synthesizes selected ideas from Humanizer, Avoid AI Writing, De-Slop, and related skills; see the pinned [provenance](provenance.md) and [upstream notices](upstream-license.md).
+
+## Establish purpose before scanning words
+
+Identify the target writer or publisher, recipient, purpose, requested action, and matching voice evidence. Personal prose and organizational copy may need different profiles; neither pronouns nor the channel alone select the writer. Use a supplied guide in its existing readable format without requiring a new interview or JSON conversion. Ask only when conflicting targets materially change the result; do not search unrelated folders for personal profiles.
+
+Review the argument and paragraph functions before word choices. A passage may provide context, a claim, support, explanation, qualification, connection, an emotional response, a recap, or an ask. Judge whether it serves that function for this reader. Repeated dramatic setups, disconnected paragraphs, or a heading echoed in the opening sentence can waste attention even when no watch-list word appears. Repetition, uncertainty, a greeting, a feeling, or a transition can also do useful work; every sentence need not introduce a new fact.
+
+Keep **reader context** separate from **writer familiarity** and **information provenance**. A reader may already know background established in the supplied thread; that says nothing about whether the writer knew a researched fact. In a short reply, surface the decision or ask and keep the explanation needed to assess it. In a tutorial, preserve the necessary explanation. If the reader's background is unknown, do not assume expertise or erase useful context. In a full rewrite, required source details stay accounted for even when the reader knows them; condensation is a separate request.
+
+Choose the smallest justified edit depth. Cleanup repairs affected wording; an explicit voice rewrite may recast the whole requested passage. A structural concern is not permission to reorganize. Regular procedure steps, a brief notification, or a naturally even cadence need no artificial variation. Do not use pattern density, word counts, or a channel label to trigger an automatic full rewrite.
 
 ## Decide before editing
 
@@ -14,6 +24,16 @@ For each candidate, check:
 4. **Supported improvement:** Can the change improve this passage while preserving every claim, implication, qualification, and intended rhythm? If the fix would need a missing fact or personal experience, identify the gap rather than inventing an answer.
 
 Choose **edit**, **keep**, or **flag a gap**. A candidate becomes a finding only after these checks. Keep a sound passage unchanged when no justified edit or separately requested transformation remains.
+
+## Distinguish wording from missing substance
+
+A passage can have few stylistic issues and still fail its purpose. For a concerning span, distinguish:
+
+- **Supported point obscured by wording:** clarify what the source already says while preserving its force and qualifications.
+- **Missing evidence or required content:** identify the specific information needed. Preserve the source's claim and attribution unless the user authorizes correction/removal; do not manufacture a result, example, source, or opinion to fill the gap.
+- **Useful as written:** retain it, including deliberate roughness or repetition. Removing it may lose a condition, feeling, connection, emphasis, or reader orientation even when no new fact disappears.
+
+Ask internally what the reader would lose if the span vanished. This is a diagnostic question, not permission to delete it. Assess substance by purpose: an acknowledgment needs no statistic; a reflective feeling needs no measurable result; a complete notification need not contain an ask. Flag a gap only when the missing information matters to the requested outcome. No numerical humanness score or universal requirement for names, numbers, or opinions follows from this review.
 
 ## Useful patterns to inspect
 
@@ -47,6 +67,12 @@ For ordinary writing, perform this review internally and return the requested pr
 For an audit-only request, quote the relevant span, explain the actual concern, and distinguish justified findings from uncertain candidates. Report retained features when they explain a likely false positive. State whether an observation comes from model judgment or executed tooling. Do not rewrite, edit files, normalize punctuation, or store a lasting preference in audit mode.
 
 For a rewrite/edit, keep the original available. Review the completed result against it for meaning, attribution, values and units, negation, conditions, causality, uncertainty, personal claims, and protected content. Review voice separately: check for unwanted polish, invented errors, staccato conversion, and loss of supported repetition. Do not sharpen vague prose with facts from old style samples or fresh research unless that content was requested and supported.
+
+Check subtle relationships as well as literal values: comparisons and rankings, whether events overlap or follow one another, who acted, and whether the source actually states a cause. Two facts next to each other do not establish **because**, **therefore**, or where most time/cost went. Polishing cannot silently turn correlation into causation, a possibility into a promise, or mixed feelings into a single tidy judgment.
+
+Then compare the edits themselves. If every change introduces the same short/long rhythm, punchline, contraction, replacement word, or newly tidy resolution, revise that editor-imposed pattern toward the actual profile. Do not manufacture variability as another template. Restore a lost detail or supported habit even if the result retains a generic candidate.
+
+Honor **keep this**, **leave it**, or **stet** for the specified span through subsequent passes on the same piece; do not keep reporting it as an unresolved fault. A local exception is not a permanent profile preference and does not protect unrelated factual errors. Repeated choices can motivate an optional calibration suggestion, never an automatic profile change.
 
 Use one main editorial pass and, only when another justified change remains, one targeted correction pass. Stop editorial iteration when no justified in-scope edit remains or that budget is used; do not chase a zero-pattern score. Correct any introduced preservation damage from the original before delivery, or return the affected source unchanged with a concise explanation when a faithful result cannot be produced. Recheck after repairs rather than claiming a planned change occurred. Broader changes require new instructions or an actual unresolved task requirement, not repeated aesthetic tinkering.
 
