@@ -14,11 +14,11 @@ Use faithful mode unless cleanup/adaptation is requested. Preserve reliable irre
 
 Use natural frequencies. Occasional fragments, “like,” or spelling quirks do not belong in every sentence. A short output may have no relevant opportunity for a known irregularity. Do not insert random errors to make smooth prose appear human. If an ask-policy trait matters materially, ask; otherwise omit that uncertain feature without claiming resolution.
 
-For substantial/difficult work, internally compare source-close and voice-forward drafts. One draft is sufficient for a routine short message. Favor recognizable voice with minimal unsupported semantic movement.
+Plan around what each paragraph needs to do using the [editorial review](editorial-review.md). Give each opening, transition, and ending a job. Use the supplied points and matching voice to avoid stock setup or repeated summary from the start.
 
-Review for excess polish, caricature, context leakage, invented facts/experiences/relationships, changed certainty or commitments, negation drift, and source passages or anecdotes leaking into new prose. Ordinary short favorite expressions may fit; copied source sentences do not. Generic anti-AI advice cannot override a supported personal trait.
+For substantial or difficult work, internally compare source-close and voice-forward drafts. One draft is sufficient for a routine short message. Favor recognizable voice with minimal unsupported semantic movement.
 
-Apply the [editorial review](editorial-review.md) before finalizing. Judge generic filler, stock rhetoric, and unsupported emphasis against the actual profile, context, and source. Keep supported repetitions and rough edges; make no automatic word or punctuation substitutions. A request to audit only reports findings and does not authorize drafting a revision or editing a file.
+Before finalizing, fix justified editorial findings, including any generic phrasing introduced while matching the profile. Preserve the writer's effective repetitions and rough edges. Verify certainty, commitments, negation, and other source details, and check for invented facts, experiences, relationships, or leaked anecdotes. An audit-only request calls for findings.
 
 ## Checking and output
 

@@ -18,7 +18,7 @@ Writer-knowledge guidance was added from the user's requested refinement: task-l
 
 At the user's request, [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing/tree/30971f1c50c6412a0c414e8c7b15032a32b21939) informed the original [editorial review](editorial-review.md): candidate-versus-finding judgment, audit-only behavior, authorized scope, protected regions, context exceptions, bounded revision, honest execution claims, and resistance to generic polishing. Inspected the canonical skill and pattern catalog, plus its voice-preserving rewriter, preservation verifier, false-positive reviewer, license, and attribution notice. The upstream notice credits Mamdouh Aboammar (imMamdouhaboammar) for the focused workflow packaging.
 
-The synthesis keeps this skill's evidence-backed personal profile above generic cleanup. It does not import the upstream vocabulary tiers, typography ceilings, statistical claims, mandatory output templates, JavaScript detector, or quote-normalization command. No upstream code or instruction passage is copied; the [MIT license notice](upstream-license.md) is retained with the source acknowledgment. Editorial judgment is model-applied, and the Python checker does not execute that review. No detection score or authorship determination is introduced.
+The synthesis uses the evidence-backed personal profile to guide repairs to justified editorial findings. The review is model-applied and uses context to evaluate vocabulary and typography. The [MIT license notice](upstream-license.md) accompanies the source acknowledgment.
 
 ## Multi-skill editorial synthesis — 2026-11-10
 

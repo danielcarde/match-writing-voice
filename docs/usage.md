@@ -91,11 +91,10 @@ Import an actual named, dated detector run with exact text hashes and separate h
 
 ## Review generic phrasing without erasing the voice
 
-Drafts and rewrites receive a brief internal editorial review. It looks for stock framing, filler, inflated emphasis, accidental repetition, and manufactured personality. The matching-context profile and current instructions take priority over generic cleanup: supported **Overall**, repeated topic words, long sentences, or punctuation remain available. A necessary hedge or technical sense is not an automatic finding.
+Humanizer review guides drafts and rewrites from the start. The skill prioritizes fixing stock framing, filler, inflated emphasis, and accidental repetition within the requested scope. It uses the profile to choose how to express the same point. For example, it can drop an **Overall** recap that repeats the preceding sentence and keep **Overall** where it introduces a useful conclusion. Current instructions, confirmed preferences, source meaning, and protected wording govern the edits.
 
 ```text
-Use Match Writing Voice with my profile. Rewrite this in faithful mode,
-then review generic phrasing while preserving my supported habits.
+Use Match Writing Voice to rewrite this with my saved profile.
 Keep the facts, uncertainty, quotations, and original structure.
 ```
 

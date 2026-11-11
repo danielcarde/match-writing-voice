@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.0 — 2026-11-11
+
+- Made Humanizer review a default priority for planning and checking drafts and rewrites.
+- Used matching-context voice evidence to repair formulaic phrasing while preserving source meaning, protected wording, and purposeful voice habits.
+
 ## 0.6.0 — 2026-11-11
 
 - Added reproducible original/revision comparisons with exact edit spans, descriptive measurements, applicable voice evidence, matched-context baselines, and narrow preservation checks.
