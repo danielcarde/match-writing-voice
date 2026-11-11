@@ -40,6 +40,8 @@ For binary documents, use available extraction/editing tools. Verify extraction 
 
 Compare the source and result for every argument, example, factual value, citation, qualification, and implied commitment. Review natural voice application without exaggerated mistakes. Structure preservation outranks a profile's preference for short paragraphs or unusual formatting unless restructuring was requested.
 
+For a requested before/after comparison or edit record, use [revision review](revision-review.md) on the actual versions. Include applicable voice evidence and reasons for material edits; distinguish mechanical findings from editorial judgment. Retain full draft snapshots only when requested. Detector evaluation is a separate action with its own authorization boundary.
+
 Use the [editorial review](editorial-review.md) to assess remaining generic phrasing without overriding the profile or changing protected material. A cleanup-only request calls for justified local edits and may require no changes; an explicit voice transformation can recast editable prose more broadly while preserving content. Audit-only requests stop at findings. Do not rewrite a sound passage merely to demonstrate activity or reduce a pattern count.
 
 Optional checking:

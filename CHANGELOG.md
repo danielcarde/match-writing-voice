@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 — 2026-11-11
+
+- Added reproducible original/revision comparisons with exact edit spans, descriptive measurements, applicable voice evidence, matched-context baselines, and narrow preservation checks.
+- Added version-bound editorial annotations for edit reasons, unnecessary paraphrasing, and voice/meaning judgments, kept separate from mechanical checks.
+- Added opt-in local history with exact draft snapshots, an optional profile snapshot, hash verification, and overwrite protection.
+- Added offline import of named, dated detector results, with exact text hashes, separated origin groups, duplicate handling, uncertainty, and optional paired label transitions. No external scans or detector-performance claims are bundled.
+
 ## 0.5.0 — 2026-11-10
 
 - Added opt-in guided mode (“show options” / “open the picker”) for unresolved profile, task, editing-mode, and context choices. Direct requests stay direct; known inputs are reused.

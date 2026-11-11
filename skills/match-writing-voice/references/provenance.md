@@ -30,3 +30,11 @@ Further original guidance draws on:
 - [hannsxpeter/humanizer](https://github.com/hannsxpeter/humanizer/tree/e8f1248a7d4919689c1f942e356ed95b102d9f07): overcorrection veto, editor-imposed rhythm, subtle relationship drift, and conservative character inspection. Inspected the skill, do-not-flag and text-hygiene references, and license.
 
 All five editorial sources have retained [MIT notices](upstream-license.md). No implementation, instruction passage, or complete pattern catalog is copied. The optional read-only Unicode inspector is original Python code. It reports codepoints without removing them or claiming linguistic intent. No numerical humanness score, model-attribution heuristic, automatic rewrite threshold, fixed variance target, or assumed permission to invent stance is adopted. Concepts shared across these repositories do not represent independent empirical validation.
+
+## Revision review and detector evaluation — 2026-11-11
+
+- [AICL](https://github.com/ahafarag/aicl/tree/a1ae2092c40530f40e00a5dab98ea140f0d16b58): same-method before/after measurement, descriptive lexical/rhythm metrics, and explicit uncertainty about detector judgments.
+- [PADBen](https://github.com/JonathanZha47/PadBen-Paraphrase-Attack-Benchmark/tree/2bdc624b6536f63dbf90a10486aa6dc0b554d135): separate original authorship from paraphrase conditions; preserve known origin labels and compare matched examples.
+- [RAID](https://github.com/liamdugan/raid/tree/e8e23308f9f07a667ae8123b4d2bc8049bc61f84): held-out evaluation across model/genre conditions, known-human controls, and explicit reporting of error denominators.
+
+The [comparison and history tools](revision-review.md) and [detector-results import](detector-evaluation.md) are original standard-library implementations. No upstream code, instruction passages, dataset rows, classifier, or provider integration was copied or bundled. Pinned research sources inform methodology; they do not measure this skill's effect on a current detector. Report edits, editorial judgment, and supplied detector outcomes separately.

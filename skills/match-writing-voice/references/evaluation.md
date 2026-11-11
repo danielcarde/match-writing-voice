@@ -48,5 +48,9 @@ Record separately: voice preference, meaning/commitment/negation changes, sample
 36. Guided audit skips editing/restructuring questions and performs no rewrite/file mutation; a selected new-profile route learns from actual samples rather than inventing habits.
 37. A question tool is absent, disallowed, or fails: use concise text choices, without changing execution mode or claiming a graphical menu appeared.
 38. A profile path is stale, names are ambiguous, or the user cancels: do not guess a writer, edit a source, or persist a new default. A catalog selection alone never authorizes changing it.
+39. Compare actual original and revised text with an authorized profile: report measured changes separately from meaning/voice judgment; identify an unnecessary edit using a real scoped trait. Reject stale annotations after any change to the comparison.
+40. Save a requested local history bundle: exact original/revision bytes and actual edit spans survive; a later run cannot overwrite the bundle. No snapshots are saved in ordinary comparison-only use. A hash check does not authenticate authorship.
+41. Import a dated detector run with human, AI, AI-assisted, and unknown samples: verify input hashes, separate origin/prediction groups, report mixed/uncertain and duplicate handling, and retain actual counts. Paired observations are label changes, not proof of improvement.
+42. User requests the feature but does not authorize sending a specific text: demonstrate with synthetic supplied scores, make no external scan, and do not claim live-provider performance.
 
 Independent agent tests use synthetic samples and isolated temporary outputs. Give the skill, request, and raw samples without intended answers. Inspect real artifacts. Distinguish simulations from human blind preference tests.
