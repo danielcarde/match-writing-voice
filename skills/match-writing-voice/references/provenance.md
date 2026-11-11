@@ -13,3 +13,20 @@ Original implementation; no upstream scripts or instruction passages were copied
 Integrated additions: faithful/edit/adapt modes; hashed source spans; OCR uncertainty/exclusions; counterevidence/opportunity records; no forced quota; no-tools Markdown use. Analysis remains heuristic, not a grammar parser/dialect classifier. OCR relies on host capability. No training, account memory, or automatic cross-host installation is implied. Human evaluation is still needed for actual recognition.
 
 Writer-knowledge guidance was added from the user's requested refinement: task-local familiarity inferences are separate from research provenance and factual support. Optional draft checks flag common personal knowledge/experience/learning claims without pretending to determine what someone knows.
+
+## Editorial integration — 2026-11-10
+
+At the user's request, [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing/tree/30971f1c50c6412a0c414e8c7b15032a32b21939) informed the original [editorial review](editorial-review.md): candidate-versus-finding judgment, audit-only behavior, authorized scope, protected regions, context exceptions, bounded revision, honest execution claims, and resistance to generic polishing. Inspected the canonical skill and pattern catalog, plus its voice-preserving rewriter, preservation verifier, false-positive reviewer, license, and attribution notice. The upstream notice credits Mamdouh Aboammar (imMamdouhaboammar) for the focused workflow packaging.
+
+The synthesis keeps this skill's evidence-backed personal profile above generic cleanup. It does not import the upstream vocabulary tiers, typography ceilings, statistical claims, mandatory output templates, JavaScript detector, or quote-normalization command. No upstream code or instruction passage is copied; the [MIT license notice](upstream-license.md) is retained with the source acknowledgment. Editorial judgment is model-applied, and the Python checker does not execute that review. No detection score or authorship determination is introduced.
+
+## Multi-skill editorial synthesis — 2026-11-10
+
+Further original guidance draws on:
+
+- [blader/humanizer](https://github.com/blader/humanizer/tree/b48c832f0f809c1b5658edbb838c2521b72f2413): structure-first review, repeated setup, reader context, and checks for lost details. This is a newer revision than the repository's original presentation-research snapshot.
+- [isatimur/de-slop](https://github.com/isatimur/de-slop/tree/4349a8af4116d6f02b38d62f4b19e66108c4aada): wording versus missing substance, content-grounded sharpening, restraint, and stable no-op behavior. Inspected the skill, rubric, guardrails, and license.
+- [milock/humanizer](https://github.com/milock/humanizer/tree/ec66c203c0400481819fda9cb17a6f1c7977c975): publisher/channel conditioning, calibration, local keep/stet handling, and purpose-aware content gaps. Inspected the skill, channels, voice-calibration reference, and license.
+- [hannsxpeter/humanizer](https://github.com/hannsxpeter/humanizer/tree/e8f1248a7d4919689c1f942e356ed95b102d9f07): overcorrection veto, editor-imposed rhythm, subtle relationship drift, and conservative character inspection. Inspected the skill, do-not-flag and text-hygiene references, and license.
+
+All five editorial sources have retained [MIT notices](upstream-license.md). No implementation, instruction passage, or complete pattern catalog is copied. The optional read-only Unicode inspector is original Python code. It reports codepoints without removing them or claiming linguistic intent. No numerical humanness score, model-attribution heuristic, automatic rewrite threshold, fixed variance target, or assumed permission to invent stance is adopted. Concepts shared across these repositories do not represent independent empirical validation.

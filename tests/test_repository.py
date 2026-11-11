@@ -56,6 +56,24 @@ class RepositoryTests(unittest.TestCase):
             self.assertNotIn("match-writing-voice/agents/openai.yaml", z.namelist())
             self.assertIn("match-writing-voice/references/knowledge.md", z.namelist())
 
+    def test_editorial_guidance_and_upstream_notice_survive_all_packages(self):
+        outputs = build.build(self.path)
+        for path in outputs:
+            if path.suffix in {".zip", ".skill"}:
+                prefix = "match-writing-voice/" + ("skills/match-writing-voice/" if "plugin" in path.name else "")
+                with zipfile.ZipFile(path) as z:
+                    for name in ["editorial-review.md", "text-hygiene.md", "upstream-license.md"]:
+                        source = build.SKILL / "references" / name
+                        self.assertEqual(source.read_bytes(), z.read(prefix + "references/" + name))
+        portable = (self.path / "match-writing-voice-portable.md").read_text(encoding="utf-8")
+        # Portable instructions must resolve bundled links internally, not depend on source files.
+        for name in build.ROUTES:
+            self.assertNotIn("](" + name + ")", portable)
+            self.assertNotIn("](references/" + name + ")", portable)
+        license_body = (build.SKILL / "references/upstream-license.md").read_text(encoding="utf-8")
+        for notice in license_body.split("```text\n")[1:]:
+            self.assertIn(notice.split("```", 1)[0], portable)
+
     def test_dry_run_writes_nothing(self):
         result = installer.install("codex", "user", user_home=self.path, dry_run=True)
         self.assertFalse(result["written"])

@@ -2,6 +2,8 @@
 
 Judge what the draft can reasonably imply the writer knows. This is about the writer, not what the reader needs explained. The assistant's access to a fact and the writer's prior familiarity are independent.
 
+Separately judge the reader's needs from the current brief or supplied conversation. Shared thread context may justify a shorter reply; an introductory document may require background. Neither establishes the writer's expertise or a recent learning history. Apply the [editorial review](editorial-review.md) without silently removing required source detail or assuming an unknown reader needs no explanation.
+
 ## Keep three judgments separate
 
 For consequential claims, maintain a small task-local account of:

@@ -12,6 +12,8 @@ Learn how the writer expresses ideas, then express the current brief's ideas in 
 - **Learn / refresh:** read [learn.md](references/learn.md). Accept files, pasted prose, URLs, and image text when the host can read it. Small samples are usable with qualified conclusions.
 - **Write / revise:** read [write.md](references/write.md). If only samples exist, build a provisional profile and finish the writing in the same task.
 - **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. Treat the existing paragraph, essay, or document as the content source; the profile or separate samples supply voice. Preserve structure by default.
+- **Editorial review / audit:** read [editorial-review.md](references/editorial-review.md) to review generic phrasing while preserving the learned voice. Apply its short review before delivering drafts or rewrites. Audit-only requests report findings without editing; this is separate from the three editing modes.
+- **Copy/paste text artifacts:** when unusual spacing or invisible characters are relevant, read [text-hygiene.md](references/text-hygiene.md). Optional `inspect-text` reports codepoints without changing the source; preserve meaningful language and display characters.
 - **Knowledge and research:** when factual writing could imply personal expertise, familiarity, experience, or recent learning, use [knowledge.md](references/knowledge.md). Keep the writer's likely familiarity separate from how the assistant obtained the information.
 - **Correct:** apply a one-off correction locally. Update a lasting preference only when the user expresses it as reusable or confirms it, and only within its scope.
 - **Inspect / export:** use [profile-format.md](references/profile-format.md). Markdown works without Python; JSON enables the optional tools.
@@ -29,6 +31,7 @@ Do not restart onboarding when information is already supplied. Infer routine ch
 6. Respect actual host capabilities. Mark uncertain OCR spans; transcription punctuation is not a personal habit. No bundled OCR engine or binary document converter is implied.
 7. Profiles are files, not training or account memory. Save requested profiles in the user's workspace/destination, separate from installed skill files. Do not silently copy raw corpora, install hooks, change settings, or retrieve unrelated conversations.
 8. Research by the assistant does not establish that information is new to the writer. Make qualified familiarity inferences from relevant context, never from grammar or tone alone. Do not invent expertise, firsthand experience, or a learning history; factual confidence depends on evidence, not assumed familiarity.
+9. Editorial patterns are candidates for judgment, not authorship evidence or automatic deletions. Check scope, context, protected content, and the profile before changing a match. Keep intentional repetition, technical senses, necessary uncertainty, and supported rough edges. Do not replace a personal voice with a generic polished or deliberately choppy style.
 
 ## Rewrite mode
 
@@ -58,6 +61,7 @@ python scripts/voice_tools.py check --profile profile.json --draft draft.txt --c
 python scripts/voice_tools.py check --profile profile.json --draft revision.txt --source original.txt --manifest samples.json --protect "Project Cedar"
 python scripts/voice_tools.py check --profile profile.json --draft revision.txt --source original.txt --workflow rewrite --structure preserve
 python scripts/voice_tools.py examples --manifest samples.json --query "reschedule a meeting" --context '{"medium":"email"}'
+python scripts/voice_tools.py inspect-text --text draft.txt --output hygiene.json
 ```
 
 `measure` creates an **unfinished evidence scaffold**, not a learned voice. Add interpreted, evidenced traits before claiming readiness. `validate --manifest` verifies exact source hashes/spans. `check` returns exit 1 for blocking findings, 0 for pass/review, 2 for input errors. Review requires judgment. PASS proves neither semantic equivalence nor voice recognition.
