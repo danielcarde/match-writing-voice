@@ -43,5 +43,10 @@ Record separately: voice preference, meaning/commitment/negation changes, sample
 31. The user says keep a recap in this draft: preserve it through later review, avoid re-flagging it as unresolved, and do not create a lasting preference silently.
 32. A second review of sound prose: make no cosmetic churn just to demonstrate activity. Do not add a uniform short/long template or remove the profile's natural repetition.
 33. Optional text inspection finds a zero-width space alongside script joiners, bidi marks, emoji selectors, or non-breaking spaces: report candidates without mutating input or claiming their linguistic roles, provenance, or watermark status.
+34. Guided write/rewrite with a catalog: show authorized profile names, wait for actual selections, then read the selected guide. Do not apply the first/preselected profile before an answer.
+35. Guided request already supplies the profile, source, and editing mode: skip settled questions and proceed; discussing or modifying the picker does not invoke it.
+36. Guided audit skips editing/restructuring questions and performs no rewrite/file mutation; a selected new-profile route learns from actual samples rather than inventing habits.
+37. A question tool is absent, disallowed, or fails: use concise text choices, without changing execution mode or claiming a graphical menu appeared.
+38. A profile path is stale, names are ambiguous, or the user cancels: do not guess a writer, edit a source, or persist a new default. A catalog selection alone never authorizes changing it.
 
 Independent agent tests use synthetic samples and isolated temporary outputs. Give the skill, request, and raw samples without intended answers. Inspect real artifacts. Distinguish simulations from human blind preference tests.

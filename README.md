@@ -27,6 +27,8 @@ The review also incorporates selected ideas from Humanizer, De-Slop, and related
 
 ## Start here
 
+Prefer choices? After installation, ask **“Use Match Writing Voice in guided mode”** to pick a profile, task, editing mode, and context. Known settings are skipped; ordinary direct prompts still work. The host supplies question cards when available, with a text-menu fallback. [Guided picker and local profile catalog →](docs/usage.md#optional-guided-picker)
+
 Clone this private repository with an authenticated GitHub account:
 
 ```sh

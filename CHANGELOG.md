@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 — 2026-11-10
+
+- Added opt-in guided mode (“show options” / “open the picker”) for unresolved profile, task, editing-mode, and context choices. Direct requests stay direct; known inputs are reused.
+- Uses permitted host question controls with a short text-menu fallback, actual-answer waiting, cancellation, and no automatic source/profile mutation.
+- Added an optional user-local profile catalog convention for named selection without packaging personal paths or samples. Selection is chat/task-local and does not create a persistent default.
+- Included guided instructions in native/portable distributions and broadened package checks to every reference route. No new CLI flags or graphical app are introduced.
+
 ## 0.4.0 — 2026-11-10
 
 - Compared Humanizer, Avoid AI Writing, De-Slop, and two related Humanizer skills at pinned revisions, retaining all five MIT notices and documenting adopted/omitted choices.
