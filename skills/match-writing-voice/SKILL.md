@@ -12,6 +12,7 @@ Learn how the writer expresses ideas, then express the current brief's ideas in 
 - **Learn / refresh:** read [learn.md](references/learn.md). Accept files, pasted prose, URLs, and image text when the host can read it. Small samples are usable with qualified conclusions.
 - **Write / revise:** read [write.md](references/write.md). If only samples exist, build a provisional profile and finish the writing in the same task.
 - **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. Treat the existing paragraph, essay, or document as the content source; the profile or separate samples supply voice. Preserve structure by default.
+- **Editorial review / audit:** read [editorial-review.md](references/editorial-review.md) to review generic phrasing while preserving the learned voice. Apply its short review before delivering drafts or rewrites. Audit-only requests report findings without editing; this is separate from the three editing modes.
 - **Knowledge and research:** when factual writing could imply personal expertise, familiarity, experience, or recent learning, use [knowledge.md](references/knowledge.md). Keep the writer's likely familiarity separate from how the assistant obtained the information.
 - **Correct:** apply a one-off correction locally. Update a lasting preference only when the user expresses it as reusable or confirms it, and only within its scope.
 - **Inspect / export:** use [profile-format.md](references/profile-format.md). Markdown works without Python; JSON enables the optional tools.
@@ -29,6 +30,7 @@ Do not restart onboarding when information is already supplied. Infer routine ch
 6. Respect actual host capabilities. Mark uncertain OCR spans; transcription punctuation is not a personal habit. No bundled OCR engine or binary document converter is implied.
 7. Profiles are files, not training or account memory. Save requested profiles in the user's workspace/destination, separate from installed skill files. Do not silently copy raw corpora, install hooks, change settings, or retrieve unrelated conversations.
 8. Research by the assistant does not establish that information is new to the writer. Make qualified familiarity inferences from relevant context, never from grammar or tone alone. Do not invent expertise, firsthand experience, or a learning history; factual confidence depends on evidence, not assumed familiarity.
+9. Editorial patterns are candidates for judgment, not authorship evidence or automatic deletions. Check scope, context, protected content, and the profile before changing a match. Keep intentional repetition, technical senses, necessary uncertainty, and supported rough edges. Do not replace a personal voice with a generic polished or deliberately choppy style.
 
 ## Rewrite mode
 

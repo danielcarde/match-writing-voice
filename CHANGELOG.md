@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 — 2026-11-10
+
+- Integrated a profile-aware editorial review informed by Avoid AI Writing, with pinned provenance and the upstream MIT notice.
+- Added candidate/context/protection checks, audit-only behavior, justified local cleanup, bounded review, and no-op handling without overriding supported vocabulary, rhythm, repetition, or imperfections.
+- Included the review in writing/rewrite guidance, standalone profile exports, portable guides, and native packages. Existing profile schemas and checker verdicts remain compatible.
+- Kept review model-applied: no upstream detector, global blacklist, typography quota, authorship score, or detector-acceptance guarantee is bundled.
+
 ## 0.2.0 — 2026-11-09
 
 - Added an explicit rewrite workflow for paragraphs, essays, documents, and selected passages.

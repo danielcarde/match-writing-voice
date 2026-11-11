@@ -16,6 +16,8 @@ For substantial/difficult work, internally compare source-close and voice-forwar
 
 Review for excess polish, caricature, context leakage, invented facts/experiences/relationships, changed certainty or commitments, negation drift, and source passages or anecdotes leaking into new prose. Ordinary short favorite expressions may fit; copied source sentences do not. Generic anti-AI advice cannot override a supported personal trait.
 
+Apply the [editorial review](editorial-review.md) before finalizing. Judge generic filler, stock rhetoric, and unsupported emphasis against the actual profile, context, and source. Keep supported repetitions and rough edges; make no automatic word or punctuation substitutions. A request to audit only reports findings and does not authorize drafting a revision or editing a file.
+
 ## Checking and output
 
 Use check with --source only for an actual original draft. Repeat --protect for literal names/strings that must survive. --manifest enables long phrase-overlap checks. Optional --author-context accepts the user's explicit current-task statements about their own knowledge/experience; it is not a place for retrieved articles or raw style samples. Narrow English heuristics flag newly introduced personal knowledge/experience/learning claims for review, not automatic removal. The tool cannot catch all paraphrased source facts or establish meaning equivalence; review those manually.

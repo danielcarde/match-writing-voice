@@ -15,10 +15,12 @@ SKILL = ROOT / "skills" / SKILL_NAME
 ROUTES = {"learn.md": ("Learning a voice", "learning-a-voice"),
           "write.md": ("Writing in a voice", "writing-in-a-voice"),
           "rewrite.md": ("Rewrite existing content", "rewrite-existing-content"),
+          "editorial-review.md": ("Editorial review that preserves the voice", "editorial-review-that-preserves-the-voice"),
           "knowledge.md": ("Writer knowledge", "writer-knowledge"),
           "profile-format.md": ("Profile format", "profile-format"),
           "evaluation.md": ("Evaluation", "evaluation"),
-          "provenance.md": ("Design provenance", "design-provenance")}
+          "provenance.md": ("Design provenance", "design-provenance"),
+          "upstream-license.md": ("Upstream license", "upstream-license")}
 
 
 def source_files():

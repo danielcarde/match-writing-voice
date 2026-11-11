@@ -73,5 +73,21 @@
       "tag": "v7.0.2",
       "commit": "cf430e030ddbb5b0abf93d22962f4752f3646cd9"
     }
-  ]
+  ],
+  "editorial_integration": {
+    "inspected_on": "2026-11-10",
+    "repo": "conorbronsdon/avoid-ai-writing",
+    "sha": "30971f1c50c6412a0c414e8c7b15032a32b21939",
+    "license": "MIT",
+    "files": [
+      "SKILL.md",
+      "references/patterns.md",
+      "skills/voice-preserving-rewriter/SKILL.md",
+      "skills/preservation-verifier/SKILL.md",
+      "skills/false-positive-reviewer/SKILL.md",
+      "NOTICE.md",
+      "LICENSE"
+    ],
+    "integration": "Original profile-aware editorial guidance; no upstream detector or wordlist copied."
+  }
 }

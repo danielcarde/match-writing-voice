@@ -46,6 +46,30 @@ python skills/match-writing-voice/scripts/voice_tools.py check --profile .local/
 
 Replace `preserve` with `restructure` only if you authorized restructuring. The checker flags coarse plain-text/Markdown structural changes, citation-marker loss, changed fenced code, and substantial shortening. Full content coverage, selected-range integrity, and formatted-document layout still require model/host review. It checks a rewrite; it does not generate one.
 
+## Review generic phrasing without erasing the voice
+
+Drafts and rewrites receive a brief internal editorial review. It looks for stock framing, filler, inflated emphasis, accidental repetition, and manufactured personality. The matching-context profile and current instructions take priority over generic cleanup: supported **Overall**, repeated topic words, long sentences, or punctuation remain available. A necessary hedge or technical sense is not an automatic finding.
+
+```text
+Use Match Writing Voice with my profile. Rewrite this in faithful mode,
+then review generic phrasing while preserving my supported habits.
+Keep the facts, uncertainty, quotations, and original structure.
+```
+
+For feedback without a revision:
+
+```text
+Audit this document for generic or AI-associated phrasing using my profile.
+Quote justified findings and explain uncertain candidates.
+Do not rewrite it, edit the file, or update my profile.
+```
+
+Audit is an action, separate from faithful/lightly_edited/adapted editing modes. Cleanup makes justified local edits; broader voice transformation or restructuring needs the corresponding request. Protected quotations, code, tables, URLs, identifiers, and citation data stay intact unless specifically placed in scope. A clean passage can remain unchanged.
+
+This layer synthesizes selected ideas from [Avoid AI Writing](https://github.com/conorbronsdon/avoid-ai-writing/tree/30971f1c50c6412a0c414e8c7b15032a32b21939). It does not install that project's detector, import its entire catalog, or normalize punctuation to a generic house style. Review is model-applied; the Python checker still performs its documented narrow mechanical checks. No word list, score, or successful review proves authorship or guarantees detector acceptance. See the [editorial decision process](../skills/match-writing-voice/references/editorial-review.md).
+
+Existing JSON profiles remain compatible. Re-render one with the updated helper to include the general editorial instructions in its exported Markdown; no new writing samples or retraining are needed.
+
 ## Set familiarity explicitly when useful
 
 ```text
