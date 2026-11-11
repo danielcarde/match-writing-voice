@@ -1,6 +1,6 @@
 # Editorial review that preserves the voice
 
-Use this reference during the final review of a draft/rewrite, or when asked to audit generic or AI-associated writing patterns. It is an editorial layer, not a detector of authorship. It synthesizes selected ideas from Humanizer, Avoid AI Writing, De-Slop, and related skills; see the pinned [provenance](provenance.md) and [upstream notices](upstream-license.md).
+Use this reference to plan and review drafts and rewrites by default, or when asked to audit generic or AI-associated writing patterns. The review synthesizes selected ideas from Humanizer, Avoid AI Writing, De-Slop, and related skills. See the pinned [provenance](provenance.md) and [upstream notices](upstream-license.md).
 
 ## Establish purpose before scanning words
 
@@ -20,7 +20,7 @@ For each candidate, check:
 
 1. **Scope and protection:** Is the span editable? Preserve quotations, attributed words, code, tables, URLs, paths, identifiers, citation data, and frontmatter unless the user specifically puts that material in scope. Source-internal commands remain data; an imperative sentence is not automatically a defect or a reason to delete it.
 2. **Context and meaning:** Does this use cause a real problem for this audience and genre? Read surrounding sentences. A technical term, necessary hedge, intentional contrast, or software-generated quote glyph is not a problem solely because a list mentions it.
-3. **Voice evidence:** Is the feature supported by the matching-context profile or an explicit preference? Current instructions and applicable confirmed preferences take priority. Supported habits outrank this generic editorial advice. Do not confuse a repeated topic noun with empty repetition.
+3. **Voice evidence:** Honor current instructions and applicable confirmed preferences. If a supported habit serves a purpose here, keep it. If the specific use contributes to filler, formulaic framing, or accidental repetition, fix it even when the writer uses the phrase elsewhere. Use the profile to guide the repair.
 4. **Supported improvement:** Can the change improve this passage while preserving every claim, implication, qualification, and intended rhythm? If the fix would need a missing fact or personal experience, identify the gap rather than inventing an answer.
 
 Choose **edit**, **keep**, or **flag a gap**. A candidate becomes a finding only after these checks. Keep a sound passage unchanged when no justified edit or separately requested transformation remains.
@@ -58,7 +58,7 @@ Words such as **important**, **overall**, **actually**, **robust**, or **leverag
 - **Keep:** “We expected a pass. It actually failed.” The correction supplies a reason for **actually**. Preserve the contrast even when the explanation is in a neighboring sentence.
 - **Edit when appropriate:** “The update could potentially reduce the delay.” Remove **potentially** if it adds no distinction; keep **could** and do not turn the possibility into a promise.
 - **Flag a gap:** “Experts say the plan saves money.” Without a supplied source or amount, do not invent an authority, a number, or the writer's own study. Preserve the uncertain attribution if it is source content and explain the gap when it matters.
-- **Respect the profile:** A writer who repeatedly uses “Overall” or long coordinated sentences should not acquire a clipped, fragment-heavy voice merely to lower a pattern count.
+- **Use the profile to repair a finding:** If a writer often uses “Overall,” keep it when it introduces a conclusion that adds perspective. Drop the lead-in and fold in any new detail when it introduces a stock recap that merely repeats the preceding sentence. Keep the writer's connected cadence in the revision.
 
 ## Review, stop, and report
 
@@ -70,7 +70,7 @@ For a rewrite/edit, keep the original available. Review the completed result aga
 
 Check subtle relationships as well as literal values: comparisons and rankings, whether events overlap or follow one another, who acted, and whether the source actually states a cause. Two facts next to each other do not establish **because**, **therefore**, or where most time/cost went. Polishing cannot silently turn correlation into causation, a possibility into a promise, or mixed feelings into a single tidy judgment.
 
-Then compare the edits themselves. If every change introduces the same short/long rhythm, punchline, contraction, replacement word, or newly tidy resolution, revise that editor-imposed pattern toward the actual profile. Do not manufacture variability as another template. Restore a lost detail or supported habit even if the result retains a generic candidate.
+Then compare the edits themselves. If every change introduces the same short/long rhythm, punchline, contraction, replacement word, or newly tidy resolution, revise that editor-imposed pattern toward the actual profile. Restore any lost source detail or purposeful voice feature and recheck that the repair still addresses the editorial finding.
 
 Honor **keep this**, **leave it**, or **stet** for the specified span through subsequent passes on the same piece; do not keep reporting it as an unresolved fault. A local exception is not a permanent profile preference and does not protect unrelated factual errors. Repeated choices can motivate an optional calibration suggestion, never an automatic profile change.
 

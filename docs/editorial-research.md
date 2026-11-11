@@ -12,7 +12,7 @@ Inspected November 10, 2026. This is a design comparison, not a benchmark or a r
 
 ## Fit with Match Writing Voice
 
-The personal profile remains above generic editorial advice. Repetition, long coordinated sentences, ordinary words such as **Overall** and **important**, and supported imperfections can remain. A voice transfer is not a cleanup-only request; editing depth follows the actual action requested. Explicit user preferences continue to outrank observed habits within their scopes.
+The skill prioritizes fixing context-specific editorial findings and uses the personal profile to guide the repair. Useful repetitions, long coordinated sentences, and supported imperfections remain available. Editing depth follows the requested action. Explicit user preferences take priority within their scopes.
 
 Three content judgments stay separate: what the writer likely knows, what the reader needs explained, and where a claim came from. Shared reader context cannot establish writer expertise, and newly retrieved material cannot create a claim that the writer just learned it. Source details remain accounted for during a complete rewrite even when they would be unnecessary in a short reply.
 
