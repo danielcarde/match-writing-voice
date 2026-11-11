@@ -18,6 +18,10 @@ import voice_tools as voice
 
 ORIGINS = ("human", "ai", "ai_assisted", "unknown")
 PREDICTIONS = ("human", "ai", "ai_paraphrased", "mixed", "uncertain")
+DETECTOR_FIELDS = {
+    "paraphrasing_badge": ("present", "absent"),
+    "score_state": ("zero", "suppressed", "reported"),
+}
 PURPOSES = ("voice", "clarity", "grammar", "format", "authorized_content_change", "unnecessary", "uncertain")
 MAX_DIFF_UNITS = 100_000
 SNAPSHOT_NAMES = {"original.txt", "revision.txt", "comparison.json", "profile.json"}
@@ -321,6 +325,11 @@ def wilson_interval(positive, total):
     return [round(max(0, (center - radius) / denominator), 6), round(min(1, (center + radius) / denominator), 6)]
 
 
+def transition_counts(transitions):
+    return [{"baseline": before, "candidate": after, "count": count}
+            for (before, after), count in sorted(Counter(transitions).items())]
+
+
 def paired_observations(groups):
     pairs, incomplete, duplicates = [], [], []
     seen = {}
@@ -334,15 +343,33 @@ def paired_observations(groups):
             duplicates.append({"pair_id": pid, "duplicate_of": seen[key]})
             continue
         seen[key] = pid
-        pairs.append({"pair_id": pid, "baseline_id": before["id"], "candidate_id": after["id"],
+        entry = {"pair_id": pid, "baseline_id": before["id"], "candidate_id": after["id"],
                       "baseline_origin": before["known_origin"], "candidate_origin": after["known_origin"],
                       "baseline_prediction": before["prediction"], "candidate_prediction": after["prediction"],
-                      "identical_bytes": before["sha256"] == after["sha256"]})
+                      "identical_bytes": before["sha256"] == after["sha256"]}
+        for field in DETECTOR_FIELDS:
+            if field in before or field in after:
+                entry[field] = {"baseline": before.get(field), "candidate": after.get(field)}
+        pairs.append(entry)
     return {"complete_pairs": len(pairs), "incomplete_pair_ids": incomplete, "pairs": pairs,
             "exact_duplicate_pairs_excluded": duplicates,
+            "prediction_transitions": transition_counts(
+                (pair["baseline_prediction"], pair["candidate_prediction"]) for pair in pairs
+            ),
             "paraphrasing_flag_only_at_baseline": sum(p["baseline_prediction"] == "ai_paraphrased" and p["candidate_prediction"] != "ai_paraphrased" for p in pairs),
             "paraphrasing_flag_only_at_candidate": sum(p["baseline_prediction"] != "ai_paraphrased" and p["candidate_prediction"] == "ai_paraphrased" for p in pairs),
             "limits": "User-declared pairs show label transitions only; a change is not automatically an improvement or a correct decision."}
+
+
+def detector_field_summary(records, pairs, field, values):
+    counts = {origin: dict.fromkeys((*values, "unrecorded"), 0) for origin in ORIGINS}
+    for row in records:
+        counts[row["known_origin"]][row.get(field, "unrecorded")] += 1
+    transitions = transition_counts(
+        (pair[field]["baseline"] or "unrecorded", pair[field]["candidate"] or "unrecorded")
+        for pair in pairs if field in pair
+    )
+    return {"counts_by_origin": counts, "paired_transitions": transitions}
 
 
 def evaluate_results(path, output=None):
@@ -382,10 +409,22 @@ def evaluate_results(path, output=None):
         record = {"id": sid, "sha256": expected, "known_origin": origin, "prediction": prediction, "raw_label": raw_label}
         if "reported_score" in item:
             record["reported_score"] = nonempty(item["reported_score"], f"{sid} reported_score")
+        for field, values in DETECTOR_FIELDS.items():
+            if field in item:
+                record[field] = one_of(item[field], values, f"{sid} {field}")
+        score_state = record.get("score_state")
+        if score_state == "suppressed" and prediction != "uncertain":
+            raise ValueError(f"{sid}: a suppressed score requires an uncertain prediction")
+        if score_state == "zero" and prediction != "human":
+            raise ValueError(f"{sid}: a zero score requires the unflagged prediction 'human'")
         if expected in by_hash:
             first = by_hash[expected]
             if (origin, prediction) != (first["known_origin"], first["prediction"]):
                 raise ValueError(f"{sid}: duplicate bytes have conflicting origins or predictions; review records separately")
+            for field in DETECTOR_FIELDS.keys() & record.keys():
+                if field in first and first[field] != record[field]:
+                    raise ValueError(f"{sid}: duplicate bytes have conflicting {field}; review records separately")
+                first[field] = record[field]
             duplicates.append({"id": sid, "duplicate_of": first["id"]})
             record = first
         else:
@@ -402,11 +441,14 @@ def evaluate_results(path, output=None):
     human = counts["human"]
     total = sum(human.values())
     flagged = human["ai"] + human["ai_paraphrased"]
+    paired = paired_observations(pair_groups) if pair_groups else None
+    fields = {field: detector_field_summary(accepted, paired["pairs"] if paired else (), field, values)
+              for field, values in DETECTOR_FIELDS.items() if any(field in row for row in accepted)}
     return {"schema_version": 1, "kind": "supplied_detector_evaluation", "detector": meta,
             "network_calls": 0, "results_source": "supplied_not_independently_verified", "text_hashes_verified": True,
             "sample_count": len(accepted), "exact_duplicates_excluded": duplicates, "records": accepted,
             "counts_by_origin_and_prediction": counts,
-            "paired_observations": paired_observations(pair_groups) if pair_groups else None,
+            "paired_observations": paired, "provider_observations": fields,
             "human_baseline": {"count": total, "definite_ai_flags": flagged, "mixed": human["mixed"],
                                "uncertain": human["uncertain"], "paraphrasing_flags": human["ai_paraphrased"],
                                "definite_ai_flag_fraction": round(flagged / total, 6) if total else None,
@@ -429,6 +471,7 @@ def cli(argv=None):
     p.add_argument("--mode", choices=sorted(voice.MODES))
     p.add_argument("--structure", choices=["preserve", "restructure"], default="preserve")
     p.add_argument("--protect", action="append", default=[])
+    p.add_argument("--protect-file", help="JSON object with a spans array of exact text to protect")
     p.add_argument("--author-context")
     p.add_argument("--source-origin", choices=ORIGINS, default="unknown")
     p.add_argument("--draft-origin", choices=ORIGINS, default="unknown")
@@ -449,7 +492,7 @@ def cli(argv=None):
         if args.command == "evaluate-detector":
             emit(evaluate_results(args.results, args.output), args.output)
             return 0
-        inputs = [args.source, args.draft, args.profile, args.manifest, args.review, args.author_context]
+        inputs = [args.source, args.draft, args.profile, args.manifest, args.review, args.author_context, args.protect_file]
         if args.manifest:
             base = Path(args.manifest).resolve().parent
             entries = voice.read_json(args.manifest).get("samples", [])
@@ -460,7 +503,8 @@ def cli(argv=None):
         draft = voice.read_text(args.draft, preserve_bom=True)
         profile = voice.read_json(args.profile) if args.profile else None
         report = comparison(source, draft, profile=profile, manifest=args.manifest, current=json.loads(args.context),
-                            mode=args.mode, structure=args.structure, protected=args.protect,
+                            mode=args.mode, structure=args.structure,
+                            protected=voice.load_protected(args.protect, args.protect_file, source.removeprefix("\ufeff")),
                             author_context=voice.read_text(args.author_context) if args.author_context else None,
                             source_origin=args.source_origin, draft_origin=args.draft_origin,
                             review=voice.read_json(args.review) if args.review else None)

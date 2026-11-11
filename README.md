@@ -19,7 +19,7 @@ Turn real writing samples into a reusable voice profile, then use that profile t
 
 The skill also distinguishes the writer's likely familiarity from the assistant's research. It can make qualified inferences about familiarity without inventing expertise, personal experience, or a claim that the writer just learned something.
 
-**Rewrite mode** transforms an existing paragraph, essay, or document into the target voice. Keep its structure by default, or explicitly allow restructuring, while preserving its meaning and details. [Rewrite controls and examples →](docs/usage.md#rewrite-existing-content)
+**Rewrite mode** transforms an existing paragraph, essay, or document into the target voice. Choose minimal edits, a standard rewrite, or paragraph-level restructuring. Protect exact citations, equations, and technical terms when comparing versions. [Rewrite controls and examples →](docs/usage.md#rewrite-existing-content)
 
 **Humanizer review** is a default priority for drafts and rewrites. It fixes stock openings, empty recaps, and formulaic phrasing where they weaken the prose, using the learned voice to shape the repair. You can also request an audit on its own. [How review works →](docs/usage.md#review-generic-phrasing-without-erasing-the-voice)
 

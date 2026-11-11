@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0 — 2026-11-11
+
+- Added selectable minimal edits and paragraph-level restructuring alongside standard rewrites.
+- Added exact protected-span inventories and occurrence checks to the rewrite checker and comparison reports.
+- Added a held-out rewrite benchmark protocol and separate tracking for GPTZero's paraphrasing badge and Turnitin's score states.
+
 ## 0.7.0 — 2026-11-11
 
 - Made Humanizer review a default priority for planning and checking drafts and rewrites.

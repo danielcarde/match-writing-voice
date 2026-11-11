@@ -273,6 +273,52 @@ class RevisionToolsTests(unittest.TestCase):
         self.assertEqual(2, result.returncode)
         self.assertEqual(before, source.read_bytes())
 
+    def test_compare_uses_protection_file_and_does_not_overwrite_it(self):
+        self.source.write_text("LabGate opened. LabGate closed.", encoding="utf-8")
+        self.draft.write_text("LabGate opened and closed.", encoding="utf-8")
+        inventory = self.json("protected.json", {"spans": ["LabGate"]})
+        result = self.compare("--protect-file", inventory)
+        self.assertEqual(1, result.returncode)
+        self.assertIn("protected_text_count_drift", result.stdout)
+        original = inventory.read_bytes()
+        result = self.compare("--protect-file", inventory, "--output", inventory)
+        self.assertEqual(2, result.returncode)
+        self.assertEqual(original, inventory.read_bytes())
+
+    def test_provider_badge_transitions_are_independent_of_overall_predictions(self):
+        rows = self.detector_rows()
+        rows[0].update(prediction="ai", raw_label="ai", pair_id="draft", variant="baseline")
+        rows[3].update(prediction="ai", raw_label="ai", pair_id="draft", variant="candidate", paraphrasing_badge="absent")
+        rows.append({**rows[0], "id": "same-scan-with-badge", "paraphrasing_badge": "present"})
+        del rows[-1]["pair_id"], rows[-1]["variant"]
+        report = self.decode(self.run_tool("evaluate-detector", "--results", self.detector_input(rows)))
+        self.assertEqual([{"baseline": "ai", "candidate": "ai", "count": 1}],
+                         report["paired_observations"]["prediction_transitions"])
+        badge = report["provider_observations"]["paraphrasing_badge"]
+        self.assertEqual([{"baseline": "present", "candidate": "absent", "count": 1}], badge["paired_transitions"])
+        self.assertEqual(2, badge["counts_by_origin"]["human"]["unrecorded"])
+        rows.append({**rows[-1], "id": "conflict", "paraphrasing_badge": "absent"})
+        result = self.run_tool("evaluate-detector", "--results", self.detector_input(rows))
+        self.assertEqual(2, result.returncode)
+        self.assertIn("conflicting paraphrasing_badge", result.stderr)
+
+    def test_suppressed_score_remains_distinct_from_zero_and_a_reported_positive(self):
+        rows = self.detector_rows()[:3]
+        rows[0].update(prediction="uncertain", raw_label="*%", reported_score="*%", score_state="suppressed",
+                       pair_id="essay", variant="baseline")
+        rows[1].update(prediction="human", raw_label="0%", reported_score="0%", score_state="zero",
+                       pair_id="essay", variant="candidate")
+        rows[2].update(prediction="ai", raw_label="35%", reported_score="35%", score_state="reported")
+        report = self.decode(self.run_tool("evaluate-detector", "--results", self.detector_input(rows)))
+        states = report["provider_observations"]["score_state"]
+        self.assertEqual({"zero": 1, "suppressed": 1, "reported": 1, "unrecorded": 0}, states["counts_by_origin"]["human"])
+        self.assertEqual([{"baseline": "suppressed", "candidate": "zero", "count": 1}], states["paired_transitions"])
+        self.assertEqual(1, report["human_baseline"]["definite_ai_flags"])
+        rows[0]["prediction"] = "human"
+        result = self.run_tool("evaluate-detector", "--results", self.detector_input(rows))
+        self.assertEqual(2, result.returncode)
+        self.assertIn("suppressed score", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

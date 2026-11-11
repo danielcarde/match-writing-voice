@@ -14,7 +14,7 @@ For drafts and rewrites, prioritize the Humanizer [editorial review](references/
 - **Guided picker (optional):** when the user says “guided mode,” “show options,” “open the picker,” or asks to choose settings interactively, read [guided-mode.md](references/guided-mode.md). Use available question controls for missing choices; direct requests continue without a wizard.
 - **Learn / refresh:** read [learn.md](references/learn.md). Accept files, pasted prose, URLs, and image text when the host can read it. Small samples are usable with qualified conclusions.
 - **Write / revise:** read [write.md](references/write.md). If only samples exist, build a provisional profile and finish the writing in the same task.
-- **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. Treat the existing paragraph, essay, or document as the content source; the profile or separate samples supply voice. Preserve structure by default.
+- **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. The draft supplies content and the profile or samples supply voice. Choose minimal edits, a standard rewrite, or paragraph-level restructuring as requested. Preserve structure by default.
 - **Compare revisions / track edits:** read [revision-review.md](references/revision-review.md) for an evidence-based before/after review and optional local history. Separate measured changes, editorial judgments, and supplied origin labels. Save full draft snapshots only when requested.
 - **Evaluate detector results:** read [detector-evaluation.md](references/detector-evaluation.md) for versioned, controlled tests and offline analysis of supplied results. Sending any text to an external detector requires explicit authorization for that service and text. No detector score defines voice quality.
 - **Humanizer / editorial audit:** read [editorial-review.md](references/editorial-review.md) for the default draft and rewrite workflow or a standalone audit. Audit-only requests report findings without editing. Editorial priority is independent of the three editing modes.
@@ -26,7 +26,7 @@ For drafts and rewrites, prioritize the Humanizer [editorial review](references/
 
 Do not restart onboarding when information is already supplied. Infer routine choices; ask only about ambiguity that materially changes the target author, voice, or meaning. Return prose directly unless analysis is requested or an unresolved limitation matters.
 
-An explicit guided request makes the requested choices relevant: offer profile, task, editing, and context as needed, skipping settled fields unless the user asks to see them again. Never open the picker merely because the user is discussing, modifying, or documenting this feature.
+For an explicit guided request, offer profile, task, editing, rewrite depth, and context as needed. Skip settled fields unless the user asks to see them again. Never open the picker merely because the user is discussing, modifying, or documenting this feature.
 
 ## Shared decisions
 

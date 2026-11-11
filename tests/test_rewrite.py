@@ -89,6 +89,25 @@ class RewriteTests(unittest.TestCase):
         self.assertEqual("BLOCK", result["verdict"])
         self.assertIn("exact_value_drift", [x["code"] for x in result["findings"]])
 
+    def test_protected_inventory_detects_changed_equations_and_repeated_terms(self):
+        with tempfile.TemporaryDirectory(prefix="rewrite-protection-", dir=ROOT / "tests") as folder:
+            inventory = Path(folder) / "protected.json"
+            equation = "$t = b - a$"
+            term = "LabGate"
+            inventory.write_text(json.dumps({"spans": [equation, term]}), encoding="utf-8")
+            source = f"{term} uses {equation}. The team tested {term}."
+            draft = f"The team tested {term} using $t = a - b$."
+            protected = voice.load_protected([], inventory, source)
+            result = voice.check(self.profile, draft, source=source, protected=protected,
+                                 workflow="rewrite", structure="restructure")
+            findings = {finding["code"]: finding for finding in result["findings"]}
+            self.assertEqual("BLOCK", result["verdict"])
+            self.assertEqual(equation, findings["protected_text_missing"]["text"])
+            self.assertEqual((2, 1), (findings["protected_text_count_drift"]["source"],
+                                     findings["protected_text_count_drift"]["draft"]))
+            with self.assertRaisesRegex(ValueError, "absent from the original"):
+                voice.load_protected([], inventory, draft)
+
     def test_automated_pass_does_not_claim_manual_review(self):
         result = voice.check(self.profile, "The result is stable.", source="The result is stable.", workflow="rewrite")
         self.assertEqual("PASS", result["verdict"])
@@ -107,9 +126,16 @@ class RewriteTests(unittest.TestCase):
             base = [sys.executable, str(SCRIPT), "check", "--profile", str(profile), "--draft", str(draft), "--workflow", "rewrite"]
             result = subprocess.run(base, capture_output=True, text=True)
             self.assertEqual(2, result.returncode)
-            result = subprocess.run(base + ["--source", str(source), "--structure", "restructure"], capture_output=True, text=True)
+            inventory = root / "protected.json"
+            inventory.write_text(json.dumps({"spans": ["second point"]}), encoding="utf-8")
+            options = ["--source", str(source), "--structure", "restructure", "--protect-file", str(inventory)]
+            result = subprocess.run(base + options, capture_output=True, text=True)
             self.assertEqual(0, result.returncode, result.stderr)
             self.assertEqual("PASS", json.loads(result.stdout)["verdict"])
+            original = source.read_bytes()
+            result = subprocess.run(base + options + ["--output", str(source)], capture_output=True, text=True)
+            self.assertEqual(2, result.returncode)
+            self.assertEqual(original, source.read_bytes())
 
 
 if __name__ == "__main__":

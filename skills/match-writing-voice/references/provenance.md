@@ -20,6 +20,8 @@ At the user's request, [conorbronsdon/avoid-ai-writing](https://github.com/conor
 
 The synthesis uses the evidence-backed personal profile to guide repairs to justified editorial findings. The review is model-applied and uses context to evaluate vocabulary and typography. The [MIT license notice](upstream-license.md) accompanies the source acknowledgment.
 
+The [GitHub discussion on Turnitin](https://github.com/orgs/community/discussions/207308) motivated testing paragraph-level changes alongside minimal edits. [Turnitout's public design](https://github.com/AhmadHassan-BTed/Turnitout-Humanizer/blob/96b251229522e3a70611ec2a6cecc560d93b18d/docs/architecture.md) informed the separation of edit depth, protected text, and verification. Its [proprietary license](https://github.com/AhmadHassan-BTed/Turnitout-Humanizer/blob/96b251229522e3a70611ec2a6cecc560d93b18d/LICENSE) accompanies a documentation-only public tree at the reviewed commit. Match Writing Voice implements its own checks and uses observed provider results for detector evaluation. The discussion and project pages supply hypotheses, with detector effects for this skill awaiting measurement.
+
 ## Multi-skill editorial synthesis — 2026-11-10
 
 Further original guidance draws on:
