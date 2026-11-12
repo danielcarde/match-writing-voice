@@ -31,6 +31,17 @@ Mark uncertain patterns instead of treating one typo as a rule.
 
 The agent interprets habits, records evidence/context, and creates a profile. A measurement report alone is unfinished. A small sample can still be useful with qualified conclusions.
 
+## Learn from your edits
+
+Supply an earlier draft and your rewrite of the same section, and identify the writing context. The earlier draft can be AI-written. You can also name a group rewrite you want to use as a shared example.
+
+```text
+Use $match-writing-voice to learn from my edits.
+Compare these two versions and save useful revision habits under technical writing in my profile.
+```
+
+The profile retains scoped instructions and references to the pair. A single example is provisional. Future rewrites use it where the context fits and check each section for complete facts, citations, and caveats. [Paired-edit workflow](../skills/match-writing-voice/references/learn-from-edits.md)
+
 ## Write something new
 
 ```text

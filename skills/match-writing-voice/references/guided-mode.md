@@ -22,7 +22,8 @@ Choose the next useful question, not a fixed questionnaire:
 
 | Field | Choices and behavior |
 |---|---|
-| Task | **Rewrite**, **Write something new**, **Audit only** when the action is unknown. A request to learn/create a profile goes directly to learning. Audit never grants permission to rewrite or change a file. |
+| Task | Offer **Rewrite**, **Write something new**, or **Audit only** as relevant. Include **Learn from edits** when the user wants to use a before-and-after example or see all available tasks. A request to learn from standalone samples goes directly to learning. |
+| Learn from edits | When the user asks to learn from a draft and its rewrite, use the [paired-edit workflow](learn-from-edits.md). Ask only for missing versions, attribution, or the target profile when those details affect what can be learned or saved. |
 | Profile | List available, authorized profiles by display name; offer a different path/supplied guide or **Create a profile**. Audit can proceed without a profile when the user chooses a generic audit. Do not make up profiles or call a catalog entry validated voice evidence. |
 | Editing | **Faithful** (keep supported habits), **Lightly edited** (correct clear slips), **Adapted** (carry supported traits into a new audience/format). Ask when this choice is unresolved in a guided write/rewrite; faithful remains the direct-workflow default. Skip for audit and profile learning. |
 | Rewrite depth | **Minimal edits**, **Standard rewrite**, **Paragraph-level restructuring**. Offer for a guided rewrite when unresolved. Explain that the last choice allows moving, splitting, or merging prose paragraphs. Standard rewrite is the direct-workflow default. |

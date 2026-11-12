@@ -262,6 +262,8 @@ def comparison(source, draft, *, profile=None, manifest=None, current=None, mode
                          "Counts and changes are descriptive. Short samples, segmentation, and different contexts limit comparisons; no voice or human score is inferred.",
                          "User-supplied origins and editorial annotations are separate from deterministic checks and do not authenticate authorship.",
                          "A mechanical PASS does not establish meaning preservation, voice recognition, or detector performance."]}
+    if profile is not None and profile.get("revision_habits"):
+        report["applicable_revision_habits"] = voice.applicable_revision_habits(profile, current)
     report["comparison_id"] = digest(json_bytes(report))
     report["editorial_review"] = apply_review(report, review)
     return report

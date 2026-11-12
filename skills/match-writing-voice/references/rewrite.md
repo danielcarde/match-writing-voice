@@ -27,6 +27,8 @@ Defaults:
 
 Depth controls how much prose may change. The faithful, lightly edited, and adapted modes still control how the target voice is applied.
 
+Use any saved revision habits that match the current context. Treat a single pair as provisional and apply a shared reference as user-selected editorial guidance. [Learn from before-and-after edits](learn-from-edits.md) explains how to save those choices. Use the current source to decide which content and relationships belong in the new draft.
+
 ## Lock content and protected material
 
 Before changing expression, note the thesis, arguments, examples, qualifications, dependencies, names, dates, quantities, quotations, citations, obligations, negation, and conclusion. Do not add facts from the voice samples or fresh research merely to make the source sound knowledgeable. Keep the writer-knowledge boundary from the shared guidance.
@@ -50,6 +52,8 @@ For binary documents, use available extraction/editing tools. Verify extraction 
 ## Verify and deliver
 
 Compare the source and result for every argument, example, factual value, citation, qualification, and implied commitment. Review natural voice application without exaggerated mistakes. Structure preservation outranks a profile's preference for short paragraphs or unusual formatting unless restructuring was requested.
+
+Check coverage for each section. When a section reports progress, account for completed work, pending work, experiment conditions, and what the results support. Recover details where a shorter section has lost a condition, exact timing, or citation. If a paragraph moved, check its evidence and caveats at the new location.
 
 For a requested before/after comparison or edit record, use [revision review](revision-review.md) on the actual versions. Include applicable voice evidence and reasons for material edits; distinguish mechanical findings from editorial judgment. Retain full draft snapshots only when requested. Detector evaluation is a separate action with its own authorization boundary.
 
