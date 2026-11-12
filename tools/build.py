@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILL_NAME = "match-writing-voice"
 SKILL = ROOT / "skills" / SKILL_NAME
 ROUTES = {"learn.md": ("Learning a voice", "learning-a-voice"),
+          "learn-from-edits.md": ("Learn from before-and-after edits", "learn-from-before-and-after-edits"),
           "guided-mode.md": ("Optional guided picker", "optional-guided-picker"),
           "write.md": ("Writing in a voice", "writing-in-a-voice"),
           "rewrite.md": ("Rewrite existing content", "rewrite-existing-content"),

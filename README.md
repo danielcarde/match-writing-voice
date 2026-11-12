@@ -21,6 +21,8 @@ The skill also distinguishes the writer's likely familiarity from the assistant'
 
 **Rewrite mode** transforms an existing paragraph, essay, or document into the target voice. Choose minimal edits, a standard rewrite, or paragraph-level restructuring. Protect exact citations, equations, and technical terms when comparing versions. [Rewrite controls and examples →](docs/usage.md#rewrite-existing-content)
 
+**Learn from your edits** compares an earlier draft and a rewrite to save reusable revision habits for the same writing context. [Learn from a pair →](docs/usage.md#learn-from-your-edits)
+
 **Humanizer review** is a default priority for drafts and rewrites. It fixes stock openings, empty recaps, and formulaic phrasing where they weaken the prose, using the learned voice to shape the repair. You can also request an audit on its own. [How review works →](docs/usage.md#review-generic-phrasing-without-erasing-the-voice)
 
 The review also incorporates selected ideas from Humanizer, De-Slop, and related skills: paragraph purpose, missing-content triage, reader context, local keep decisions, and protection against an editor-imposed voice. Optional read-only text inspection locates unusual codepoints without changing the source. [Comparison and provenance →](docs/editorial-research.md)

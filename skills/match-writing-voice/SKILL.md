@@ -13,6 +13,7 @@ For drafts and rewrites, prioritize the Humanizer [editorial review](references/
 
 - **Guided picker (optional):** when the user says “guided mode,” “show options,” “open the picker,” or asks to choose settings interactively, read [guided-mode.md](references/guided-mode.md). Use available question controls for missing choices; direct requests continue without a wizard.
 - **Learn / refresh:** read [learn.md](references/learn.md). Accept files, pasted prose, URLs, and image text when the host can read it. Small samples are usable with qualified conclusions.
+- **Learn from my edits:** read [learn-from-edits.md](references/learn-from-edits.md). Compare an earlier draft and a rewrite to learn scoped revision habits. Save them to the requested profile when asked and apply them to later matching rewrites.
 - **Write / revise:** read [write.md](references/write.md). If only samples exist, build a provisional profile and finish the writing in the same task.
 - **Rewrite existing content in a voice:** read [rewrite.md](references/rewrite.md) alongside the shared writing guidance. The draft supplies content and the profile or samples supply voice. Choose minimal edits, a standard rewrite, or paragraph-level restructuring as requested. Preserve structure by default.
 - **Compare revisions / track edits:** read [revision-review.md](references/revision-review.md) for an evidence-based before/after review and optional local history. Separate measured changes, editorial judgments, and supplied origin labels. Save full draft snapshots only when requested.

@@ -15,6 +15,8 @@ Use only when the user requests a detector-results review or controlled evaluati
 - Review meaning, citation attribution, and voice separately, ideally without seeing the detector results. Record any failure even if the variant received fewer flags. Freeze the text before scoring. When an approach needs tuning, use separate development drafts and leave the held-out comparison untouched.
 - Run the same batch under one detector's settings and import it as a dated run. Compare standard vs minimal and standard vs paragraph-level in separate manifests per detector, reusing the exact saved observations for the shared baseline and controls. Each manifest assigns one `pair_id` per source with a baseline and candidate. If a minimal edit leaves the input identical, use one observed scan for both sides and report the unchanged pair. Report the transitions, sample sizes, and limits for each comparison. Keep a separate report for each detector.
 
+To test [learned revision habits](learn-from-edits.md), compare the same rewrite workflow with and without those habits on fresh drafts. Keep the profile's other settings, edit depth, and required facts fixed. Review coverage by section before interpreting a score change. Pairs used to learn habits belong to development, outside the held-out evaluation.
+
 ## Import and summarize actual results
 
 ```text

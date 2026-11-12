@@ -118,6 +118,50 @@ def matches(scope, current):
     return all(current.get(k) == v for k, v in scope.items())
 
 
+def revision_habit_errors(habits):
+    if not isinstance(habits, list):
+        return ["revision_habits must be a list"]
+    errors, ids = [], set()
+    for habit in habits:
+        if not isinstance(habit, dict) or set(habit) != {"id", "instruction", "scope", "evidence"}:
+            errors.append("Each revision habit needs id, instruction, scope, and evidence")
+            continue
+        hid, instruction = habit["id"], habit["instruction"]
+        if not isinstance(hid, str) or not hid.strip() or hid in ids:
+            errors.append(f"Revision habit id must be nonempty and unique: {hid!r}")
+            continue
+        ids.add(hid)
+        if not isinstance(instruction, str) or not instruction.strip():
+            errors.append(f"{hid}: revision instruction must be nonempty text")
+        try:
+            if "medium" not in context(habit["scope"]):
+                errors.append(f"{hid}: revision scope needs a medium")
+        except ValueError as error:
+            errors.append(f"{hid}: {error}")
+        if not isinstance(habit["evidence"], list) or not habit["evidence"]:
+            errors.append(f"{hid}: revision evidence needs at least one pair")
+            continue
+        seen = set()
+        for pair in habit["evidence"]:
+            if not isinstance(pair, dict) or set(pair) != {"source_sha256", "revision_sha256", "contribution"}:
+                errors.append(f"{hid}: revision evidence needs source_sha256, revision_sha256, and contribution")
+                continue
+            hashes = (pair["source_sha256"], pair["revision_sha256"])
+            if any(not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{64}", value) for value in hashes):
+                errors.append(f"{hid}: invalid revision evidence hash")
+                continue
+            if hashes[0] == hashes[1] or seen.intersection(hashes):
+                errors.append(f"{hid}: identical versions or reused evidence text")
+            seen.update(hashes)
+            if pair["contribution"] not in ("author", "shared"):
+                errors.append(f"{hid}: contribution must be author or shared")
+    return errors
+
+
+def applicable_revision_habits(profile, current):
+    return [habit for habit in profile.get("revision_habits", []) if matches(habit["scope"], current)]
+
+
 def integer(value):
     return isinstance(value, int) and not isinstance(value, bool)
 
@@ -269,6 +313,8 @@ def validate_profile(profile, manifest_path=None):
             need(isinstance(profile[field], str), f"{field} must be text")
     if "limitations" in profile:
         need(isinstance(profile["limitations"], list) and all(isinstance(x, str) for x in profile["limitations"]), "limitations must be a text list")
+    habits = profile.get("revision_habits", [])
+    errors.extend(revision_habit_errors(habits))
     defaults = profile.get("defaults", {})
     if need(isinstance(defaults, dict), "defaults must be an object"):
         need(defaults.get("mode", "faithful") in MODES, "Unsupported default mode")
@@ -411,9 +457,9 @@ def validate_profile(profile, manifest_path=None):
         if kind == "count_range":
             low, high = rule.get("minimum", 0), rule.get("maximum")
             need(integer(low) and low >= 0 and (high is None or (integer(high) and high >= low)), f"{rid}: invalid count range")
-    ready = not errors and any(t.get("state") != "unknown" for t in traits.values())
-    if not profile["traits"]:
-        warnings.append("Measurement scaffold only: no interpreted voice traits.")
+    ready = not errors and (bool(habits) or any(t.get("state") != "unknown" for t in traits.values()))
+    if not profile["traits"] and not habits:
+        warnings.append("Measurement scaffold only: no interpreted voice traits or revision habits.")
     return {"errors": errors, "warnings": warnings, "ready": ready, "source_verified": bool(manifest_path) and not errors}
 
 
@@ -461,9 +507,10 @@ def render_profile(profile, allow_scaffold=False):
               "Preserve comparisons, rankings, simultaneous events, and the source's causal relationships. Adjacent facts alone do not justify because or therefore. Review editor-introduced uniform rhythm, stock replacements, lost mixed feelings, and removed details; restore supported choices rather than installing a generic humanizer voice.",
               "Honor a keep-this or stet decision for that span through this piece's later passes. It does not silently become a permanent profile rule. A sound passage can stay unchanged on a second review; no numerical humanness score or automatic full-rewrite threshold is used.",
               "Inspect unusual text characters only when relevant. Meaningful joiners, direction marks, spaces, and display sequences stay intact; do not apply blanket Unicode normalization or claim authorship or watermark status from codepoints.", ""]
-    if not profile["traits"]:
+    habits = profile.get("revision_habits", [])
+    if not profile["traits"] and not habits:
         lines += ["UNFINISHED MEASUREMENT SCAFFOLD — no learned voice yet.", ""]
-    if profile.get("note") and (profile["note"] != SCAFFOLD_NOTE or not profile["traits"]):
+    if profile.get("note") and (profile["note"] != SCAFFOLD_NOTE or (not profile["traits"] and not habits)):
         lines += ["Profile note: " + profile["note"], ""]
     if profile.get("limitations"):
         lines += ["## Evidence limits"] + ["- " + x for x in profile["limitations"]] + [""]
@@ -480,6 +527,15 @@ def render_profile(profile, allow_scaffold=False):
         for key in ("support", "counterevidence"):
             if trait.get(key):
                 lines.append(key + ": " + ", ".join(f"{s['sample_id']}[{s['start']}:{s['end']}]" for s in trait[key]))
+        lines.append("")
+    if habits:
+        lines += ["## Revision habits",
+                  "Apply these instructions to rewrites in their stated context. Use single examples provisionally. Shared references are editorial guidance selected by the user. Keep the new draft's facts, qualifications, citations, and requested scope.", ""]
+        for habit in habits:
+            scope = ", ".join(f"{key}={value}" for key, value in habit["scope"].items())
+            count = len(habit["evidence"])
+            label = "one example" if count == 1 else f"{count} examples"
+            lines.append(f"- **{scope} ({label}).** {habit['instruction']}")
         lines.append("")
     if profile["rules"]:
         lines += ["## Mechanical rules", "Apply only when scope, mode, and effective policy match; raw counts do not interpret grammar.",

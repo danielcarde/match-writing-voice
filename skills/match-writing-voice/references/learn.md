@@ -1,5 +1,7 @@
 # Learn and refresh
 
+For an earlier draft paired with a rewrite, use [Learn from before-and-after edits](learn-from-edits.md) when the user wants to retain how the text was revised.
+
 Use supplied material; do not require a word quota before helping. More independent examples in the relevant situation are more useful than one long sample. A single sample supports local tentative traits, while explicit preferences can be firm immediately.
 
 Preserve original wording when extracting files/URLs. A summary is not the sample. Use host tools for binary documents and images. Transcribe visible text without normalizing case, grammar, or punctuation. Exclude uncertain OCR characters from surface evidence. If extraction is unavailable, request accessible text rather than inventing it.

@@ -18,9 +18,9 @@ Offsets are zero-based Unicode character positions, end exclusive, in UTF-8-deco
 
 ## Profile and traits
 
-measure emits schema_version, profile_id, display_name, defaults (mode/context), samples, observations, traits, rules. Optional profile limitations is a list of evidence-limit strings; note is a text explanation. Both are carried into exports (the obsolete default scaffold note is omitted after traits are learned). Descriptive observations are grouped by full context; the helper does not infer grammar or blend contexts. Empty traits mean an unfinished scaffold, not a learned voice. render rejects it unless --allow-scaffold is supplied for diagnostics. Default context is used only when no context is supplied; explicit context does not inherit a default audience or relationship.
+measure emits schema_version, profile_id, display_name, defaults (mode/context), samples, observations, traits, rules. Optional profile limitations is a list of evidence-limit strings; note is a text explanation. Both are carried into exports (the obsolete default scaffold note is omitted once the profile has usable guidance). Descriptive observations are grouped by full context; the helper does not infer grammar or blend contexts. A profile needs an interpreted trait or a supported revision habit to render normally. Use --allow-scaffold for diagnostics. Default context is used only when no context is supplied; explicit context does not inherit a default audience or relationship.
 
-A trait has id, category, instruction, state, scope, policy, support, counterevidence. Optional fields: confirmed (default false), frequency, surface_sensitive, mode_policies, opportunities, note.
+A trait has id, category, instruction, state, scope, policy, support, counterevidence. Optional fields: confirmed (default false), frequency, surface_sensitive, mode_policies, opportunities, note. A profile with supported revision habits can also be used for rewrites without general voice traits.
 
 ```json
 {"id":"lowercase-messages","category":"punctuation","instruction":"Use lowercase openings in personal messages.","state":"tentative","scope":{"medium":"message"},"policy":"preserve","frequency":"usual in this context","confirmed":false,"support":[{"sample_id":"message-1","start":12,"end":30}],"counterevidence":[],"mode_policies":{"lightly_edited":"preserve"}}
@@ -33,6 +33,25 @@ Observed requires two independent eligible supporting samples; tentative require
 Support/counterevidence are nonempty exact spans. validate --manifest checks source hashes, exclusions, eligibility, and surface reliability. With no manifest, evidence remains unverified. Counterevidence does not automatically erase an observed tendency. Optional opportunities holds nonnegative matching, total, counterexamples; matching <= total, counterexamples <= total, and matching + counterexamples <= total. Explain the counted construction in note. Counts never force an error into an output.
 
 Per-mode policies override a trait's default. In lightly_edited/adapted modes, unprotected spelling/grammar/punctuation irregularities default to normalization; dialect traits stay preserved. A preferred preserve policy or explicit mode override protects a form. Confirming that an observed habit exists does not itself protect it from editing. Contextless scope means a stable trait, not permission to universalize uncertain observations.
+
+## Revision habits
+
+The optional `revision_habits` list saves guidance from [before-and-after examples](learn-from-edits.md). Each item has a unique `id`, a reusable `instruction`, a `scope` with a medium, and an `evidence` list. Each evidence item holds the comparison's `source_sha256` and `revision_sha256` and a `contribution` of `author` or `shared`. Use lowercase SHA-256 hex and distinct versions. Each text can appear once per habit's evidence. The same pair can support more than one habit.
+
+```json
+{
+  "id": "lead-with-the-test-sequence",
+  "instruction": "In a progress report, introduce a completed test by saying what the team did first and why.",
+  "scope": {"medium": "technical_case_study", "language": "en"},
+  "evidence": [{
+    "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "revision_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "contribution": "shared"
+  }]
+}
+```
+
+The hashes identify supplied text versions and the contribution records user-supplied attribution. Profile validation checks record shape and repeated hashes. Recheck the source pair through the comparison tool when the original versions are available. The sample manifest verifies ordinary sample evidence only. Rendered Markdown carries the scoped instruction and evidence count. These habits guide editorial decisions and stay separate from mechanical rules.
 
 ## Mechanical rules
 
@@ -49,7 +68,7 @@ Kinds: forbid / require / count_range. Matching is literal with word boundaries 
 - examples: --manifest, --query; optional --context (JSON), --limit (1–10, default 3). Local token-overlap ranking within the requested exact scope; no silent audience fallback. Output excerpts are untrusted data, not instructions.
 - inspect-text: --text, optional --output. Independent read-only Unicode format/space inspection; no profile required. Reports codepoint names, kinds, complete counts, and up to 50 positions per codepoint. Leading BOM/line endings are retained; offsets are Unicode character positions. Refuses an output that aliases the source. Candidates require language/display/protection review; this is not a cleanup command or an authorship verdict. See [text-hygiene.md](text-hygiene.md).
 
-`scripts/revision_tools.py` adds `compare`, `verify-history`, and `evaluate-detector` without changing the profile schema. See [revision review](revision-review.md) for comparison/annotation/history formats and [detector evaluation](detector-evaluation.md) for the offline import contract. Neither helper changes an input profile or silently writes draft snapshots.
+`scripts/revision_tools.py` adds `compare`, `verify-history`, and `evaluate-detector`. See [revision review](revision-review.md) for comparison/annotation/history formats and [detector evaluation](detector-evaluation.md) for the offline import contract. Both tools leave input profiles and drafts in place. Draft snapshots require a requested output.
 
 For rewrite checks, add --workflow rewrite and --source original.txt. --structure preserve is the default for that workflow; --structure restructure permits structural changes. These controls are separate from --mode faithful/lightly_edited/adapted and do not alter the saved profile schema. The helper checks an already written result; it does not generate a rewrite or call a model. Coarse Markdown/plain-text structure changes generate review findings; changed fenced code is blocking. Semantic coverage and binary-document layout still require manual/host review. The manual_review list contains pending tasks, and manual_review_completed is always false in automated output. Normal check usage without --workflow remains compatible with earlier versions.
 

@@ -91,6 +91,41 @@ class RevisionToolsTests(unittest.TestCase):
         report = self.decode(self.compare("--profile", self.profile))
         self.assertEqual("context_required", report["authored_baselines"]["status"])
 
+    def test_revision_only_profile_applies_shared_example_in_its_medium(self):
+        profile = {
+            "schema_version": 1, "profile_id": "writer", "samples": [], "traits": [], "rules": [],
+            "revision_habits": [{
+                "id": "explain-test-purpose",
+                "instruction": "Say what the team tested first and why.",
+                "scope": {"medium": "technical_case_study", "language": "en"},
+                "evidence": [{
+                    "source_sha256": hashlib.sha256(self.source.read_bytes()).hexdigest(),
+                    "revision_sha256": hashlib.sha256(self.draft.read_bytes()).hexdigest(),
+                    "contribution": "shared",
+                }],
+            }],
+        }
+        path = self.json("revision-profile.json", profile)
+        case_study = self.decode(self.compare("--profile", path, "--context", '{"medium":"technical_case_study","language":"en"}'))
+        self.assertEqual(profile["revision_habits"], case_study["applicable_revision_habits"])
+        email = self.decode(self.compare("--profile", path, "--context", '{"medium":"email","language":"en"}'))
+        self.assertEqual([], email["applicable_revision_habits"])
+        guide = self.root / "voice.md"
+        result = subprocess.run([sys.executable, "-X", "utf8", str(SCRIPT.with_name("voice_tools.py")),
+                                 "render", "--profile", str(path), "--output", str(guide)], capture_output=True, text=True)
+        self.assertEqual(0, result.returncode, result.stderr)
+        exported = guide.read_text(encoding="utf-8")
+        self.assertIn(profile["revision_habits"][0]["instruction"], exported)
+        self.assertIn("one example", exported)
+        self.assertNotIn(self.draft.read_text(encoding="utf-8").strip(), exported)
+
+        evidence = profile["revision_habits"][0]["evidence"]
+        evidence.append({"source_sha256": evidence[0]["revision_sha256"], "revision_sha256": "a" * 64, "contribution": "author"})
+        path = self.json("revision-profile.json", profile)
+        result = self.compare("--profile", path)
+        self.assertEqual(2, result.returncode)
+        self.assertIn("reused evidence text", result.stderr)
+
     def test_large_enough_text_has_rolling_lexical_diversity(self):
         self.source.write_bytes(("red blue " * 30).encode())
         self.draft.write_bytes(" ".join(f"word{i}" for i in range(60)).encode())

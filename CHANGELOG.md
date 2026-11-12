@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.0 — 2026-11-11
+
+- Added Learn from my edits for scoped revision habits drawn from before-and-after pairs, including user-selected shared examples.
+- Added validation and portable export of revision habits and a section-by-section coverage review for rewrites.
+
 ## 0.8.0 — 2026-11-11
 
 - Added selectable minimal edits and paragraph-level restructuring alongside standard rewrites.
