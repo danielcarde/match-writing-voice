@@ -14,11 +14,10 @@ SKILL_NAME = "match-writing-voice"
 SKILL = ROOT / "skills" / SKILL_NAME
 ROUTES = {"learn.md": ("Learning a voice", "learning-a-voice"),
           "learn-from-edits.md": ("Learn from before-and-after edits", "learn-from-before-and-after-edits"),
-          "guided-mode.md": ("Optional guided picker", "optional-guided-picker"),
+          "guided-mode.md": ("Choose a voice profile", "choose-a-voice-profile"),
           "write.md": ("Writing in a voice", "writing-in-a-voice"),
           "rewrite.md": ("Rewrite existing content", "rewrite-existing-content"),
           "revision-review.md": ("Compare revisions and keep an edit record", "compare-revisions-and-keep-an-edit-record"),
-          "detector-evaluation.md": ("Evaluate detector results", "evaluate-detector-results"),
           "editorial-review.md": ("Editorial review that preserves the voice", "editorial-review-that-preserves-the-voice"),
           "text-hygiene.md": ("Inspect copy-paste text artifacts", "inspect-copy-paste-text-artifacts"),
           "knowledge.md": ("Writer knowledge", "writer-knowledge"),

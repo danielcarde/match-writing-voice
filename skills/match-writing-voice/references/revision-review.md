@@ -51,6 +51,6 @@ python scripts/revision_tools.py compare --source original.txt --draft revision.
 python scripts/revision_tools.py verify-history --history-dir .local/writing-history/run-name
 ```
 
-Use identical versions/settings, including origin labels, for the initial comparison and its review. `verify-history` checks snapshot bytes against the local index. It is an integrity check, not a tamper-proof or independently authenticated authorship record. Comparisons include excerpts of changed text; keep reports and retained originals in the requested private location. The tool does not copy a sample corpus, edit source files, or send text over the network. Use [detector evaluation](detector-evaluation.md) only as a separate requested action.
+Use identical versions and settings, including origin labels, for the initial comparison and its review. `verify-history` checks snapshot bytes against the local index. Comparisons include excerpts of changed text. Keep reports and retained originals in the requested private location.
 
 This records differences between supplied versions, not keystrokes or undocumented intermediate edits. For binary documents, keep the original file separately: the helper snapshots extracted text, not document layout or metadata. Give the user a concise, readable summary of meaning, voice, and important edits; provide the exact report/history artifact when requested.

@@ -1,6 +1,6 @@
 # Learn and refresh
 
-For an earlier draft paired with a rewrite, use [Learn from before-and-after edits](learn-from-edits.md) when the user wants to retain how the text was revised.
+Use this workflow to create or update a profile from samples, edits, and explicit preferences. For a before-and-after pair, use [paired-edit guidance](learn-from-edits.md) to learn the revision choices. For an explicit reusable preference, record the wording or behavior and its intended context.
 
 Use supplied material; do not require a word quota before helping. More independent examples in the relevant situation are more useful than one long sample. A single sample supports local tentative traits, while explicit preferences can be firm immediately.
 
@@ -29,6 +29,8 @@ Use [profile-format.md](profile-format.md). Each useful trait needs a usable ins
 - unknown: insufficient support; cannot drive generation/checker rules.
 
 Record exact source offsets and contrary examples. For irregular forms, distinguish informal convention, dialect, deliberate preference, possible slip, or unresolved status. Track relevant grammatical opportunities, not mere word totals. For example, only contexts requiring “you're” can count toward a “your/you're” substitution rate. Interpretation is the host model's job, not a regex replacement.
+
+When a short excerpt would help a future draft, label it by writing context and section purpose, such as “Lab report — troubleshooting” or “Technical case study — results and limitations.” Cite the sample and its offsets. Keep the excerpt within eligible author prose, or label a user-selected shared example as group writing. Add examples to the existing guide under “Section examples.” In a JSON profile, use the existing `note` field so the examples carry into the Markdown export. Favor a few distinct examples with a clear use.
 
 ## Calibrate and update
 

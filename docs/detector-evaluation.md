@@ -1,4 +1,4 @@
-# Evaluate detector results without confusing them with authorship
+# Detector benchmarking for maintainers
 
 Use only when the user requests a detector-results review or controlled evaluation. The tool imports actual results; it does not run a detector, upload drafts, provide a human score, or promise a particular label. A detector's text-based prediction cannot substitute for original drafts and real revision history. A voice-matched AI revision remains AI-assisted when AI did the rewriting.
 
@@ -15,12 +15,12 @@ Use only when the user requests a detector-results review or controlled evaluati
 - Review meaning, citation attribution, and voice separately, ideally without seeing the detector results. Record any failure even if the variant received fewer flags. Freeze the text before scoring. When an approach needs tuning, use separate development drafts and leave the held-out comparison untouched.
 - Run the same batch under one detector's settings and import it as a dated run. Compare standard vs minimal and standard vs paragraph-level in separate manifests per detector, reusing the exact saved observations for the shared baseline and controls. Each manifest assigns one `pair_id` per source with a baseline and candidate. If a minimal edit leaves the input identical, use one observed scan for both sides and report the unchanged pair. Report the transitions, sample sizes, and limits for each comparison. Keep a separate report for each detector.
 
-To test [learned revision habits](learn-from-edits.md), compare the same rewrite workflow with and without those habits on fresh drafts. Keep the profile's other settings, edit depth, and required facts fixed. Review coverage by section before interpreting a score change. Pairs used to learn habits belong to development, outside the held-out evaluation.
+To test [learned revision habits](../skills/match-writing-voice/references/learn-from-edits.md) or section matching, compare the same rewrite workflow with and without the change on fresh drafts. Keep the profile's other settings, edit scope, and required facts fixed. Review coverage by section before interpreting a score change. Reserve examples used to learn or supply style guidance for development.
 
 ## Import and summarize actual results
 
 ```text
-python scripts/revision_tools.py evaluate-detector --results detector-results.json --output detector-evaluation.json
+python skills/match-writing-voice/scripts/revision_tools.py evaluate-detector --results detector-results.json --output detector-evaluation.json
 ```
 
 The input manifest describes one run. Use a unique ID per result and a path relative to that manifest or an absolute path. Its SHA-256 must match the exact UTF-8 bytes scanned, including any BOM/line endings. Record the hash when the exact input is prepared or scanned; do not attach a score to a later rewrite. A comparison report also supplies exact input hashes. This verifies local bytes against the record, not what the remote service received or how the text was produced.
@@ -57,4 +57,4 @@ Allowed predictions are `human`, `ai`, `ai_paraphrased`, `mixed`, `uncertain`. M
 
 The report keeps all four supplied origin groups separate, reports raw counts and known-human definite AI flags (`ai` + `ai_paraphrased`), and shows mixed/uncertain separately. The denominator includes all unique known-human rows; it is not a calibrated authorship probability. A Wilson interval describes sampling uncertainty under an independence assumption; small or related samples limit interpretation. No human rows means no rate. Paired prediction transitions and recorded provider fields show where outcomes moved or stayed. The provider observations preserve unrecorded states and summarize badge and score-state transitions separately. Report version, date, sample sizes, and actual limitations before drawing conclusions.
 
-The import command makes zero network calls. It refuses stale hashes, conflicting duplicate results, and outputs that would overwrite inputs. It does not authenticate supplied scores or provenance. In ordinary prose work, prioritize meaning, recognizable voice, and traceable revisions; use this evaluation only for a separately authorized test. See [revision review](revision-review.md) for draft history and [provenance](provenance.md) for research references.
+The import command makes zero network calls. It refuses stale hashes, conflicting duplicate results, and outputs that would overwrite inputs. It does not authenticate supplied scores or provenance. See [revision review](../skills/match-writing-voice/references/revision-review.md) for draft history and [provenance](../skills/match-writing-voice/references/provenance.md) for research references.

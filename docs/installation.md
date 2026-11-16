@@ -36,7 +36,7 @@ Gemini CLI can also discover the shared `.agents/skills` directory. If your Code
 After local installation, ask:
 
 ```text
-$match-writing-voice Build a profile from these samples and draft in faithful mode.
+$match-writing-voice Build a profile from these samples and draft in my voice.
 ```
 
 This repo also includes an optional Codex marketplace wrapper. Add the repo as a marketplace, then select its plugin in the host's plugin interface:

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.0 — 2026-11-15
+
+- Combined profile learning and updates, and combined drafting and rewriting into one workflow with Humanizer review.
+- Simplified profile selection and made ordinary editing instructions the default interface.
+- Matched short voice examples to the section's purpose and checked source details before delivering rewrites.
+- Kept hidden character inspection within Humanizer and moved detector benchmarking guidance to the maintainer docs.
+
 ## 0.9.0 — 2026-11-11
 
 - Added Learn from my edits for scoped revision habits drawn from before-and-after pairs, including user-selected shared examples.

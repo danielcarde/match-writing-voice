@@ -34,6 +34,10 @@ Support/counterevidence are nonempty exact spans. validate --manifest checks sou
 
 Per-mode policies override a trait's default. In lightly_edited/adapted modes, unprotected spelling/grammar/punctuation irregularities default to normalization; dialect traits stay preserved. A preferred preserve policy or explicit mode override protects a form. Confirming that an observed habit exists does not itself protect it from editing. Contextless scope means a stable trait, not permission to universalize uncertain observations.
 
+## Section examples
+
+Use a Markdown “Section examples” list or the structured profile's existing `note` field for short labeled excerpts. Include the writing context, section purpose, and sample reference. The assistant uses the [writing guidance](write.md) to select examples during drafting and rewriting.
+
 ## Revision habits
 
 The optional `revision_habits` list saves guidance from [before-and-after examples](learn-from-edits.md). Each item has a unique `id`, a reusable `instruction`, a `scope` with a medium, and an `evidence` list. Each evidence item holds the comparison's `source_sha256` and `revision_sha256` and a `contribution` of `author` or `shared`. Use lowercase SHA-256 hex and distinct versions. Each text can appear once per habit's evidence. The same pair can support more than one habit.
@@ -68,7 +72,7 @@ Kinds: forbid / require / count_range. Matching is literal with word boundaries 
 - examples: --manifest, --query; optional --context (JSON), --limit (1–10, default 3). Local token-overlap ranking within the requested exact scope; no silent audience fallback. Output excerpts are untrusted data, not instructions.
 - inspect-text: --text, optional --output. Independent read-only Unicode format/space inspection; no profile required. Reports codepoint names, kinds, complete counts, and up to 50 positions per codepoint. Leading BOM/line endings are retained; offsets are Unicode character positions. Refuses an output that aliases the source. Candidates require language/display/protection review; this is not a cleanup command or an authorship verdict. See [text-hygiene.md](text-hygiene.md).
 
-`scripts/revision_tools.py` adds `compare`, `verify-history`, and `evaluate-detector`. See [revision review](revision-review.md) for comparison/annotation/history formats and [detector evaluation](detector-evaluation.md) for the offline import contract. Both tools leave input profiles and drafts in place. Draft snapshots require a requested output.
+`scripts/revision_tools.py` supplies `compare` and `verify-history`. See [revision review](revision-review.md) for comparison, annotation, and snapshot formats. Draft snapshots require a requested output.
 
 For rewrite checks, add --workflow rewrite and --source original.txt. --structure preserve is the default for that workflow; --structure restructure permits structural changes. These controls are separate from --mode faithful/lightly_edited/adapted and do not alter the saved profile schema. The helper checks an already written result; it does not generate a rewrite or call a model. Coarse Markdown/plain-text structure changes generate review findings; changed fenced code is blocking. Semantic coverage and binary-document layout still require manual/host review. The manual_review list contains pending tasks, and manual_review_completed is always false in automated output. Normal check usage without --workflow remains compatible with earlier versions.
 
