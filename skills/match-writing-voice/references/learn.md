@@ -16,6 +16,8 @@ Use separate passes over words/forms, sentences/rhythm, and passages/reader rela
 
 Examine vocabulary, idioms, contractions, code-switching, case, spelling, tense/agreement/prepositions, punctuation, fragments, sentence variation, coordination, interruptions, paragraph shape, openers/closers, rhetoric, politeness, and stance. Describe behavior, not psychological identity. Analyze languages separately; tokenization and sentence segmentation are heuristic.
 
+Trace what the writer tells the reader first and what follows. Compare passages with the same purpose and audience. In Methods, look for whether the writer introduces the procedure or explains the choice first. In Results, look at when they give the finding, explain what it covers, and qualify it. In email, look at where the ask appears relative to the context and whether that changes with the recipient. Check whether a template or required order explains the pattern.
+
 For representative passages, create a competent neutral rewrite of the same meaning and compare choices. Compare the writer's own formats and audiences too. Differences are candidate habits, not proof: the neutral rewrite can introduce bias. Separate stable traits, contextual habits, platform constraints, and borrowed templates. A zero count is not “never.”
 
 ## Traceable traits
@@ -29,6 +31,8 @@ Use [profile-format.md](profile-format.md). Each useful trait needs a usable ins
 - unknown: insufficient support; cannot drive generation/checker rules.
 
 Record exact source offsets and contrary examples. For irregular forms, distinguish informal convention, dialect, deliberate preference, possible slip, or unresolved status. Track relevant grammatical opportunities, not mere word totals. For example, only contexts requiring “you're” can count toward a “your/you're” substitution rate. Interpretation is the host model's job, not a regex replacement.
+
+Save a supported order of explanation as a structure trait. Scope it using the known medium and audience, and name the section or kind of message in the instruction. For example, “When reporting a preliminary result to the project team, give the finding first, then explain the condition that limits it.” Use evidence spans that show the sequence and record exceptions where the writer arranges comparable information differently.
 
 When a short excerpt would help a future draft, label it by writing context and section purpose, such as “Lab report — troubleshooting” or “Technical case study — results and limitations.” Cite the sample and its offsets. Keep the excerpt within eligible author prose, or label a user-selected shared example as group writing. Add examples to the existing guide under “Section examples.” In a JSON profile, use the existing `note` field so the examples carry into the Markdown export. Favor a few distinct examples with a clear use.
 

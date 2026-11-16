@@ -30,11 +30,23 @@ For long input, work section by section using one profile and a coverage ledger,
 
 For binary documents, use available extraction/editing tools. Verify extraction rather than analyzing a summary. Preserve the requested file type and layout when the host supports it; otherwise explain the actual output limitation and provide an accurate text rewrite without pretending a formatted file was created. Work in a new output file by default, unless an in-place edit is explicitly requested.
 
+## Compare two rewrites on difficult passages
+
+Use two drafts when a full rewrite presents a meaningful choice between smoothing the source wording and rebuilding an awkward passage in the target voice. Dense Methods or Results prose can benefit when the source buries the action, finding, or limitation and the profile gives a clearer way to present it. For routine prose, write one draft. For a light-edit request, make targeted wording changes. For an audit-only request, return findings.
+
+1. Draft both versions from the same original, protected details, and applicable voice evidence. Keep one close to the source's phrasing and sentence structure. Rebuild awkward sentences in the other around the action, reason, or result the reader needs. Stay within the requested edit depth and document structure in both versions.
+2. Compare each version with the original for claims, qualifications, and protected details. Where useful, run the same optional checks below on each draft with the same source, context, and protected spans. Review the meaning in context, including what each number counts and where a citation or limitation applies. Among faithful candidates, prefer the one that best expresses the point in the target voice. Consider the section's order of explanation, level of formality, and rhythm.
+3. Use the existing targeted correction pass to fix a specific issue if a promising draft needs it. Recheck the repair against the original and the surrounding prose. Use a faithful alternative if the repair still changes meaning. If neither works, retain the affected source passage and explain the limitation when material.
+
+Compare drafts within the main editorial pass and only for the passages that need it. Read the selected wording in context for transitions, terminology, and missing details before returning one complete rewrite. Show alternative drafts only when requested.
+
 ## Verify and deliver
 
 Compare the source and result for every argument, example, factual value, citation, qualification, and implied commitment. Review natural voice application without exaggerated mistakes. Structure preservation outranks a profile's preference for short paragraphs or unusual formatting unless restructuring was requested.
 
 Check coverage for each section. When a section reports progress, account for completed work, pending work, experiment conditions, and what the results support. Recover details where a shorter section has lost a condition, exact timing, or citation. If a paragraph moved, check its evidence and caveats at the new location.
+
+After recasting a technical sentence, compare each number with the phrase it describes in the source. Check the population or event, its qualifiers, and any subset or total it belongs to. Then check the surrounding claims for lost methods or details, and verify that citations, conditions, and limits still apply to the right claims.
 
 For a requested comparison or edit record, use [revision review](revision-review.md) on the actual versions. Include applicable voice evidence and reasons for material edits. Retain full draft snapshots only when requested.
 

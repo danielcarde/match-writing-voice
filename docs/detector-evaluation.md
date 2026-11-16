@@ -17,6 +17,8 @@ Use only when the user requests a detector-results review or controlled evaluati
 
 To test [learned revision habits](../skills/match-writing-voice/references/learn-from-edits.md) or section matching, compare the same rewrite workflow with and without the change on fresh drafts. Keep the profile's other settings, edit scope, and required facts fixed. Review coverage by section before interpreting a score change. Reserve examples used to learn or supply style guidance for development.
 
+For technical fidelity, use the [Bayesian-network pair from Karr et al.](https://raw.githubusercontent.com/JonathanKarr33/ai_humanization_and_detection_evaluation/main/humanization/2025_back_2023/computer_science/new_article_only/W3201412947.json) as a development case. Review the description of the 74 algorithms and the source's mention of incorporating expert knowledge. The rewrite adds “exact” to the counted algorithms and omits expert knowledge. Both changes matter even though the count is still 74 and the recorded GPTZero AI score is near zero.
+
 ## Import and summarize actual results
 
 ```text

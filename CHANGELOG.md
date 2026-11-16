@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.10.5
+
+- Compare two approaches on difficult rewrites and choose the best voice match after checking the source claims and details.
+
+## 0.10.4
+
+- Learn a writer's order of explanation from samples and revisions, then apply it in matching report sections and emails.
+
+## 0.10.3
+
+- Recast awkward technical sentences around their main point and check that quantities, qualifiers, and neighboring details survive the rewrite.
+
+## 0.10.2
+
+- Added Humanizer guidance for unpacking dense technical prose while preserving technical terms, evidence relationships, and limits.
+
 ## 0.10.1 — 2026-11-16
 
 - Made creating a voice profile from scratch explicit in the skill, starter prompt, and usage guide.
