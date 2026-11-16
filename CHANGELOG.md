@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.5
+
+- Compare two approaches on difficult rewrites and choose the best voice match after checking the source claims and details.
+
 ## 0.10.4
 
 - Learn a writer's order of explanation from samples and revisions, then apply it in matching report sections and emails.

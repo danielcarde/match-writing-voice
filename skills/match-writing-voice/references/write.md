@@ -22,7 +22,7 @@ Choose up to two short examples per section in the matching voice context. Prefe
 
 Read the examples and supported structure habits for what the writer puts first and how they follow it up. Use that order when it fits the current audience, section purpose, and edit scope. If a habit does not fit, use the order the reader needs. Build each paragraph from the current facts and their relationships. Keep sample wording and sample facts out of the new text. Apply the [editorial review](editorial-review.md) during drafting and at delivery.
 
-For substantial or difficult work, internally compare source-close and voice-forward drafts. One draft is sufficient for a routine short message. Favor recognizable voice with minimal unsupported semantic movement.
+For a difficult rewrite, use the two-draft comparison in the [rewrite guidance](rewrite.md). For substantial drafts from notes, consider a second approach when it helps resolve a real choice about how to express the main point. One draft is sufficient for a routine short message.
 
 Before finalizing, fix justified editorial findings, including any generic phrasing introduced while matching the profile. Preserve the writer's effective repetitions and rough edges. Verify certainty, commitments, negation, and other source details, and check for invented facts, experiences, relationships, or leaked anecdotes. An audit-only request calls for findings.
 
