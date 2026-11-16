@@ -20,7 +20,7 @@ Use the section heading and the job of the prose. An introduction establishes th
 
 Choose up to two short examples per section in the matching voice context. Prefer explicit section examples in the profile, then eligible excerpts from available samples whose purpose matches. Rank the section's purpose ahead of topic words. Use individual examples when writing as one person. Use user-selected group examples for a report in the group's voice. Exclude held-out pieces, duplicates, templates, and unattributed excerpts. When evidence is scarce, use the applicable profile habits.
 
-Read the examples for sentence movement, emphasis, and order of explanation. Build each paragraph from the current facts, their relationships, and what the reader needs to understand. Keep sample wording and sample facts out of the new text. Apply the [editorial review](editorial-review.md) during drafting and at delivery.
+Read the examples and supported structure habits for what the writer puts first and how they follow it up. Use that order when it fits the current audience, section purpose, and edit scope. If a habit does not fit, use the order the reader needs. Build each paragraph from the current facts and their relationships. Keep sample wording and sample facts out of the new text. Apply the [editorial review](editorial-review.md) during drafting and at delivery.
 
 For substantial or difficult work, internally compare source-close and voice-forward drafts. One draft is sufficient for a routine short message. Favor recognizable voice with minimal unsupported semantic movement.
 

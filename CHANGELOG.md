@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.4
+
+- Learn a writer's order of explanation from samples and revisions, then apply it in matching report sections and emails.
+
 ## 0.10.3
 
 - Recast awkward technical sentences around their main point and check that quantities, qualifiers, and neighboring details survive the rewrite.

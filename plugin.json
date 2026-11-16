@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "match-writing-voice",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "Evidence-backed writing voices with faithful, edited, and adapted modes."
 }

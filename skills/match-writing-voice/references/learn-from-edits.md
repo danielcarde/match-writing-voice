@@ -10,7 +10,7 @@ Use this workflow when the user asks to learn revision habits from an earlier dr
 
 ## Learn the decisions that transfer
 
-1. Compare the versions using the [revision review](revision-review.md). Identify the actual decision behind a change and the context where it makes sense. A progress report might move from a general description to what the team did first, why it did it, and what happened. That supports a conditional writing instruction.
+1. Compare the versions using the [revision review](revision-review.md). Identify the actual decision behind a change and the context where it makes sense. If the writer rearranged information, record which point they moved and what they put before or after it. A progress report might lead with the test result and move setup details after it. Name the section in the instruction and record the known audience in the scope.
 2. Check the source and revision section by section for facts, quantities, dates, citations, conditions, uncertainty, and completed versus planned work. A passage can show a useful change in voice even when other edits drop reproducibility details or change the claim. Learn only from changes that can transfer with the meaning intact. Leave subject facts and distinctive wording out of the reusable instruction.
 3. Save a few specific instructions. Treat one example as provisional. Mark a personal habit as recurring in the summary only when independently supported by the person's own edits in at least two pieces. A shared example can guide work in its scoped context with the user's approval. It stays separate from evidence of the person's individual habits.
 

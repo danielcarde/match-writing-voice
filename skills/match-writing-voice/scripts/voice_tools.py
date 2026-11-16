@@ -489,7 +489,7 @@ def render_profile(profile, allow_scaffold=False):
     lines += ["## Rewrite existing content",
               "When given a paragraph, essay, document, or selection to rewrite, use that content for meaning and this profile for voice. Do not learn a new voice from the content unless requested.",
               "By default, preserve structure while recasting editable prose. For light edits, keep effective wording. Reorganize prose when requested and move claims with their evidence and caveats.",
-              "For each section, use up to two short examples in this profile or the available samples that match its purpose and writing context. Draft from the new brief's facts and use the examples to guide rhythm and order of explanation.",
+              "For each section, use up to two short examples that match its purpose and writing context. Use examples and supported structure habits to decide what comes first and what follows, within the current audience and edit scope. The current brief supplies the facts.",
               "Inventory exact technical terms, equations, values, quotations, and citations when relevant. Verify their text, occurrence counts, and connection to the same source claim after editing. Preserve the full requested scope.",
               "Review long documents section by section and check complete coverage. Do not substitute a summary or partial opening for a full rewrite, or modify unselected content.", ""]
     lines += ["## Compare revisions when requested",
