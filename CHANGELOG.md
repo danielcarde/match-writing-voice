@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.2
+
+- Added Humanizer guidance for unpacking dense technical prose while preserving technical terms, evidence relationships, and limits.
+
 ## 0.10.1 — 2026-11-16
 
 - Made creating a voice profile from scratch explicit in the skill, starter prompt, and usage guide.

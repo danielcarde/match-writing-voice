@@ -36,6 +36,8 @@ Compare the source and result for every argument, example, factual value, citati
 
 Check coverage for each section. When a section reports progress, account for completed work, pending work, experiment conditions, and what the results support. Recover details where a shorter section has lost a condition, exact timing, or citation. If a paragraph moved, check its evidence and caveats at the new location.
 
+After unpacking a dense sentence, verify that each number still describes the same population or event. Keep subsets within their totals and check that citations, conditions, and limits still qualify the right claims.
+
 For a requested comparison or edit record, use [revision review](revision-review.md) on the actual versions. Include applicable voice evidence and reasons for material edits. Retain full draft snapshots only when requested.
 
 Use the [editorial review](editorial-review.md) to prioritize repairs to generic phrasing, repeated framing, and stock transitions within the authorized scope. Use the profile for the repair and preserve protected material. A cleanup-only request calls for justified local edits and may require no changes. An explicit voice transformation can recast editable prose more broadly while preserving content. Audit-only requests stop at findings. Do not rewrite a sound passage merely to demonstrate activity or reduce a pattern count.

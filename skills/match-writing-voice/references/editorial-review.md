@@ -37,6 +37,14 @@ A passage can have few stylistic issues and still fail its purpose. For a concer
 
 Ask internally what the reader would lose if the span vanished. This is a diagnostic question, not permission to delete it. Assess substance by purpose: an acknowledgment needs no statistic; a reflective feeling needs no measurable result; a complete notification need not contain an ask. Flag a gap only when the missing information matters to the requested outcome. No numerical humanness score or universal requirement for names, numbers, or opinions follows from this review.
 
+## Unpack dense technical sentences
+
+When abstract nouns or stacked clauses make a passage hard to follow, state who or what did the work and describe the actions the source supports. Keep precise technical terms and defined labels. For example, “The team checked the service for event logging and temporary file cleanup” can become “The team checked whether the service logged the event and removed its temporary files.”
+
+Split a sentence when it changes purpose, such as from introducing a method to explaining its conditions or from reporting a result to stating its limits. Keep each qualifier with the claim it limits. Use the surrounding sentences and matching voice example to choose the rhythm.
+
+Preserve relationships between facts, including subsets and totals, sequence, comparisons, and what the evidence establishes. A report can say “The full suite passed 24 tests. That total includes the six focused checks.” Preserve the inclusion relationship when recasting the result.
+
 ## Useful patterns to inspect
 
 These are judgment prompts, not a word blacklist, numeric quota, or exhaustive copy of the upstream catalog. Apply them to English prose; other languages require relevant linguistic evidence.
