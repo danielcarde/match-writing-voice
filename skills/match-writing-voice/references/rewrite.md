@@ -36,7 +36,7 @@ Compare the source and result for every argument, example, factual value, citati
 
 Check coverage for each section. When a section reports progress, account for completed work, pending work, experiment conditions, and what the results support. Recover details where a shorter section has lost a condition, exact timing, or citation. If a paragraph moved, check its evidence and caveats at the new location.
 
-After unpacking a dense sentence, verify that each number still describes the same population or event. Keep subsets within their totals and check that citations, conditions, and limits still qualify the right claims.
+After recasting a technical sentence, compare each number with the phrase it describes in the source. Check the population or event, its qualifiers, and any subset or total it belongs to. Then check the surrounding claims for lost methods or details, and verify that citations, conditions, and limits still apply to the right claims.
 
 For a requested comparison or edit record, use [revision review](revision-review.md) on the actual versions. Include applicable voice evidence and reasons for material edits. Retain full draft snapshots only when requested.
 

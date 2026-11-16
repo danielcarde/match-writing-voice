@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.3
+
+- Recast awkward technical sentences around their main point and check that quantities, qualifiers, and neighboring details survive the rewrite.
+
 ## 0.10.2
 
 - Added Humanizer guidance for unpacking dense technical prose while preserving technical terms, evidence relationships, and limits.

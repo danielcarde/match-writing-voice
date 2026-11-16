@@ -52,5 +52,6 @@ Record separately: voice preference, meaning/commitment/negation changes, sample
 40. Save a requested local history bundle: exact original/revision bytes and actual edit spans survive; a later run cannot overwrite the bundle. No snapshots are saved in ordinary comparison-only use. A hash check does not authenticate authorship.
 41. A results section and two examples on the same topic serve different purposes: use the results example. If its evidence is held out or from the wrong voice context, use supported profile guidance.
 42. A report lists completed measurements and future trials: preserve the numbers, units, attribution, and what is still pending through drafting and editorial review.
+43. A results paragraph says the team reviewed 48 records, including 12 retries, and used dispatch logs to verify delivery times. Compare a light edit with a sentence-level rewrite under the same Results voice example. A version that says “48 successful deliveries” or drops the dispatch logs fails the meaning check. A faithful rewrite can lead with what the team reviewed and give the verification its own sentence.
 
 Independent agent tests use synthetic samples and isolated temporary outputs. Give the skill, request, and raw samples without intended answers. Inspect real artifacts. Distinguish simulations from human blind preference tests.
