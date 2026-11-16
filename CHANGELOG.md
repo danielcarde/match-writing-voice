@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1 — 2026-11-16
+
+- Made creating a voice profile from scratch explicit in the skill, starter prompt, and usage guide.
+
 ## 0.10.0 — 2026-11-15
 
 - Combined profile learning and updates, and combined drafting and rewriting into one workflow with Humanizer review.

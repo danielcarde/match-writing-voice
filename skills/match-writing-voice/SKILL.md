@@ -1,15 +1,15 @@
 ---
 name: match-writing-voice
-description: Learn or update a voice profile from writing samples and revisions. Draft, rewrite, and humanize text in that voice while preserving meaning and source details.
+description: Create or update a voice profile from writing samples and revisions. Draft, rewrite, and humanize text in that voice while preserving meaning and source details.
 ---
 
 # Match Writing Voice
 
 Use the profile for voice and the current draft or brief for content. Humanizer is part of every draft and rewrite.
 
-## Update a voice profile
+## Create or update a voice profile
 
-Use [learning guidance](references/learn.md) for writing samples, draft pairs, and explicit preferences. Read [paired edits](references/learn-from-edits.md) when the user supplies an earlier draft and its revision. Tie guidance and short examples to the writing context and section where they apply. A one-off correction stays with the current draft. Save or refresh a reusable profile when asked and use [the profile format](references/profile-format.md) for structured evidence and exports.
+Create a new profile when the user asks to build one from their writing. When the user asks to update a profile, use the existing profile and retain its supported guidance. Use [learning guidance](references/learn.md) for samples, draft pairs, and explicit preferences. Read [paired edits](references/learn-from-edits.md) for an earlier draft and its revision. Tie guidance and short examples to the context and section where they apply. A one-off correction stays with the current draft. Use [the profile format](references/profile-format.md) for structured evidence and exports.
 
 ## Write in a voice
 

@@ -1,8 +1,14 @@
 # Usage
 
-## Update my voice profile
+## Create or update my voice profile
 
-Supply real writing samples, an earlier draft and your revision, or a preference you want to reuse. The assistant records the habits that the evidence supports and where they apply. A before-and-after pair can show how you revise a section. Label shared writing examples so the assistant can use them in the group's voice.
+To start, supply your writing samples and ask for a new profile. The assistant records the habits the samples support and where they apply.
+
+```text
+Use $match-writing-voice to create a voice profile from these writing samples.
+```
+
+To update a profile you already use, supply new samples, a before-and-after edit, or a preference you want to reuse. Label shared examples so the assistant can use them in the group's voice.
 
 ```text
 Use $match-writing-voice to update my profile with these lab reports.
