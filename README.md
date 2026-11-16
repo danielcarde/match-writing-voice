@@ -15,23 +15,11 @@
 
 # Match Writing Voice
 
-Turn real writing samples into a reusable voice profile, then use that profile to express new ideas. Preserve supported vernacular, rhythm, and recurring imperfections—or lightly edit them when asked.
+**Update my voice profile.** Supply real writing samples, an earlier draft and your revision, or a preference you want to reuse. The profile records habits and short examples in the contexts where they fit. [Update a profile](docs/usage.md#update-my-voice-profile)
 
-The skill also distinguishes the writer's likely familiarity from the assistant's research. It can make qualified inferences about familiarity without inventing expertise, personal experience, or a claim that the writer just learned something.
-
-**Rewrite mode** transforms an existing paragraph, essay, or document into the target voice. Choose minimal edits, a standard rewrite, or paragraph-level restructuring. Protect exact citations, equations, and technical terms when comparing versions. [Rewrite controls and examples →](docs/usage.md#rewrite-existing-content)
-
-**Learn from your edits** compares an earlier draft and a rewrite to save reusable revision habits for the same writing context. [Learn from a pair →](docs/usage.md#learn-from-your-edits)
-
-**Humanizer review** is a default priority for drafts and rewrites. It fixes stock openings, empty recaps, and formulaic phrasing where they weaken the prose, using the learned voice to shape the repair. You can also request an audit on its own. [How review works →](docs/usage.md#review-generic-phrasing-without-erasing-the-voice)
-
-The review also incorporates selected ideas from Humanizer, De-Slop, and related skills: paragraph purpose, missing-content triage, reader context, local keep decisions, and protection against an editor-imposed voice. Optional read-only text inspection locates unusual codepoints without changing the source. [Comparison and provenance →](docs/editorial-research.md)
-
-**Revision comparison and history** show exact edits, before/after measurements, applicable voice evidence, and separate editorial reasons. Save original and revised snapshots only when requested. A separate offline evaluator summarizes actual supplied detector results with text hashes and declared origins. [Compare and track edits →](docs/usage.md#compare-revisions-and-track-edits)
+**Write or rewrite in my voice.** Supply notes or existing prose. The skill selects examples that serve the same purpose as the section it is writing. Humanizer review fixes stock openings, empty recaps, and formulaic transitions where they weaken the prose. Rewrites check the source facts, figures, citations, and caveats before delivery. [Write or rewrite](docs/usage.md#write-or-rewrite-in-my-voice)
 
 ## Start here
-
-Prefer choices? After installation, ask **“Use Match Writing Voice in guided mode”** to pick a profile, task, editing mode, and context. Known settings are skipped; ordinary direct prompts still work. The host supplies question cards when available, with a text-menu fallback. [Guided picker and local profile catalog →](docs/usage.md#optional-guided-picker)
 
 Clone this private repository with an authenticated GitHub account:
 
@@ -52,9 +40,8 @@ For Claude web/desktop, download `match-writing-voice-claude.zip` from [Releases
 Then supply your samples and ask:
 
 ```text
-Use Match Writing Voice. These are my writing samples.
-Build a profile of my voice, including recurring grammar and punctuation habits.
-Then draft a message asking to reschedule an appointment. Use faithful mode.
+Use Match Writing Voice to build a profile from these samples.
+Then draft a message asking to reschedule an appointment in my voice.
 ```
 
 In Codex, explicitly mention `$match-writing-voice`. In a standalone Claude Code installation, use `/match-writing-voice`. Gemini CLI activates matching skills after its normal consent prompt.
@@ -72,32 +59,14 @@ In Codex, explicitly mention `$match-writing-voice`. In a standalone Claude Code
 
 An isolated typo is weak evidence. A repeated habit still belongs in its context. The skill does not add random errors or force a favorite expression into every paragraph.
 
-## Choose the amount of editing
-
-| Mode | Result |
-|---|---|
-| **Faithful** | Preserves supported imperfections at a natural frequency. Default. |
-| **Lightly edited** | Keeps the voice while correcting clear slips, with protected preferences retained. |
-| **Adapted** | Carries stable traits into another medium or audience. |
-
-Synthetic demonstration, using the same requested facts:
-
-> **Faithful:** yeah i can bring the projector to the library on tuesday, its just that i need it back by 5 pm.
->
-> **Lightly edited:** Yeah, I can bring the projector to the library on Tuesday. It's just that I need it back by 5 pm.
-
-These examples demonstrate mode choices; they are not a real writer's recognition score. [Explore the reproducible example →](examples/README.md)
-
-## Rewrite a paragraph, essay, or document
+## Rewrite a draft
 
 ```text
-Use Match Writing Voice in rewrite mode.
-Rewrite this document in the voice of my attached profile.
-Keep the original structure, facts, arguments, examples, quotes, and citations.
-Use faithful editing and return the complete rewritten document.
+Use Match Writing Voice to rewrite this document in my saved voice.
+Keep the original structure, facts, examples, quotations, and citations.
 ```
 
-Structure is preserved by default. You can request restructuring, select only a passage, or choose lightly edited/adapted output. The source provides content; the profile provides voice. [Full rewrite workflow →](skills/match-writing-voice/references/rewrite.md)
+Structure is preserved by default. Say “light edits only,” “fix obvious grammar slips,” or “you can reorganize” to adjust the edit. “Show me what changed” requests a comparison. “Check for hidden characters” requests an inspection of copy and paste artifacts. [Usage guide](docs/usage.md)
 
 ## How it works
 
@@ -127,6 +96,8 @@ No separate API key, database, paid service, or third-party Python package is re
 **Gemini CLI and the Gemini chat app are different products.** This repo documents native Gemini CLI installation; use the portable guide for other chat surfaces. Format compatibility does not guarantee identical model behavior. [Details and official sources →](docs/compatibility.md)
 
 ## Develop and verify
+
+Compare versions using the [maintainer detector benchmarking guide](docs/detector-evaluation.md). The offline command summarizes supplied scan results.
 
 Python **3.10+** is needed only for local helpers and checks.
 

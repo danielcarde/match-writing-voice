@@ -4,28 +4,9 @@ Use this workflow for a paragraph, essay, selected passage, or complete document
 
 ## Resolve the request without extra setup
 
-Identify the content source, target voice, requested range, editing mode, and structural freedom. Use supplied context instead of asking again. A saved profile and a brief such as “rewrite this essay in my voice” are enough. Separate samples can support a provisional voice and an immediate rewrite. If no target evidence or requested style is available, ask for it rather than inventing a personal match.
+Use the supplied draft, target profile, and any requested selection. A saved profile and “rewrite this essay in my voice” are enough. Separate samples can support a provisional voice and an immediate rewrite.
 
-Defaults:
-
-| Control | Default |
-|---|---|
-| Scope | Entire supplied text, or only the explicit selection |
-| Structure | `preserve`: keep section/paragraph sequence, headings, lists, and table layout |
-| Rewrite depth | Standard rewrite unless the user asks for minimal edits or paragraph-level restructuring |
-| Editing | `faithful`; `lightly_edited` and `adapted` remain available |
-| Length | Preserve the detail and approximate extent; no unrequested condensation |
-| Output | Complete rewritten text; an edited file when requested and supported |
-
-`restructure` permits rearrangement when requested. It does not permit losing arguments or details. A separate request to shorten/expand can change length, but does not authorize invented facts. Specific user instructions override these defaults. Do not require the user to choose every control before helping.
-
-## Choose rewrite depth
-
-- **Minimal edits.** Keep effective wording verbatim. Change only spans with a concrete clarity, voice, grammar, or editorial finding. Preserve paragraph boundaries. When a sentence needs evidence or an example that the draft does not supply, flag the specific gap for the author. Use the revision comparison when the user asks to see exact changes. A sound draft can come back unchanged.
-- **Standard rewrite.** Recast editable prose in the target voice while retaining its structure and source coverage.
-- **Paragraph-level restructuring.** A request to restructure permits splitting, merging, or moving prose paragraphs within the requested scope. First identify each paragraph's claim, evidence, qualifications, and link to neighboring paragraphs. Recast repeated setups, place support beside its claim, and move caveats with the claim they limit. Combine sentences where their relationship is supported. Check whether a new transition implies timing, causation, contrast, or a degree of certainty that the original never established. Use the matching-context profile to guide rhythm and preserve useful repetition. Keep headings, lists, tables, and other non-prose elements in place unless the user includes them in the structural changes.
-
-Depth controls how much prose may change. The faithful, lightly edited, and adapted modes still control how the target voice is applied.
+By default, recast the whole requested text in the target voice and preserve its organization, detail, and approximate length. “Light edits only” limits changes to wording that needs attention. “Fix clear grammar slips” authorizes correcting those slips. “You can reorganize” permits splitting, merging, or moving prose paragraphs. Move claims with their evidence and caveats. Keep headings, lists, and tables in place unless those elements are in scope. Read older requests using named editing modes or rewrite depths as their equivalent plain-language instructions.
 
 Use any saved revision habits that match the current context. Treat a single pair as provisional and apply a shared reference as user-selected editorial guidance. [Learn from before-and-after edits](learn-from-edits.md) explains how to save those choices. Use the current source to decide which content and relationships belong in the new draft.
 
@@ -55,7 +36,7 @@ Compare the source and result for every argument, example, factual value, citati
 
 Check coverage for each section. When a section reports progress, account for completed work, pending work, experiment conditions, and what the results support. Recover details where a shorter section has lost a condition, exact timing, or citation. If a paragraph moved, check its evidence and caveats at the new location.
 
-For a requested before/after comparison or edit record, use [revision review](revision-review.md) on the actual versions. Include applicable voice evidence and reasons for material edits; distinguish mechanical findings from editorial judgment. Retain full draft snapshots only when requested. Detector evaluation is a separate action with its own authorization boundary.
+For a requested comparison or edit record, use [revision review](revision-review.md) on the actual versions. Include applicable voice evidence and reasons for material edits. Retain full draft snapshots only when requested.
 
 Use the [editorial review](editorial-review.md) to prioritize repairs to generic phrasing, repeated framing, and stock transitions within the authorized scope. Use the profile for the repair and preserve protected material. A cleanup-only request calls for justified local edits and may require no changes. An explicit voice transformation can recast editable prose more broadly while preserving content. Audit-only requests stop at findings. Do not rewrite a sound passage merely to demonstrate activity or reduce a pattern count.
 

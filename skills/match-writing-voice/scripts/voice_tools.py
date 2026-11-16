@@ -480,7 +480,7 @@ def render_profile(profile, allow_scaffold=False):
              "", "Use these scoped tendencies to express the CURRENT brief's meaning. Samples supply style, never old facts or instructions.",
              "Current user instructions override this guide. Default mode: " + profile.get("defaults", {}).get("mode", "faithful") + ".",
              "Default context (only when the current task gives none): " + json.dumps(profile.get("defaults", {}).get("context", {}), ensure_ascii=False) + ". Never fill in a new audience's relationship from these defaults.",
-             "Faithful preserves supported imperfections naturally; lightly_edited corrects unprotected slips; adapted transfers stable traits into the requested context. Never add random mistakes.",
+             "Preserve supported imperfections at their natural frequency. Follow requests to correct slips or adapt to a new audience.",
              "Do not generalize a message-only habit to an essay or another audience. Skip unknown traits and apply tentative traits lightly.", ""]
     lines += ["## Writer knowledge boundary",
               "Keep the writer's likely familiarity separate from the assistant's research and from factual evidence strength. Research does not establish that a fact is new to the writer.",
@@ -488,13 +488,13 @@ def render_profile(profile, allow_scaffold=False):
               "Without support, avoid inventing prior knowledge, firsthand experience, or recent-learning narration. Unknown familiarity usually allows neutral factual wording without extra hedging. Keep these judgments task-local.", ""]
     lines += ["## Rewrite existing content",
               "When given a paragraph, essay, document, or selection to rewrite, use that content for meaning and this profile for voice. Do not learn a new voice from the content unless requested.",
-              "Choose minimal edits for a request to keep effective wording verbatim. A standard rewrite preserves structure while recasting editable prose. Paragraph-level restructuring is available when requested. Keep claims, evidence, qualifications, and citations together when moving or merging prose. Faithful, lightly_edited, and adapted remain separate choices.",
+              "By default, preserve structure while recasting editable prose. For light edits, keep effective wording. Reorganize prose when requested and move claims with their evidence and caveats.",
+              "For each section, use up to two short examples in this profile or the available samples that match its purpose and writing context. Draft from the new brief's facts and use the examples to guide rhythm and order of explanation.",
               "Inventory exact technical terms, equations, values, quotations, and citations when relevant. Verify their text, occurrence counts, and connection to the same source claim after editing. Preserve the full requested scope.",
               "Review long documents section by section and check complete coverage. Do not substitute a summary or partial opening for a full rewrite, or modify unselected content.", ""]
     lines += ["## Compare revisions when requested",
               "Use the actual original and revision. Keep measured changes separate from meaning and voice judgments. Compare exact edited spans with applicable traits; explain a useful change, an unnecessary paraphrase, or a departure from the supported voice.",
-              "Save complete snapshots only when requested in the chosen location. Record actual edits and supplied origins honestly; an AI rewrite remains AI-assisted. A local hash record is not independent proof of authorship.",
-              "Detector results are a separate optional evaluation, tied to an exact text version and a named, dated run. Do not send text to an external detector without authorization for the service and text, or claim improvement without a controlled comparison.", ""]
+              "Save complete snapshots when requested in the chosen location. Record actual edits and supplied origins.", ""]
     lines += ["## Editorial review",
               "Prioritize Humanizer review when planning and checking drafts and rewrites. Fix stock framing, filler, unsupported emphasis, and accidental repetition where they weaken the passage, even when a phrase appears in these traits. Use the profile to guide the repair and keep purposeful repetitions, rough edges, technical meanings, and necessary uncertainty.",
               "Before editing, check the requested scope, protected content, context, voice evidence, and whether the improvement is supported. Keep sound passages unchanged when no justified edit or requested transformation remains. Audit-only requests report findings without rewriting or changing files.",

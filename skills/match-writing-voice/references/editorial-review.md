@@ -14,7 +14,9 @@ Choose the smallest justified edit depth. Cleanup repairs affected wording; an e
 
 ## Decide before editing
 
-Separate three controls: the action (write, rewrite, audit, or explicitly edit a file), the editing mode (faithful, lightly_edited, adapted), and permission to restructure. An audit never grants permission to rewrite or edit a file. A cleanup permits targeted wording changes; broad reorganization still needs a request for it. A requested voice transformation permits expression changes beyond cleanup, with the source's meaning intact.
+Follow the scope in the user's request. A request for feedback calls for findings. A light edit calls for targeted changes. A voice rewrite allows recasting the prose while preserving meaning. Reorganize when the request gives you room to do so.
+
+If the user asks about hidden characters or pasted text shows spacing or display problems, use [text inspection](text-hygiene.md). Review the role of any flagged characters in their actual context.
 
 For each candidate, check:
 
