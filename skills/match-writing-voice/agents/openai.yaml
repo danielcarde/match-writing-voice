@@ -1,4 +1,4 @@
 interface:
   display_name: "Match Writing Voice"
   short_description: "Learn a writing voice, including its imperfections"
-  default_prompt: "Use $match-writing-voice to learn a voice from these samples and write in it faithfully."
+  default_prompt: "Use $match-writing-voice to create a voice profile from my writing samples."

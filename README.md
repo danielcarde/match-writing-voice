@@ -15,7 +15,7 @@
 
 # Match Writing Voice
 
-**Update my voice profile.** Supply real writing samples, an earlier draft and your revision, or a preference you want to reuse. The profile records habits and short examples in the contexts where they fit. [Update a profile](docs/usage.md#update-my-voice-profile)
+**Create or update my voice profile.** Build a profile from your samples or add examples, edits, and preferences to one you already use. The profile records habits and short examples in the contexts where they fit. [Create or update a profile](docs/usage.md#create-or-update-my-voice-profile)
 
 **Write or rewrite in my voice.** Supply notes or existing prose. The skill selects examples that serve the same purpose as the section it is writing. Humanizer review fixes stock openings, empty recaps, and formulaic transitions where they weaken the prose. Rewrites check the source facts, figures, citations, and caveats before delivery. [Write or rewrite](docs/usage.md#write-or-rewrite-in-my-voice)
 
