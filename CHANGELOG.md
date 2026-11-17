@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.6
+
+- Check that rewrites preserve the force of technical claims and the full notation of statistical comparisons.
+
 ## 0.10.5
 
 - Compare two approaches on difficult rewrites and choose the best voice match after checking the source claims and details.

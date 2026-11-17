@@ -114,6 +114,22 @@ class RewriteTests(unittest.TestCase):
         self.assertFalse(result["manual_review_completed"])
         self.assertTrue(result["manual_review"])
 
+    def test_protected_statistical_expression_keeps_its_operator(self):
+        expression = "p < 0.03"
+        source = f"We propose a filter. The pilot found a timing difference ({expression})."
+        faithful = f"The filter is our proposal. In the pilot, timing differed ({expression})."
+        protected = voice.load_protected([expression], None, source)
+        result = voice.check(self.profile, faithful, source=source, protected=protected, workflow="rewrite")
+        self.assertEqual("PASS", result["verdict"])
+        for replacement in ("p > 0.03", "p ¡ 0.03", "p 0.03"):
+            with self.subTest(replacement=replacement):
+                draft = faithful.replace(expression, replacement)
+                result = voice.check(self.profile, draft, source=source, protected=protected, workflow="rewrite")
+                self.assertEqual("BLOCK", result["verdict"])
+                missing = [finding["text"] for finding in result["findings"]
+                           if finding["code"] == "protected_text_missing"]
+                self.assertIn(expression, missing)
+
     def test_cli_rewrite_controls(self):
         parent = ROOT / "tests"
         with tempfile.TemporaryDirectory(prefix="repo-test-rewrite-", dir=parent) as folder:
