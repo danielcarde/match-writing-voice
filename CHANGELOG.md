@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.7
+
+- Adapt StoryScope v6 into Humanizer review of repeated explanations, unsupported closure, and causal links, with genre and source checks.
+
 ## 0.10.6
 
 - Check that rewrites preserve the force of technical claims and the full notation of statistical comparisons.

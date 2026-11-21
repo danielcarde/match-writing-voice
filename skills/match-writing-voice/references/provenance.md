@@ -40,3 +40,7 @@ All five editorial sources have retained [MIT notices](upstream-license.md). No 
 - [RAID](https://github.com/liamdugan/raid/tree/e8e23308f9f07a667ae8123b4d2bc8049bc61f84): held-out evaluation across model/genre conditions, known-human controls, and explicit reporting of error denominators.
 
 The [comparison and history tools](revision-review.md) and the maintainer detector-results importer are original standard-library implementations. The pinned research sources inform the evaluation methodology. The repository's detector benchmarking guide explains how to measure the effect of a change on supplied detector results.
+
+## StoryScope structural review
+
+[Russell et al., StoryScope, arXiv:2604.03136v6](https://arxiv.org/html/2604.03136v6), especially sections 4.1 and 4.2, informs the review of repeated thematic explanations, overly tidy resolutions, and genre-dependent narrative choices. The study analyzes long fiction and finds that its narrative classifier retains substantial signal after stylistic editing. The skill applies those findings as contextual editorial questions. Transfer to technical reports, emails, or short answers remains an inference requiring evaluation. The implementation uses original guidance, with no story corpus or classifier bundled.
