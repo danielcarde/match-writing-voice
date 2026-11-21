@@ -20,6 +20,8 @@ When asked to save, append or merge the supported instructions into the chosen p
 
 Use the optional `revision_habits` field from the [profile format](profile-format.md). The local comparison supplies the two exact text hashes. Store hashes, contribution, scope, and a reusable instruction. Save full drafts only when requested. For a standalone Markdown guide, include the source pair's descriptive label, its context, and the evidence strength without embedding the two drafts.
 
+When the user requests a reusable collection of approved pairs, use the approved-example metadata and private history bundles in [revision review](revision-review.md). Retain authorship labels and approval notes, and keep related sections in one split. A collection does not train model weights or establish a recurring personal habit. Do not learn from its held-out references.
+
 Apply matching habits on future rewrites. Current instructions, protected text, requested edit depth, and evidence of the writer's personal voice govern the edit. For example, a progress-report habit can move a test and its purpose together when the user allows restructuring. Under minimal edits, apply it only where a local change is warranted.
 
 Before delivery, compare each revised section with its source. Check technical terms, numeric details, attribution, caveats, and what the team actually completed. When paragraphs move, trace the supporting details with their claims. Show the useful changes and their limits if requested. Evaluate any detector effect separately on fresh text with the same facts and scan settings.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.12.0
+
+- Execute candidate comparisons and gate final output on complete meaning and voice review, retaining existing edit scopes and correction budgets.
+- Save user-approved rewrite examples with contribution, context, and document-group labels; retrieve matching learning pairs while excluding held-out and current-document groups.
+
 ## 0.11.0
 
 - Add optional local freeze/restore helpers to protect exact source spans before rewriting and reject damaged markers before writing the result.

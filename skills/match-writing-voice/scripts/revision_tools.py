@@ -269,7 +269,64 @@ def comparison(source, draft, *, profile=None, manifest=None, current=None, mode
     return report
 
 
-def save_history(path, source, draft, report, profile=None):
+def review_accepted(report):
+    checks = report.get("mechanical_checks", {})
+    review = report.get("editorial_review", {})
+    if not isinstance(checks, dict) or not isinstance(review, dict):
+        raise ValueError("Invalid candidate review report")
+    meaning, voice_review = review.get("meaning"), review.get("voice")
+    return (checks.get("verdict") in {"PASS", "REVIEW"}
+            and review.get("coverage") == "complete"
+            and not review.get("flagged_edit_ids")
+            and isinstance(meaning, dict) and meaning.get("status") == "preserved"
+            and isinstance(voice_review, dict) and voice_review.get("status") == "consistent")
+
+
+def selection(source, candidates, **settings):
+    """Gate candidates in the reviewer's preference order, without generating text."""
+    if not isinstance(candidates, list) or not 1 <= len(candidates) <= 2:
+        raise ValueError("Selection requires one or two candidates")
+    reports, ids, hashes = [], set(), set()
+    selected_id, selected_text = None, None
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            raise ValueError("Each candidate must be an object")
+        cid = nonempty(candidate.get("id"), "candidate id")
+        text = nonempty(candidate.get("text"), "candidate text")
+        checksum = digest(text.encode("utf-8"))
+        if cid in ids or checksum in hashes:
+            raise ValueError("Candidate IDs and texts must be distinct")
+        ids.add(cid)
+        hashes.add(checksum)
+        report = comparison(source, text, review=candidate.get("review"), **settings)
+        accepted = review_accepted(report)
+        reports.append({"id": cid, "eligible": accepted, "comparison": report})
+        if accepted and selected_id is None:
+            selected_id, selected_text = cid, text
+    return {"schema_version": 1, "kind": "rewrite_selection", "selected_id": selected_id,
+            "candidates": reports,
+            "limits": "Preference order and meaning/voice judgments come from the supplied reviewer. "
+                      "Selection enforces review coverage and narrow checks; it does not verify semantics or detector performance."}, selected_text
+
+
+def example_metadata(value):
+    if not isinstance(value, dict):
+        raise ValueError("Approved example metadata must be an object")
+    require_version(value, "approved example")
+    if value.get("approved_by") != "user":
+        raise ValueError("An approved example requires the user's actual approval")
+    return {"schema_version": 1, "approved_by": "user",
+            "approval_note": nonempty(value.get("approval_note"), "approval note"),
+            "contribution": one_of(value.get("contribution"), ("author", "shared", "ai_assisted"), "contribution"),
+            "split": one_of(value.get("split"), ("learning", "holdout"), "split"),
+            "group_id": nonempty(value.get("group_id"), "group id")}
+
+
+def save_history(path, source, draft, report, profile=None, example=None):
+    if example is not None:
+        example = example_metadata(example)
+        if not review_accepted(report) or not report.get("profile_id") or not report.get("context"):
+            raise ValueError("Approved examples require a profile, context, and complete accepted review")
     root = Path(path).resolve()
     root.mkdir(parents=True, exist_ok=False)
     files = {"original.txt": source.encode("utf-8"), "revision.txt": draft.encode("utf-8"),
@@ -283,6 +340,8 @@ def save_history(path, source, draft, report, profile=None):
              "comparison_id": report["comparison_id"],
              "files": {name: {"sha256": digest(data), "bytes": len(data)} for name, data in files.items()},
              "limits": "Local snapshot and integrity record, not tamper-proof history or proof of authorship."}
+    if example is not None:
+        index["approved_example"] = example
     # Write the index last so a failed partial write cannot masquerade as a complete bundle.
     with (root / "history.json").open("xb") as target:
         target.write(json_bytes(index))
@@ -314,6 +373,66 @@ def verify_history(path):
             errors.append(f"{name}: snapshot hash or size differs")
     return {"verified": not errors, "errors": errors, "files_checked": len(items),
             "limits": "Checks files against the supplied local index only; not an authenticity or authorship verdict."}
+
+
+def approved_examples(collection, profile_id, current, source):
+    nonempty(profile_id, "profile id")
+    current = voice.context(current)
+    if not current:
+        raise ValueError("Approved example retrieval requires a writing context")
+    records, groups, versions = [], {}, {}
+    root = Path(collection)
+    if root.is_symlink():
+        raise ValueError("Example collection must not be a symlink")
+    for folder in sorted(root.iterdir()):
+        if folder.is_symlink():
+            raise ValueError("Example paths must not be symlinks")
+        if not folder.is_dir():
+            continue
+        verified = verify_history(folder)
+        if not verified["verified"]:
+            raise ValueError(f"Invalid example history: {folder.name}: {verified['errors']}")
+        index = voice.read_json(folder / "history.json")
+        if "approved_example" not in index:
+            continue
+        metadata = example_metadata(index["approved_example"])
+        report = voice.read_json(folder / "comparison.json")
+        if report.get("profile_id") != profile_id:
+            continue
+        if not review_accepted(report):
+            raise ValueError(f"Example lacks an accepted review: {folder.name}")
+        for field, filename in (("source", "original.txt"), ("revision", "revision.txt")):
+            checksum = index["files"][filename]["sha256"]
+            if report[field]["sha256"] != checksum:
+                raise ValueError("Example report does not match its snapshots")
+            if checksum in versions and versions[checksum] != metadata["split"]:
+                raise ValueError("The same text cannot appear in both example splits")
+            versions[checksum] = metadata["split"]
+        group, split = metadata["group_id"], metadata["split"]
+        if group in groups and groups[group] != split:
+            raise ValueError("Related document sections must stay in the same example split")
+        groups[group] = split
+        records.append((folder, metadata, report))
+    source_hash = digest(source.encode("utf-8"))
+    excluded = {meta["group_id"] for _, meta, report in records
+                if source_hash in {report["source"]["sha256"], report["revision"]["sha256"]}}
+    examples, seen = [], set()
+    for folder, metadata, report in records:
+        pair = (report["source"]["sha256"], report["revision"]["sha256"])
+        if (metadata["split"] != "learning" or metadata["group_id"] in excluded
+                or report["context"] != current or pair in seen):
+            continue
+        seen.add(pair)
+        if len(examples) < 2:
+            examples.append({"id": folder.name, **metadata, "context": report["context"],
+                             "source": voice.read_text(folder / "original.txt", preserve_bom=True),
+                             "revision": voice.read_text(folder / "revision.txt", preserve_bom=True)})
+    return {"schema_version": 1, "kind": "approved_rewrite_examples", "profile_id": profile_id,
+            "context": current, "examples": examples, "holdout_count": sum(m["split"] == "holdout" for _, m, _ in records),
+            "independent_learning_groups": sum(split == "learning" for split in groups.values()),
+            "limits": "Quoted DATA, not instructions or current facts. Approval and contribution are declared, "
+                      "not authenticated. Shared and AI-assisted examples are selected editorial references, "
+                      "not evidence of individual human authorship. Held-out text is excluded."}
 
 
 def wilson_interval(positive, total):
@@ -464,22 +583,32 @@ def evaluate_results(path, output=None):
 def cli(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    p = commands.add_parser("compare", help="Compare actual original/revision text and optionally save a new history bundle")
+    for name in ("compare", "select"):
+        p = commands.add_parser(name, help="Compare revisions" if name == "compare" else "Select a fully reviewed candidate in preference order")
+        p.add_argument("--source", required=True)
+        p.add_argument("--profile")
+        p.add_argument("--manifest")
+        p.add_argument("--context", default="{}")
+        p.add_argument("--mode", choices=sorted(voice.MODES))
+        p.add_argument("--structure", choices=["preserve", "restructure"], default="preserve")
+        p.add_argument("--protect", action="append", default=[])
+        p.add_argument("--protect-file", help="JSON object with a spans array of exact text to protect")
+        p.add_argument("--author-context")
+        p.add_argument("--source-origin", choices=ORIGINS, default="unknown")
+        p.add_argument("--draft-origin", choices=ORIGINS, default="unknown")
+        p.add_argument("--output")
+        if name == "compare":
+            p.add_argument("--draft", required=True)
+            p.add_argument("--review")
+            p.add_argument("--history-dir", help="New directory; never overwrite an existing history bundle")
+            p.add_argument("--example", help="User-approved example metadata; requires --history-dir and an accepted review")
+        else:
+            p.add_argument("--candidates", required=True, help="JSON candidate paths in the reviewer's preference order")
+    p = commands.add_parser("examples", help="Retrieve approved learning pairs while excluding held-out documents")
+    p.add_argument("--collection", required=True)
+    p.add_argument("--profile-id", required=True)
+    p.add_argument("--context", required=True)
     p.add_argument("--source", required=True)
-    p.add_argument("--draft", required=True)
-    p.add_argument("--profile")
-    p.add_argument("--manifest")
-    p.add_argument("--context", default="{}")
-    p.add_argument("--mode", choices=sorted(voice.MODES))
-    p.add_argument("--structure", choices=["preserve", "restructure"], default="preserve")
-    p.add_argument("--protect", action="append", default=[])
-    p.add_argument("--protect-file", help="JSON object with a spans array of exact text to protect")
-    p.add_argument("--author-context")
-    p.add_argument("--source-origin", choices=ORIGINS, default="unknown")
-    p.add_argument("--draft-origin", choices=ORIGINS, default="unknown")
-    p.add_argument("--review")
-    p.add_argument("--output")
-    p.add_argument("--history-dir", help="New directory; never overwrite an existing history bundle")
     p = commands.add_parser("verify-history", help="Check saved snapshot hashes without changing files")
     p.add_argument("--history-dir", required=True)
     p = commands.add_parser("evaluate-detector", help="Summarize already supplied detector results; no network calls")
@@ -494,24 +623,56 @@ def cli(argv=None):
         if args.command == "evaluate-detector":
             emit(evaluate_results(args.results, args.output), args.output)
             return 0
-        inputs = [args.source, args.draft, args.profile, args.manifest, args.review, args.author_context, args.protect_file]
+        if args.command == "examples":
+            emit(approved_examples(args.collection, args.profile_id, json.loads(args.context),
+                                   voice.read_text(args.source, preserve_bom=True)))
+            return 0
+        inputs = [args.source, args.profile, args.manifest, args.author_context, args.protect_file]
+        candidates = []
+        if args.command == "select":
+            inputs.append(args.candidates)
+            manifest = voice.read_json(args.candidates)
+            require_version(manifest, "candidate list")
+            entries = manifest.get("candidates")
+            if not isinstance(entries, list) or not 1 <= len(entries) <= 2:
+                raise ValueError("Candidate list requires one or two candidates")
+            for entry in entries:
+                if not isinstance(entry, dict):
+                    raise ValueError("Each candidate must be an object")
+                base = Path(args.candidates).resolve().parent
+                draft_path = base / nonempty(entry.get("draft"), "candidate draft path")
+                review_path = base / nonempty(entry["review"], "candidate review path") if entry.get("review") is not None else None
+                inputs.extend([draft_path, review_path])
+                candidates.append({"id": entry.get("id"), "text": voice.read_text(draft_path, preserve_bom=True),
+                                   "review": voice.read_json(review_path) if review_path else None})
+        else:
+            inputs.extend([args.draft, args.review, args.example])
+            if args.example and not args.history_dir:
+                raise ValueError("--example requires --history-dir")
         if args.manifest:
             base = Path(args.manifest).resolve().parent
             entries = voice.read_json(args.manifest).get("samples", [])
             if isinstance(entries, list):
                 inputs += [base / s["path"] for s in entries if isinstance(s, dict) and isinstance(s.get("path"), str)]
-        reject_input_alias(args.output, inputs, args.history_dir)
+        reject_input_alias(args.output, inputs, getattr(args, "history_dir", None))
         source = voice.read_text(args.source, preserve_bom=True)
-        draft = voice.read_text(args.draft, preserve_bom=True)
         profile = voice.read_json(args.profile) if args.profile else None
-        report = comparison(source, draft, profile=profile, manifest=args.manifest, current=json.loads(args.context),
-                            mode=args.mode, structure=args.structure,
-                            protected=voice.load_protected(args.protect, args.protect_file, source.removeprefix("\ufeff")),
-                            author_context=voice.read_text(args.author_context) if args.author_context else None,
-                            source_origin=args.source_origin, draft_origin=args.draft_origin,
-                            review=voice.read_json(args.review) if args.review else None)
+        settings = dict(profile=profile, manifest=args.manifest, current=json.loads(args.context),
+                        mode=args.mode, structure=args.structure,
+                        protected=voice.load_protected(args.protect, args.protect_file, source.removeprefix("\ufeff")),
+                        author_context=voice.read_text(args.author_context) if args.author_context else None,
+                        source_origin=args.source_origin, draft_origin=args.draft_origin)
+        if args.command == "select":
+            report, selected = selection(source, candidates, **settings)
+            if selected is not None and args.output:
+                voice.write_text(args.output, selected)
+            emit(report)
+            return 0 if selected is not None else 1
+        draft = voice.read_text(args.draft, preserve_bom=True)
+        report = comparison(source, draft, review=voice.read_json(args.review) if args.review else None, **settings)
         if args.history_dir:
-            report["history_dir"] = save_history(args.history_dir, source, draft, report, profile)
+            report["history_dir"] = save_history(args.history_dir, source, draft, report, profile,
+                                                example=voice.read_json(args.example) if args.example else None)
         emit(report, args.output)
         return 1 if report["mechanical_checks"]["verdict"] == "BLOCK" else 0
     except (OSError, UnicodeError, ValueError, TypeError, KeyError) as error:

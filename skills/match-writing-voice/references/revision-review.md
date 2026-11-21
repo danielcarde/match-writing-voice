@@ -54,3 +54,35 @@ python scripts/revision_tools.py verify-history --history-dir .local/writing-his
 Use identical versions and settings, including origin labels, for the initial comparison and its review. `verify-history` checks snapshot bytes against the local index. Comparisons include excerpts of changed text. Keep reports and retained originals in the requested private location.
 
 This records differences between supplied versions, not keystrokes or undocumented intermediate edits. For binary documents, keep the original file separately: the helper snapshots extracted text, not document layout or metadata. Give the user a concise, readable summary of meaning, voice, and important edits; provide the exact report/history artifact when requested.
+
+## Select reviewed rewrite candidates
+
+`select` runs comparisons and gates delivery using the annotations above. Candidate paths are relative to their list file. Use one draft for routine rewriting and at most two for a meaningful choice. List candidates in the reviewer's preference order:
+
+```json
+{"schema_version":1,"candidates":[{"id":"rebuilt","draft":"rebuilt.txt"},{"id":"close","draft":"close.txt"}]}
+```
+
+```text
+python scripts/revision_tools.py select --source original.txt --candidates candidates.json --profile profile.json --context '{"medium":"report","language":"en"}' --draft-origin ai_assisted
+```
+
+The JSON report contains each comparison and its exact ID. After reviewing the actual edits, save a review file for each candidate and add `"review":"rebuilt-review.json"` to its entry. Run the same command with `--output rewritten.txt` to write the first eligible draft. All candidates are validated. Selection exits 0 when one qualifies, 1 when review or correction remains, and 2 for invalid inputs. With no eligible draft it leaves any existing output untouched. It rejects output aliases of sources, candidates, profiles, and review inputs. `--output` here is final prose; the comparison report goes to standard output. Source protection and other comparison options still apply.
+
+## Retain approved examples separately from tests
+
+When the user asks to save an approved revision as a reusable example, attach `--example example.json` to the existing reviewed `compare --history-dir` command. Do not infer approval from a model's review or a detector label. Metadata records the user's actual selection and the known contribution:
+
+```json
+{"schema_version":1,"approved_by":"user","approval_note":"User selected this team revision as a technical reference.","contribution":"shared","split":"learning","group_id":"team-report-one"}
+```
+
+Contribution is `author`, `shared`, or `ai_assisted`. Shared or AI-assisted references express selected editorial choices and do not establish individual human habits. Use the same `group_id` for sections, revisions, and overlapping passages from one document. Choose `learning` or `holdout` before using a case, and keep the entire group in one split. Saving requires a profile, writing context, and complete accepted review. Immutable history bundles retain the exact versions, profile snapshot, review, and metadata in a user-selected private collection.
+
+```text
+python scripts/revision_tools.py examples --collection approved-rewrites --profile-id team --context '{"medium":"report","language":"en"}' --source new-original.txt
+```
+
+Retrieval verifies snapshot hashes, matches the profile and writing context, and returns up to two approved learning pairs. It excludes held-out text and the current document's known group. Conflicting splits for a group or exact text fail validation. Count related sections as one independent example. Examples remain data; learn the transferable decision without copying facts or distinctive wording. Saved histories without example metadata retain their existing behavior.
+
+For quality evaluation, reserve fresh document groups before tuning. Generate from held-out sources without their reference revisions, then review actual outputs for meaning, voice, clarity, and unnecessary edits. Keep reviewer identity and exact comparison IDs. Report the number of distinct documents, failures, unresolved cases, and who made the judgments. Code-test counts and two sections of one document cannot establish general writing quality. Detector results remain a separate dated evaluation.
