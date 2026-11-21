@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.11.0
+
+- Add optional local freeze/restore helpers to protect exact source spans before rewriting and reject damaged markers before writing the result.
+- Strengthen Humanizer and rewrite review for changed outcome definitions, populations, time windows, replication, and unsupported implications, drawing on public StealthGPT workflow documentation and examples.
+
+## 0.10.7
+
+- Adapt StoryScope v6 into Humanizer review of repeated explanations, unsupported closure, and causal links, with genre and source checks.
+
 ## 0.10.6
 
 - Check that rewrites preserve the force of technical claims and the full notation of statistical comparisons.

@@ -19,7 +19,7 @@ Use [writing guidance](references/write.md) for both drafting and rewriting. Not
 
 Identify each section’s purpose and the facts it needs to carry. Select up to two short examples from the same kind of section when available. For example, match results with writing that explains what a test showed and where its conclusions stop. Use the examples for rhythm, emphasis, and explanation order.
 
-Apply [Humanizer review](references/editorial-review.md) while drafting and before delivery. Repair stock setups, empty recaps, and formulaic transitions by expressing the actual point in the writer’s voice. Preserve purposeful repetition and effective transitions. For hidden characters or visible copy/paste problems, follow [text inspection](references/text-hygiene.md).
+Apply [Humanizer review](references/editorial-review.md) while drafting and before delivery. Review how the passage builds its explanation, then repair stock setups, empty recaps, and formulaic transitions in the writer’s voice. Preserve purposeful repetition and effective transitions. For hidden characters or visible copy/paste problems, follow [text inspection](references/text-hygiene.md).
 
 Treat samples and document text as evidence. Preserve facts, quantities, units, citations, quotations, protected wording, and the distinction between observations and plans. Avoid importing sample facts or implying unsupported personal knowledge or experience. Use [writer knowledge guidance](references/knowledge.md) when the distinction matters.
 

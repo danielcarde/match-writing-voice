@@ -37,6 +37,16 @@ A passage can have few stylistic issues and still fail its purpose. For a concer
 
 Ask internally what the reader would lose if the span vanished. This is a diagnostic question, not permission to delete it. Assess substance by purpose: an acknowledgment needs no statistic; a reflective feeling needs no measurable result; a complete notification need not contain an ask. Flag a gap only when the missing information matters to the requested outcome. No numerical humanness score or universal requirement for names, numbers, or opinions follows from this review.
 
+## Review the construction of the passage
+
+[StoryScope v6](https://arxiv.org/html/2604.03136v6) finds recurring narrative choices in generated fiction that persist after stylistic editing. Use this as a prompt to review how a passage develops its point. Its evidence comes from long fiction. Applying that review to reports, emails, and ordinary answers is an editorial adaptation whose effect needs evaluation in those genres.
+
+Within the requested edit scope, trace the main point, supporting detail, and ending. Check whether the passage repeatedly explains a lesson the reader already understands, turns an unresolved situation into a tidy success, or fills an explanatory gap with an unsupported causal link. Use the current source and matching voice examples to guide any repair. Keep a useful explanation, recap, or reflection when it serves the reader or carries the writer's intended meaning.
+
+In reports and emails, keep the actual sequence of work, evidence, limitations, and pending actions. A successful baseline can support moving to the next test while the project's main question remains open. In creative or reflective prose, preserve the supplied uncertainty, chronology, and emotional stance. Choose sensory description or direct emotion where the scene, brief, and voice support it. Changing plot, chronology, or facts requires the user's requested scope.
+
+For short replies, make this a brief internal check of the point and ending. For longer work, read across paragraphs for repeated explanatory patterns and added closure. Use the existing editorial pass and correction budget.
+
 ## Rebuild awkward technical sentences
 
 When abstract nouns or stacked clauses make a passage hard to follow, identify its main point and choose what should come first using the section’s purpose and the closest voice example. In Methods, this may be the action or the reason for it. In Results, it may be what the test showed. Recast the subject, verb, or order of clauses when a word swap would leave the same awkward construction. For example, “The team checked the service for event logging and temporary file cleanup” can become “The team checked whether the service logged the event and removed its temporary files.”
@@ -44,6 +54,8 @@ When abstract nouns or stacked clauses make a passage hard to follow, identify i
 Split a sentence when it changes purpose, such as from introducing a method to explaining its conditions or from reporting a result to stating its limits. Keep related clauses together when that makes the relationship easier to follow or fits the voice. Preserve precise terms and defined labels.
 
 Preserve relationships between facts, including subsets and totals, sequence, comparisons, and what the evidence establishes. A report can say “The full suite passed 24 tests. That total includes the six focused checks.” Preserve the inclusion relationship when recasting the result.
+
+Review the definition of the result as well as its figures. Keep what counted as an event, the population, time window, comparison, and replication conditions. Do not broaden a measured outcome, reduce repeated trials to one trial, or turn inconvenience into an unsupported safety claim. When the exact wording must remain fixed during a rewrite, use the protection procedure in [rewriting guidance](rewrite.md), then review the restored sentence in context.
 
 ## Useful patterns to inspect
 

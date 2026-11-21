@@ -99,7 +99,7 @@ No separate API key, database, paid service, or third-party Python package is re
 
 Compare versions using the [maintainer detector benchmarking guide](docs/detector-evaluation.md). The offline command summarizes supplied scan results.
 
-Python **3.10+** is needed only for local helpers and checks.
+Python **3.10+** is needed only for local helpers and checks. Optional protected rewriting freezes exact spans before generation and restores them after validation. The restored draft still needs a review of its meaning. [Protected rewriting](skills/match-writing-voice/references/rewrite.md)
 
 ```sh
 python -m unittest discover -s tests -p "test_*.py" -v
