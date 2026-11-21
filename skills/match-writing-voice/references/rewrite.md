@@ -55,6 +55,14 @@ Use two drafts when a full rewrite presents a meaningful choice between smoothin
 
 Compare drafts within the main editorial pass and only for the passages that need it. Read the selected wording in context for transitions, terminology, and missing details before returning one complete rewrite. Show alternative drafts only when requested.
 
+### Execute candidate review when tools are available
+
+For a substantial rewrite, use the local `revision_tools.py select` helper to enforce the existing review before delivery. Generate the one or two drafts in the host AI, restore any frozen spans, then list the actual draft files in `candidates.json` as shown in [revision review](revision-review.md). The helper does not generate text or call another model.
+
+Run selection first without review files to obtain exact comparisons. Read each candidate against the original for meaning, and separately against the applicable profile and examples for voice. Account for every changed span using the existing annotation format. Review mechanical warnings in context. Put candidates in your actual preference order, with reasons in their voice reviews, and attach the corresponding review files. Re-run selection with the same source, profile, context, protected spans, and settings. It writes only a candidate with no mechanical block, complete edit coverage, preserved meaning, consistent voice, and no flagged edits. A stale review is invalid.
+
+If none qualifies, use the existing single targeted correction pass where it can resolve the issue and review the actual repair. If no faithful candidate remains, retain affected source material and explain any material limitation. Do not reinterpret an unresolved finding as a pass to force delivery. A supplied review remains a model or human judgment, even when selection accepts it. Routine short replies and hosts without Python use the same review directly without creating candidate files.
+
 ## Verify and deliver
 
 Compare the source and result for every argument, example, factual value, citation, qualification, and implied commitment. Preserve the force of the claim. If the source proposes a method, the rewrite should present it as a proposal. Recommending adoption adds a position that needs support from the source. Review natural voice application without exaggerated mistakes. Structure preservation outranks a profile's preference for short paragraphs or unusual formatting unless restructuring was requested.

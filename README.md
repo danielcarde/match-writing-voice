@@ -79,7 +79,7 @@ flowchart LR
     D --> F[Meaning and voice review]
 ```
 
-The skill supplies a method. A writer profile supplies individual habits. Optional Python tools measure text, verify evidence, retrieve context-matched examples, and flag narrow draft problems. Learning uses the host model's interpretation; measurements alone are an unfinished profile.
+The skill supplies a method. A writer profile supplies individual habits. Optional Python tools measure text, verify evidence, retrieve context-matched examples, and flag narrow draft problems. Candidate selection enforces completed meaning and voice reviews before writing a chosen rewrite. Approved revision collections keep learning examples separate from held-out tests. Learning uses the host model's interpretation; measurements alone are an unfinished profile.
 
 No separate API key, database, paid service, or third-party Python package is required by the bundled tools. Image/document extraction depends on the host. Files read by a model remain subject to that provider's data handling.
 
