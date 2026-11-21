@@ -55,6 +55,8 @@ Split a sentence when it changes purpose, such as from introducing a method to e
 
 Preserve relationships between facts, including subsets and totals, sequence, comparisons, and what the evidence establishes. A report can say “The full suite passed 24 tests. That total includes the six focused checks.” Preserve the inclusion relationship when recasting the result.
 
+Review the definition of the result as well as its figures. Keep what counted as an event, the population, time window, comparison, and replication conditions. Do not broaden a measured outcome, reduce repeated trials to one trial, or turn inconvenience into an unsupported safety claim. When the exact wording must remain fixed during a rewrite, use the protection procedure in [rewriting guidance](rewrite.md), then review the restored sentence in context.
+
 ## Useful patterns to inspect
 
 These are judgment prompts, not a word blacklist, numeric quota, or exhaustive copy of the upstream catalog. Apply them to English prose; other languages require relevant linguistic evidence.

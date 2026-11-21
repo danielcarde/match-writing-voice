@@ -44,3 +44,9 @@ The [comparison and history tools](revision-review.md) and the maintainer detect
 ## StoryScope structural review
 
 [Russell et al., StoryScope, arXiv:2604.03136v6](https://arxiv.org/html/2604.03136v6), especially sections 4.1 and 4.2, informs the review of repeated thematic explanations, overly tidy resolutions, and genre-dependent narrative choices. The study analyzes long fiction and finds that its narrative classifier retains substantial signal after stylistic editing. The skill applies those findings as contextual editorial questions. Transfer to technical reports, emails, or short answers remains an inference requiring evaluation. The implementation uses original guidance, with no story corpus or classifier bundled.
+
+## Protected rewriting — 2026-11-21
+
+[StealthGPT's text-preservation documentation](https://docs.stealthgpt.ai/api-reference/text-preservation) informs masking exact spans before generation, validating markers, restoring source text, and retaining affected source material when preservation fails. The local helpers are original standard-library code. They do not contact StealthGPT or reproduce its proprietary models.
+
+Its [published model comparison](https://www.stealthgpt.ai/blog/super-vs-standard-vs-lite-humanizer-models) also illustrates why unchanged figures are insufficient when a rewrite broadens an outcome or changes experimental replication. These vendor examples inform synthetic fidelity cases and editorial checks. Model tiers map to the skill's existing edit scope and correction budget, without adding run types. Vendor detector scores do not establish this skill's performance. No training recipe, universal watermark-removal claim, punctuation ban, or private draft upload is adopted.

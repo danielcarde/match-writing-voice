@@ -1,6 +1,6 @@
 {
   "name": "match-writing-voice",
-  "version": "0.10.7",
+  "version": "0.11.0",
   "description": "Evidence-backed writing voices with faithful, edited, and adapted modes.",
   "author": {"name": "danielcarde"},
   "homepage": "https://github.com/danielcarde/match-writing-voice",

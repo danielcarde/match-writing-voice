@@ -544,6 +544,7 @@ def render_profile(profile, allow_scaffold=False):
         lines += ["## Mechanical rules", "Apply only when scope, mode, and effective policy match; raw counts do not interpret grammar.",
                   "```json", json.dumps(profile["rules"], ensure_ascii=False, indent=2), "```", ""]
     lines += ["## Final review", "Preserve current facts, names, values, certainty, commitments, quotations, and negation. Do not recycle sample passages or experiences.",
+              "In rewrites, protect exact spans before recasting surrounding prose when tools are available; otherwise preserve them directly. Review restored text for the same outcome definitions, populations, time windows, and replication conditions.",
               "Check for unwanted polish, exaggerated tics, invented mistakes, and context leakage. This profile is behavioral guidance, not identity proof or a guaranteed similarity score.",
               "Evidence references are hashes/offsets; source text has not been reverified by this standalone export."]
     return "\n".join(lines) + "\n"
@@ -568,6 +569,52 @@ def load_protected(literals, path=None, source=None):
     if any(not literal.strip() for literal in literals):
         raise ValueError("--protect requires nonblank text")
     return list(dict.fromkeys([*literals, *spans]))
+
+
+def freeze_text(source, protected):
+    """Replace exact source occurrences with unique markers before generation."""
+    if not isinstance(protected, list) or not protected or any(
+            not isinstance(span, str) or not span.strip() for span in protected):
+        raise ValueError("Freeze requires at least one nonblank protected span")
+    if "[[MWV_" in source:
+        raise ValueError("Source contains reserved protection markers; use direct protected-text review")
+    hits = []
+    for span in dict.fromkeys(protected):
+        matches = literal_hits(source, span, True)
+        if not matches:
+            raise ValueError(f"Protected span is absent from the original: {span!r}")
+        hits.extend((match.start(), match.end(), span) for match in matches)
+    hits.sort()
+    source_hash = hashlib.sha256(source.encode("utf-8")).hexdigest()
+    pieces, spans, end = [], [], 0
+    for start, stop, span in hits:
+        if start < end:
+            raise ValueError("Protected spans overlap; protect the complete outer span once")
+        marker = f"[[MWV_{source_hash[:12]}_{len(spans) + 1}]]"
+        pieces.extend((source[end:start], marker))
+        spans.append({"marker": marker, "text": span})
+        end = stop
+    pieces.append(source[end:])
+    return {"schema_version": 1, "source_sha256": source_hash,
+            "text": "".join(pieces), "spans": spans}
+
+
+def restore_text(source, draft, bundle):
+    """Validate the bundle against its source and restore only intact markers."""
+    spans = bundle.get("spans")
+    if not isinstance(spans, list) or any(not isinstance(span, dict) for span in spans):
+        raise ValueError("Invalid protection bundle spans")
+    # Rebuild from the original so edited mappings cannot substitute new facts.
+    expected = freeze_text(source, [span.get("text") for span in spans])
+    if expected != bundle:
+        raise ValueError("Protection bundle does not match the original source; freeze it again")
+    markers = [span["marker"] for span in spans]
+    pattern = r"\[\[MWV_[^\]\r\n]*\]\]"
+    found = re.findall(pattern, draft)
+    if found != markers or draft.count("[[MWV_") != len(markers):
+        raise ValueError("Protected markers must occur exactly once in their original order")
+    replacements = {span["marker"]: span["text"] for span in spans}
+    return re.sub(pattern, lambda match: replacements[match[0]], draft)
 
 
 def integrity(source, draft, protected=()):
@@ -791,7 +838,7 @@ def check(profile, draft, mode=None, current=None, source=None, samples=(), prot
     return {"verdict": verdict, "workflow": workflow, "structure": structure, "mode": mode, "context": current, "findings": findings, "applied_rules": applied, "skipped_rules": skipped,
             "validation_warnings": valid["warnings"], "manual_review_completed": False,
             "manual_review": ["Verify meaning, named entities, causal logic, comparisons, rankings, simultaneous events, and implied claims against the source/brief.", "Judge voice recognition without exaggerated quirks, invented errors, or editor-introduced uniformity.", "Prioritize repairs to justified editorial findings within scope, preserve protected content, and use the profile to shape the edits. Editorial judgment requires manual review.", "Assess paragraph purpose and any material content gap without inventing evidence or treating reader context as writer familiarity.", "Check for paraphrased sample-fact leakage and invented dialect/biography.", "Review writer familiarity separately from provenance and factual confidence; substantiate personal learning/expertise claims."] +
-                             (["Account for every source argument, example, caveat, quotation, and citation; verify unchanged content outside any selection and requested file layout."] if workflow == "rewrite" else []),
+                             (["Account for every source argument, example, caveat, quotation, and citation; verify unchanged content outside any selection and requested file layout.", "Verify outcome definitions, populations, time windows, replication conditions, and what each preserved figure measures."] if workflow == "rewrite" else []),
             "limits": "Literal rules, coarse plain-text/Markdown structure, and narrow English heuristics only. Knowledge markers neither establish what the writer knows nor authenticate a literal baseline. No guarantee of complete coverage, binary-document layout, semantic equivalence, or voice similarity."}
 
 
@@ -847,6 +894,16 @@ def cli(argv=None):
     p = commands.add_parser("inspect-text", help="Read-only Unicode format/space candidate inspection; not an authorship detector")
     p.add_argument("--text", required=True)
     p.add_argument("--output")
+    for name in ("freeze", "restore"):
+        p = commands.add_parser(name, help="Protect exact text before rewriting" if name == "freeze" else "Restore validated protected source spans")
+        p.add_argument("--source", required=True)
+        p.add_argument("--output", required=True)
+        if name == "freeze":
+            p.add_argument("--protect", action="append", default=[])
+            p.add_argument("--protect-file")
+        else:
+            p.add_argument("--draft", required=True)
+            p.add_argument("--bundle", required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "measure":
@@ -860,6 +917,19 @@ def cli(argv=None):
             write_text(args.output, render_profile(read_json(args.profile), args.allow_scaffold))
         elif args.command == "examples":
             output_json(retrieve(load_samples(args.manifest), args.query, json.loads(args.context), args.limit))
+        elif args.command in {"freeze", "restore"}:
+            target = Path(args.output).resolve()
+            inputs = (args.source, args.protect_file) if args.command == "freeze" else (args.source, args.draft, args.bundle)
+            for file in filter(None, inputs):
+                input_path = Path(file).resolve()
+                if target == input_path or (target.exists() and target.samefile(input_path)):
+                    raise ValueError("Protection output must not overwrite or alias an input file")
+            source = read_text(args.source, preserve_bom=True)
+            if args.command == "freeze":
+                output_json(freeze_text(source, load_protected(args.protect, args.protect_file, source)), args.output)
+            else:
+                restored = restore_text(source, read_text(args.draft, preserve_bom=True), read_json(args.bundle))
+                write_text(args.output, restored)
         elif args.command == "inspect-text":
             source_path = Path(args.text).resolve()
             if args.output:
